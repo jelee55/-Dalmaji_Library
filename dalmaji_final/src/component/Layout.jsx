@@ -1,23 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 const StyledLayoutDiv = styled.div`
     width: 100vw;
     height: 150vh;
-    /* background-color: ${ (obj) => { return obj.color ? obj.color : 'black' } }; */
     display: grid;
-    grid-template-columns: 1.5fr 1fr 4fr 2fr 1.5fr ;
-    grid-template-rows: ;
+    grid-template-rows: 15vh 110vh 25vh;
+    place-items: center center;
 `;
 
 const Layout = () => {
     return (
         <StyledLayoutDiv>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
+            <Header />
+            <Main />
+            <Footer />
         </StyledLayoutDiv>
     );
 };
