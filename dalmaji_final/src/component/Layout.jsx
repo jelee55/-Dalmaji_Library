@@ -7,6 +7,7 @@ const StyledLayoutDiv = styled.div`
     /* background-color: ${ (obj) => { return obj.color ? obj.color : 'black' } }; */
     display: grid;
     grid-template-columns: 1.5fr 1fr 4fr 2fr 1.5fr ;
+    grid-template-rows: ;
 `;
 
 const Layout = () => {

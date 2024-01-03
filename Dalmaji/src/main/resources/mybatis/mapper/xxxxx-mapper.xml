@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="현재 상황에 맞는 이름으로 변경">
+  
+  <insert id="insertBoard">
+  	INSERT INTO BOARD
+  	(
+  		NO
+  		, TITLE
+  		, CONTENT
+  	)
+  	VALUES
+  	(
+  		SEQ_BOARD_NO.NEXTVAL
+  		, #{title}
+  		, #{content}
+  	)
+  </insert>
+  
+</mapper>
