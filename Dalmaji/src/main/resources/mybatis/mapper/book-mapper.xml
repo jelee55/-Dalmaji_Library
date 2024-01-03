@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BookMapper">
+
+
+	<select id="list" resultType="com.dalmaji.app.book.vo.BookVo">
+		SELECT
+		BOOK_NO
+		,BOOK_CATE_NO
+		,TITLE
+		,AUTHOR
+		,COMPANY
+		,CONT
+		,PUBLISHER_YEAR
+		,BOOK_IMG
+		FROM BOOK_LIST
+	</select>
+
+	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
+		SELECT
+		BOOK_NO
+		,TITLE
+		,AUTHOR
+		FROM BOARD
+		WHERE NO = #{no}
+	</select>
+
+</mapper>
