@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Navi from './Navi';
+import { Link } from 'react-router-dom';
 
 const StyledHeaderDiv = styled.div`
     width: 100%;
@@ -11,19 +13,19 @@ const StyledHeaderDiv = styled.div`
     place-items: center center;
 `;
 
-const StyledFirstTopMenu = styled.div`
+const StyledTopMenu = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: 1.5fr 2fr 4fr 2fr 1.5fr;
     place-items: center center;
 
-    & > div:nth-child(2) {
+    & > a {
         width: 100%;
         height: 100%;
     }
 
-    & > div:nth-child(2) > img {
+    & > a > div > img {
         width: 95px;
         height: 95px;
         //img를 중앙에 오도록 하려면 일단 block 요인으로 만들어야함.
@@ -67,22 +69,15 @@ const StyledFirstTopMenu = styled.div`
     }
 `;
 
-const StyledSecondTopMenu = styled.div`
-     width: 100%;
-    height: 100%;
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-    place-items: center center;
-    background-color: #D9D9D9;
-`;
-
 const Header = () => {
+
     return (
         <StyledHeaderDiv>
-            <StyledFirstTopMenu>
+            <StyledTopMenu>
                 <div></div>
+                <Link to='/'>
                 <div><img src="/images/header/logo.png" alt="logo" /></div>
+                </Link>
                 <div>
                     <input type='search' name='search' placeholder='검색어를 입력하세요.'></input>
                     <button>
@@ -94,12 +89,8 @@ const Header = () => {
                     <div>회원가입</div>
                 </div>
                 <div></div>
-            </StyledFirstTopMenu>
-            <StyledSecondTopMenu>
-                <div>공지사항</div>
-                <div>자료검색</div>
-                <div>마이페이지</div>
-            </StyledSecondTopMenu>
+            </StyledTopMenu>
+            <Navi />
         </StyledHeaderDiv>
     );
 };
