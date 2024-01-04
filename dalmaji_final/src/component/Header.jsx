@@ -15,8 +15,22 @@ const StyledFirstTopMenu = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 4fr 2fr 1.5fr;
+    grid-template-columns: 1.5fr 2fr 4fr 2fr 1.5fr;
     place-items: center center;
+
+    & > div:nth-child(2) {
+        width: 100%;
+        height: 100%;
+    }
+
+    & > div:nth-child(2) > img {
+        width: 95px;
+        height: 95px;
+        //img를 중앙에 오도록 하려면 일단 block 요인으로 만들어야함.
+        display: block;
+        margin-top: 0;
+    }
+
     & > div:nth-child(3){
         position: relative;
         display: flex;
@@ -28,13 +42,13 @@ const StyledFirstTopMenu = styled.div`
         background-color: transparent;
         border: none;
         position: absolute;
-        left: 330px;
+        left: 400px;
         margin: 0px;
     }
 
     & > div:nth-child(3) > input {
         outline: none;
-        width: 380px;
+        width: 450px;
         height: 35px;
         padding-left: 25px;
         font-size: 15px;
@@ -46,8 +60,8 @@ const StyledFirstTopMenu = styled.div`
         width: 100%;
         height: 100%;
         display: flex;
-        margin: 0;
-        justify-content: center;
+        margin-right: 0;
+        justify-content: right;
         align-items: center;
         gap: 20px;
     }
@@ -68,7 +82,7 @@ const Header = () => {
         <StyledHeaderDiv>
             <StyledFirstTopMenu>
                 <div></div>
-                <div><img src="images/logo.png" alt="logo" /></div>
+                <div><img src="/images/header/logo.png" alt="logo" /></div>
                 <div>
                     <input type='search' name='search' placeholder='검색어를 입력하세요.'></input>
                     <button>
