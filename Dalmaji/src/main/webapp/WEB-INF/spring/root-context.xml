@@ -30,7 +30,7 @@
 	<bean id="dbcpSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
-		<property name="username" value="C##FINAL"/>
+		<property name="username" value="C##DALMAJI"/>
 		<property name="password" value="1234"/>
 		
 		<property name="maxTotal" value="20"/>

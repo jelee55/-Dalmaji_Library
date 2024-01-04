@@ -8,7 +8,7 @@ const StyledLayoutDiv = styled.div`
     width: 100vw;
     height: 150vh;
     display: grid;
-    grid-template-rows: 15vh 110vh 25vh;
+    grid-template-rows: 15vh 120vh 15vh;
     place-items: center center;
 `;
 
