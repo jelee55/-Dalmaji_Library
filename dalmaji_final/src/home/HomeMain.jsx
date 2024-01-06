@@ -18,7 +18,7 @@ const StyledFirstMainDiv = styled.div`
     background-color: #D9F1FF;
     & > div > img {
         width: 100%;
-        height: 100%;
+        height: 80%;
         display: block;
         margin-top: 0;
     }
@@ -32,7 +32,7 @@ const StyledSecondMainDiv = styled.div`
     grid-template-columns: 1.5fr 8fr 1.5fr;
     & > div > div > img {
         width: 100%;
-        height: 100%;
+        height: 80%;
         display: block;
         margin: auto;
     }
