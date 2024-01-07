@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import MypageMain from './MypageMain';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-const MypageJoinDiv = mypage.div`
+const MypageJoinDiv = styled.div`
     width: 100%;
     height: 100%;
     & > form {
@@ -19,7 +20,7 @@ const MypageJoinDiv = mypage.div`
 
 const MemberJoin = () => {
 
-    const Header = useHeader();
+    const navigate = useNavigate();
 
     let isFetching = false;
     const [vo, setVo] = useState({
@@ -78,7 +79,7 @@ const handleJoinSubmit = (event) => {
     .finally( () => {})
 }
 
-const MemberJoin = () => {
+const MemberJoin2 = () => {
     return (
         <MypageJoinDiv>
             <form onSubmit={ handleJoinSubmit }>
