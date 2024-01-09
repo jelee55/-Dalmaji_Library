@@ -15,14 +15,14 @@ import com.dalmaji.app.notice.vo.NoticeVo;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("notice")
+@RequestMapping("admin/notice")
 @RequiredArgsConstructor
 public class AdminNoticeController {
 	
 	private final NoticeService service;
 	
 	//공지사항 작성
-	@PostMapping("insert")
+	@PostMapping("admin/insert")
 	public String insert(NoticeVo vo) throws Exception {
 		
 		int result = service.insert(vo);
@@ -31,17 +31,17 @@ public class AdminNoticeController {
 			throw new Exception();
 		}
 		
-		return "redirect:/notice/list";
+		return "redirect:/admin/notice/list";
 	}
 	
 	//공지사항 목록조회 (data+view)
-	@GetMapping("list")
+	@GetMapping("admin/list")
 	public String list(Model model) {
 		
 		List<NoticeVo> voList = service.list();
 		model.addAttribute("noticeVoList" , voList);
 		
-		return "notice/list";
+		return "admin/notice/list";
 	}
 	
 	//공지사항 목록조회 (data)
@@ -53,25 +53,25 @@ public class AdminNoticeController {
 	}
 	
 	//공지사항 상세조회
-	@GetMapping("detail")
+	@GetMapping("admin/detail")
 	public String detail(NoticeVo vo, Model model) {
 		NoticeVo noticeVo = service.detail(vo);
 		model.addAttribute("noticeVo", noticeVo);
-		return "notice/detail";
+		return "admin/notice/adminetail";
 	}
 	
 	//공지사항 삭제 (번호)
-	@GetMapping("delete")
+	@GetMapping("admin/delete")
 	public String delete(NoticeVo vo) throws Exception {
 		int result = service.delete(vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/notice/list";
+		return "redirect:/admin/notice/adminlist";
 	}
 	
 	//공지사항 수정 (제목, 내용)
-	@PostMapping("edit")
+	@PostMapping("admin/edit")
 	public String edit(NoticeVo vo) throws Exception {
 		int result = service.edit(vo);
 		if(result != 1) {

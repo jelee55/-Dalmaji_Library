@@ -67,7 +67,7 @@
 					,PHONE = #{phone}
 				</if>
 			</trim>
-			WHERE MEMBER_NO = #{memberno}
+			WHERE MEMBER_NO = #{memberNo}
 			AND DEL_YN = 'N'
 	</update>
 	
@@ -75,7 +75,7 @@
 	UPDATE MEMBER
 	SET 
 	DEL_YN='Y'
-	WHERE MEMBER_NO = #{memberno}
+	WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	

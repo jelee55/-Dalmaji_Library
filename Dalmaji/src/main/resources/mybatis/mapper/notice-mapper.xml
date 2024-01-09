@@ -16,13 +16,13 @@
 		VALUES
 		(
 			SEQ_NOTICE_NO.NEXTVAL
-			, #{adminno}
+			, #{adminNo}
 			, #{title}
 			, #{content}
 		)
 	</insert>
 	
-	<select id="list" resultType="com.kh.app.noitce.vo.NoticeVo">
+	<select id="list" resultType="com.dalmaji.app.notice.vo.NoticeVo">
 		SELECT 
 		    NO
 		    , ADMIN_NO
@@ -37,7 +37,7 @@
 		ORDER BY NO DESC 
 	</select>
 	
-	<select id="detail" resultType="com.kh.app.noitce.vo.NoticeVo">
+	<select id="detail" resultType="com.dalmaji.app.notice.vo.NoticeVo">
 		SELECT 
 	        NO
 	        ,ADMIN_NO
