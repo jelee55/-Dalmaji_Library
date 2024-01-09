@@ -81,6 +81,24 @@ const AdminMyPage = () => {
                         </tr>
                     </thead>
                     <tbody>
+                        {
+                            AdminBorrowVoList.length === 0
+                            ?
+                            <h1>로딩중...</h1>
+                            :
+                            adminBorrowVoList.map( vo => <tr>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.title}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                                <td>{vo.overdueNo}</td>
+                            </tr>
+                            )
+                        }
                         <tr>
                             <td>1</td>
                             <td>2</td>

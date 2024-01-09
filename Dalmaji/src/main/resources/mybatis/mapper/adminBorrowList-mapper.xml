@@ -6,8 +6,9 @@
 <mapper namespace="AdminBorrowListMapper">
   
   <select id="list" resultType="com.dalmaji.app.borrow.vo.AdminBorrowVo">
-  	SELECT 
-	    L.BOOK_NO
+  	SELECT
+  		O.OVERDUE_NO 
+	    , L.BOOK_NO
 	    , L.TITLE
 	    , L.AUTHOR
 	    , L.COMPANY
@@ -15,11 +16,12 @@
 	    , M.NAME
 	    , B.BORROW_DATE
 	    , B.DUE_DATE
-	    , O.OVERDUE_CNT
-	    , O.STATUS_NOW
-	    , O.RESTRICTION
+	    , M.OVERDUE_COUNT
+	    , S.BOOK_STATE
+	    , M.BORROW_YN
 	FROM BOOK_OVERDUE O
-	JOIN BORROW B ON B.BORROW_NO = O.BORROW_NO
+	JOIN BORROW B ON B.BORROW_NO = O.BORROW_NO 
+	JOIN BOOK_STATUS S ON S.STATUS_NO = O.STATUS_NO
 	JOIN BOOK_LIST L ON L.BOOK_NO = B.BOOK_NO
 	JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
 	WHERE M.DEL_YN = 'N'
