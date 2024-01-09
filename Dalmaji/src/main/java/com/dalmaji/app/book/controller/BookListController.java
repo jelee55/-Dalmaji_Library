@@ -42,23 +42,23 @@ public class BookListController {
 	
 	
 	//게시글 수정(제목,저자,이미지)
-	@PostMapping("edit")
+	@PostMapping("admin/edit")
 	public String edit(BookVo vo) throws Exception {
 		int result = service.edit(vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/book/detail?no=" + vo.getBookNo();
+		return "redirect:/book/admin/detail?no=" + vo.getBookNo();
 	}
 	
 	//게시글 삭제(관리자만)
-	@GetMapping("delete")
+	@GetMapping("admin/delete")
 	public String delete(BookVo vo) throws Exception {
 		int result = service.delete(vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/book/list";
+		return "redirect:/book/admin/list";
 	}
 	
 
