@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 import ErrorPageNotFound from '../error/ErrorPageNotFound';
 import HomeMain from '../home/HomeMain';
 import AdminMyPage from '../mypage/AdminMyPage';
+import SearchDetail from '../search/SearchDetail';
 
 const Main = () => {
     return (
@@ -13,6 +14,7 @@ const Main = () => {
             <Route path='/mypage/*'></Route>
             <Route path='*' element={ <ErrorPageNotFound /> }></Route>
             <Route path='/admin/*' element={<AdminMyPage />}></Route>
+            <Route path='/search/detail' element={<SearchDetail />}></Route>
         </Routes>
     );
 };
