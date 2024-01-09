@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledSearchListDiv = styled.div`
     width: 100%;
     height: 100%;
-`;
+    `;
 
-const BookVoList = () => {
+const SearchList = () => {
+
+    const navigate = useNavigate();
+    
     //fetch 이용해 데이터 준비
-    const [BookVoList, setBookVoList] = useState([]);
+    const [bookVoList, setBookVoList] = useState([]);
     const loadBookVoList = () => {
         fetch("http://127.0.0.1:8888/app/book/list")
         .then( resp => resp.json() )
-        .then( (x) => { setBookVoList(x); } )
+        .then( (data) => { data.BookVoList(); } )
         ;
     }
 
+   
     useEffect( () => {
-        loadAdminBorrowVoList();
-    } );
-};
+        loadBookVoList();
+    }, [] );
 
-const SearchList = () => {
     return (
         <StyledSearchListDiv>
         <div>
@@ -51,15 +54,23 @@ const SearchList = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>no</td>
-                    <td>title</td>
-                    <td>author</td>
-                    <td>company</td>
-                    <td>cont</td>
-                    <td>publisherYear</td>
+                {
+                    bookVoList.length === 0
+                    ?
+                    <h1>로딩중...</h1>
+                    :
+                    bookVoList.map(vo =><tr key={vo.bookNo}>
+                    <td>{vo.bookNoo}</td>
+                    <td>{vo.title}</td>
+                    <td>{vo.author}</td>
+                    <td>{vo.company}</td>
+                    <td>{vo.cont}</td>
+                    <td>{vo.publisherYear}</td>
                     <td><link rel="stylesheet" href="" />상세조회</td>
                 </tr>
+                        )
+                }
+                
             </tbody>
         </table>
         </StyledSearchListDiv>

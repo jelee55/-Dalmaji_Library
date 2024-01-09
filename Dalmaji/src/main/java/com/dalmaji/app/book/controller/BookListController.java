@@ -4,17 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.book.service.BookService;
 import com.dalmaji.app.book.vo.BookVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("book")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class BookListController {
 	
@@ -22,13 +25,11 @@ public class BookListController {
 	
 	//목록조회(no,제목,저자,발행처,발행년도,도서상태)
 	@GetMapping("list")
-	public String list(Model model){
-		
+	public String list(Model model) {
 		List<BookVo> voList = service.list();
 		model.addAttribute("bookVoList", voList);
 		
 		return "book/list";
-		
 	}
 	
 	//검색(제목 or 저자 or 출판사)
