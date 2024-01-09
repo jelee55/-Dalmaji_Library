@@ -42,13 +42,13 @@ const StyledAdminBorrowListDiv = styled.div`
     
 `;
 
-const AdminBorrowList = () => {
+const AdminBorrowVoList = () => {
     //fetch 이용해 데이터 준비
-    const [adminBorrowVoList, setAdminBorrowList] = useState([]);
+    const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
     const loadAdminBorrowVoList = () => {
         fetch("http://127.0.0.1:8888/app/admin/borrow/list")
         .then( resp => resp.json() )
-        .then( (x) => { setAdminBorrowList(x); } )
+        .then( (x) => { setAdminBorrowVoList(x); } )
         ;
     }
 
