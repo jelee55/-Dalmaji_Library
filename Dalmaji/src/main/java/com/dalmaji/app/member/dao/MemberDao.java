@@ -3,9 +3,11 @@ package com.dalmaji.app.member.dao;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.member.vo.MemberVo;
 
+@Repository
 public class MemberDao {
 
 	//회원가입
