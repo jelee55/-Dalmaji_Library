@@ -14,7 +14,7 @@ const StyledFirstMainDiv = styled.div`
     height: 100%;
 `;
 
-const MemberEdit = () => {
+const MypageLogin = () => {
     return (
         <StyledLoginMainDiv>
             <StyledFirstMainDiv>
@@ -35,4 +35,4 @@ const MemberEdit = () => {
     );
 };
 
-export default MemberEdit;
+export default MyPageLogin;
