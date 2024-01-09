@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ErrorPageNotFound from '../error/ErrorPageNotFound';
-import MemberJoin from './MemberJoin';
+import MypageJoin from './MypageJoin';
 
 const MypageMain = () => {
     return (
             <Routes>
-                <Route path='/join' element={<MemberJoin />}/>
+                <Route path='/mypage/*' element={<MypageMain />}/>
+                <Route path='/join' element={<MypageJoin />}/>
                 <Route path='/edit' element={<MemberEdit />}/>
                 <Route path='*' element={<ErrorPageNotFound />}/>
             </Routes>
