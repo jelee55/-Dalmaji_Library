@@ -85,8 +85,12 @@ const Header = () => {
                     </button>
                 </div>
                 <div>
+                    <Link to='/'>
                     <div>로그인</div>
+                    </Link>
+                    <Link to='/' >
                     <div>회원가입</div>
+                    </Link>
                 </div>
                 <div></div>
             </StyledTopMenu>
