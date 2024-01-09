@@ -23,6 +23,7 @@ public class AdminBorrowController {
 	// 대출 리스트 화면
 	@GetMapping("list")
 	public List<AdminBorrowVo> list() {
+		System.out.println(service.list());
 		return service.list();
 	}
 

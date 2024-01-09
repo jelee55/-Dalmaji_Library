@@ -11,7 +11,9 @@ import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 public class AdminBorrowDao {
 
 	public List<AdminBorrowVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("");
+		return sst.selectList("AdminBorrowListMapper.list");
 	}
+	
+	
 	
 }
