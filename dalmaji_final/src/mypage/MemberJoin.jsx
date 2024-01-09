@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyledMypageJoinDiv = styled.div`
     width: 100%;
     height: 100%;
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1.5fr;
+    place-items: center center;
     background-color: red;
     `;
 

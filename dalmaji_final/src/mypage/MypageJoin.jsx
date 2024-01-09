@@ -3,7 +3,7 @@ import React from 'react';
 const MypageJoin = () => {
     return (
         <div>
-            joinnnnnnnnnnnnnn
+            <h1>joinnnnnnnnnnnnnn</h1>
         </div>
     );
 };
