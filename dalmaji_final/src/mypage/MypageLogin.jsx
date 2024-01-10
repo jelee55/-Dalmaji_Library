@@ -35,4 +35,4 @@ const MypageLogin = () => {
     );
 };
 
-export default MyPageLogin;
+export default MypageLogin;
