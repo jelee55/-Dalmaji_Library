@@ -11,6 +11,9 @@ import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 public class AdminBorrowDao {
 
 	public List<AdminBorrowVo> list(SqlSessionTemplate sst) {
+		System.out.println("dao 호출");
+		List<AdminBorrowVo> a = sst.selectList("AdminBorrowListMapper.list");
+		System.out.println(a);
 		return sst.selectList("AdminBorrowListMapper.list");
 	}
 	

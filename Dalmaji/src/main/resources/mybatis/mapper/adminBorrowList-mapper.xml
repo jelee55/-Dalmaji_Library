@@ -7,7 +7,7 @@
   
   <select id="list" resultType="com.dalmaji.app.borrow.vo.AdminBorrowVo">
   	SELECT
-  		O.OVERDUE_NO 
+	    O.OVERDUE_NO 
 	    , L.BOOK_NO
 	    , L.TITLE
 	    , L.AUTHOR
@@ -19,7 +19,7 @@
 	    , M.OVERDUE_COUNT
 	    , S.BOOK_STATE
 	    , M.BORROW_YN
-	FROM BOOK_OVERDUE O
+	FROM OVERDUE O
 	JOIN BORROW B ON B.BORROW_NO = O.BORROW_NO 
 	JOIN BOOK_STATUS S ON S.STATUS_NO = O.STATUS_NO
 	JOIN BOOK_LIST L ON L.BOOK_NO = B.BOOK_NO

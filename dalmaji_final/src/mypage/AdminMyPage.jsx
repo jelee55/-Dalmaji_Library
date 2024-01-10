@@ -42,22 +42,24 @@ const StyledAdminBorrowListDiv = styled.div`
     
 `;
 
-const AdminBorrowVoList = () => {
+const AdminMyPage = () => {
+
     //fetch 이용해 데이터 준비
     const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
     const loadAdminBorrowVoList = () => {
         fetch("http://127.0.0.1:8888/app/admin/borrow/list")
         .then( resp => resp.json() )
-        .then( (x) => { setAdminBorrowVoList(x); } )
+        .then( (data) => {
+            console.log(data) 
+            setAdminBorrowVoList(data); } )
         ;
     }
 
     useEffect( () => {
         loadAdminBorrowVoList();
-    } );
-};
+        console.log(adminBorrowVoList);
+    }, [] );
 
-const AdminMyPage = () => {
     return (
         <StyledAdminBorrowListDiv>
             <div>빈칸</div>
@@ -67,6 +69,7 @@ const AdminMyPage = () => {
                 <table>
                     <thead>
                         <tr>
+                            <th>번호</th>
                             <th>도서번호</th>
                             <th>책 제목</th>
                             <th>저자</th>
@@ -82,114 +85,26 @@ const AdminMyPage = () => {
                     </thead>
                     <tbody>
                         {
-                            AdminBorrowVoList.length === 0
+                            adminBorrowVoList.length === 0
                             ?
                             <h1>로딩중...</h1>
                             :
-                            adminBorrowVoList.map( vo => <tr>
+                            adminBorrowVoList.map( vo => <tr key={vo.overdueNo}>
                                 <td>{vo.overdueNo}</td>
+                                <td>{vo.bookNo}</td>
                                 <td>{vo.title}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.overdueNo}</td>
+                                <td>{vo.author}</td>
+                                <td>{vo.company}</td>
+                                <td>{vo.memberNo}</td>
+                                <td>{vo.name}</td>
+                                <td>{vo.borrowDate}</td>
+                                <td>{vo.dueDate}</td>
+                                <td>{vo.overdueCount}</td>
+                                <td>{vo.bookState}</td>
+                                <td>{vo.borrowYn}</td>
                             </tr>
                             )
                         }
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

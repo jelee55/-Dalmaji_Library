@@ -1,6 +1,7 @@
 package com.dalmaji.app.borrow.vo;
 
 public class AdminBorrowVo {
+	private String overdueNo;
 	private String bookNo;
 	private String title;
 	private String author;
