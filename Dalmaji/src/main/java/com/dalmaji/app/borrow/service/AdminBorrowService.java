@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalmaji.app.borrow.dao.AdminBorrowDao;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +18,8 @@ public class AdminBorrowService {
 	private final AdminBorrowDao dao;
 	private final SqlSessionTemplate sst;
 
-	public List<AdminBorrowVo> list() {
+	public List<AdminBorrowVo> list(PageVo pvo) {
 		System.out.println(sst);
-		return dao.list(sst);
+		return dao.list(sst, pvo);
 	}
 }

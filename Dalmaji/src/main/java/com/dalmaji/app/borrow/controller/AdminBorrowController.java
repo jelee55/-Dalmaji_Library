@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.borrow.service.AdminBorrowService;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,13 +25,14 @@ public class AdminBorrowController {
 	// 대출 리스트 화면
 	@GetMapping("list")
 	public List<AdminBorrowVo> list() {
-		return service.list();
+		PageVo pvo = new PageVo();
+		return service.list(pvo);
 	}
 	
-	// 제한사항 상태 변경
-	@PostMapping("list")
-	public void list(String no) {
-		
-	}
+//	// 제한사항 상태 변경
+//	@PostMapping("list")
+//	public void list(String no) {
+//		return service.list();
+//	}
 
 }//class
