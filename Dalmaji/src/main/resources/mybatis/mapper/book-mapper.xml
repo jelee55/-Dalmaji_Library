@@ -8,15 +8,16 @@
 
 	<select id="list" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
-		BOOK_NO
-		,BOOK_CATE_NO
-		,TITLE
-		,AUTHOR
-		,COMPANY
-		,CONT
-		,PUBLISHER_YEAR
-		,BOOK_IMG
-		FROM BOOK_LIST
+			L.BOOK_NO
+			,L.BOOK_CATE_NO
+			,L.TITLE
+			,L.AUTHOR
+			,L.COMPANY
+			,L.CONT
+			,TO_CHAR(L.PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
+	        ,S.BOOK_STATE
+		FROM BOOK_LIST L
+		JOIN BOOK_STATUS S ON L.STATUS_NO = S.STATUS_NO
 	</select>
 
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">

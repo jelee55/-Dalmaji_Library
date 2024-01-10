@@ -7,11 +7,12 @@ public class BookVo {
 	
 	private String bookNo; 
 	private String bookCateNo;
+	private String bookState;
 	private String title;
 	private String author;
 	private String company;
 	private String cont;
-	private String publisheYear;
+	private String publisherYear;
 	private String bookImg;
 
 }

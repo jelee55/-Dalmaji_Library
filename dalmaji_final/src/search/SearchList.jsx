@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import SearchDetail from './SearchDetail';
 
 const StyledSearchListDiv = styled.div`
        width: 100%;
@@ -63,7 +62,7 @@ const SearchList = () => {
                     <th> 발행년도</th>
                     <th> 조회수</th>
                     <th> 도서상태</th>
-                    <th> 상세조회</th>
+                    {/* <th> 상세조회</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -77,9 +76,10 @@ const SearchList = () => {
                     <td>{vo.title}</td>
                     <td>{vo.author}</td>
                     <td>{vo.company}</td>
-                    <td>{vo.cont}</td>
                     <td>{vo.publisherYear}</td>
-                    <td><link to={<SearchDetail />} />상세조회</td>
+                    <td>{vo.cont}</td>
+                    <td>{vo.bookState}</td>
+                    {/* <td><link to={<SearchDetail />} />상세조회</td> */}
                 </tr>
                         )
                 }

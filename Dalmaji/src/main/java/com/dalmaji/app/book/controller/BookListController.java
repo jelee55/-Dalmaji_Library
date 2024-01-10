@@ -46,7 +46,7 @@ public class BookListController {
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/book/admin/detail?no=" + vo.getBookNo();
+		return "redirect:/search/admin/detail?no=" + vo.getBookNo();
 	}
 	
 	//게시글 삭제(관리자만)
