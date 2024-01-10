@@ -23,13 +23,13 @@ public class MemberController {
 	private final MemberService service;
 	
 	//회원가입 (화면)
-	@GetMapping("join")
+	@GetMapping("member/join")
 	public String join() {
 		return "member/join";
 	}
 	
 	//회원가입
-	@PostMapping("join")
+	@PostMapping("member/join")
 	public String join(MemberVo vo) throws Exception {
 		int result = service.join(vo);
 		
