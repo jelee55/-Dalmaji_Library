@@ -13,8 +13,7 @@ public class BookDao {
 
 	//목록조회
 	public List<BookVo> list(SqlSessionTemplate sst) {
-		List<BookVo> a = sst.selectList("BookMapper.list");
-
+		List<BookVo> bookVo = sst.selectList("BookMapper.list");
 		return sst.selectList("BookMapper.list");
 	}
 
