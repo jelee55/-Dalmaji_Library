@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledAdminBorrowListDiv = styled.div`
@@ -40,43 +40,32 @@ const StyledAdminBorrowListDiv = styled.div`
         }
     }
 
-    & > .pagination {
+    .restriction{
+        width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
-    }
-    
-    & > .pagination > button {
-        margin: 0;
-        padding: 5px 10px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
+        gap: 5px;
     }
 
-    & > .pagination > .active {
-        background-color: #217DFF;
-        color: white;
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        & > button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     }
-    
 `;
 
 const AdminMyPage = () => {
-
-    //페이징 처리 준비
-    const itemsPerPage = 7;   // 한 페이지당 표시할 리스트 수
-    const [currentPage, setCurrentPage] = useState(1);  //페이지 첫 로딩시 1페이지 디폴드값으로 보여지도록
     const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
-
-    //전체 페이지 수 계산
-    const totalPages = Math.ceil(adminBorrowVoList.length / itemsPerPage);
-
-    //현재 페이지의 아이템 목록 계산
-    const currentItems = adminBorrowVoList.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
+    const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
 
     //fetch 이용해 데이터 준비
     const loadAdminBorrowVoList = () => {
@@ -84,18 +73,15 @@ const AdminMyPage = () => {
         .then( resp => resp.json() )
         .then( (data) => {
             console.log(data) 
-            setAdminBorrowVoList(data); } )
+            setAdminBorrowVoList(data);
+        } )
         ;
     }
 
     useEffect( () => {
         loadAdminBorrowVoList();
         console.log(adminBorrowVoList);
-    }, [] );
-
-    const handlePageChage = (page) => {
-        setCurrentPage(page);
-    };
+    }, [currentPage] );
 
     return (
         <StyledAdminBorrowListDiv>
@@ -138,24 +124,25 @@ const AdminMyPage = () => {
                                 <td>{vo.dueDate}</td>
                                 <td>{vo.overdueCount}</td>
                                 <td>{vo.bookState}</td>
-                                <td>{vo.borrowYn}</td>
+                                <td className='restriction'>
+                                    {vo.borrowYn}
+                                    {/* <div className='dropdown'>
+                                        <button className='dropdown-btn'>변경</button>
+                                        <div className='dropdown-content'>
+                                            <p onClick={ () => handleDropDownClick('정상이용')}>정상이용</p>
+                                            <p onClick={ () => handleDropDownClick('30일 대출금지')}>30일 대출금지</p>
+                                            <p onClick={ () => handleDropDownClick('이용금지')}>이용금지</p>
+                                        </div>
+                                    </div> */}
+                                </td>
                             </tr>
                             )
                         }
                     </tbody>
                 </table>
             </div>
-            <div className='pagination'>
-                {
-                    Array.from({length: totalPages}, (_, index) => (
-                        <button key={index + 1}
-                            onClick={ () => handlePageChage(index + 1) }
-                            className={currentPage === index + 1 ? 'active' : ''}
-                        >
-                            {index + 1}
-                        </button>
-                    ))
-                }
+            <div>
+                페이징처리
             </div>
             <div>빈칸</div>
         </StyledAdminBorrowListDiv>
