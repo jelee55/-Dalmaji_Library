@@ -22,7 +22,7 @@ public class AdminNoticeController {
 	private final NoticeService service;
 	
 	//공지사항 작성
-	@PostMapping("admin/insert")
+	@PostMapping("insert")
 	public String insert(NoticeVo vo) throws Exception {
 		
 		int result = service.insert(vo);
@@ -35,7 +35,7 @@ public class AdminNoticeController {
 	}
 	
 	//공지사항 목록조회 (data+view)
-	@GetMapping("admin/list")
+	@GetMapping("list")
 	public String list(Model model) {
 		
 		List<NoticeVo> voList = service.list();
@@ -57,27 +57,27 @@ public class AdminNoticeController {
 	public String detail(NoticeVo vo, Model model) {
 		NoticeVo noticeVo = service.detail(vo);
 		model.addAttribute("noticeVo", noticeVo);
-		return "admin/notice/adminetail";
+		return "admin/notice/detail";
 	}
 	
 	//공지사항 삭제 (번호)
-	@GetMapping("admin/delete")
+	@GetMapping("delete")
 	public String delete(NoticeVo vo) throws Exception {
 		int result = service.delete(vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/admin/notice/adminlist";
+		return "redirect:/admin/notice/list";
 	}
 	
 	//공지사항 수정 (제목, 내용)
-	@PostMapping("admin/edit")
+	@PostMapping("edit")
 	public String edit(NoticeVo vo) throws Exception {
 		int result = service.edit(vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/notice/detail?no=" + vo.getNo();
+		return "redirect:/admin/notice/detail?no=" + vo.getNo();
 	}
 
 }

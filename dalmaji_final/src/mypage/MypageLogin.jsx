@@ -5,24 +5,22 @@ import styled from 'styled-components';
 const StyledLoginMainDiv = styled.div`
     width: 100%;
     height: 100%;
-`;
-
-const StyledFirstMainDiv = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: red;
-    & > form {
+    display: grid;
+    grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
+    place-items: center center;
+    & > div {
         width: 100%;
         height: 100%;
-        margin: auto;
-        border: 5px dashed black;
-        & > table {
+        display: grid;
+        place-items: center center;
+    }
+    & > table {
             width: 100%;
             height: 100%;
             table-layout: fixed;
-        }
     }
 `;
+
 
 const MypageLogin = () => {
 
@@ -89,29 +87,27 @@ const MypageLogin = () => {
 
     return (
         <StyledLoginMainDiv>
-            <StyledFirstMainDiv>
-                <form onSubmit={ handleLoginSubmit }>
-                    <div>빈칸</div>
-                    <div><img src="/public/images/header/logo.png" alt="로고" /></div>
-                    <div><h1>로그인</h1></div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>아이디</td>
-                                <td><input type="text" name='id' onChange={handleInputChange}/></td>
-                            </tr>
-                            <tr>
-                                <td>비밀번호</td>
-                                <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
-                            </tr>
-                            <tr>
-                                <td><input type="reset" /></td>
-                                <td><input type="submit" value="로그인"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </StyledFirstMainDiv>
+            <form onSubmit={ handleLoginSubmit }>
+                <div>빈칸</div>
+                <div><img src="/public/images/header/logo.png" alt="로고" /></div>
+                <div><h1>로그인</h1></div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>아이디</td>
+                            <td><input type="text" name='id' onChange={handleInputChange}/></td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
+                        </tr>
+                        <tr>
+                            <td><input type="reset" /></td>
+                            <td><input type="submit" value="로그인"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </StyledLoginMainDiv>
     );
 };
