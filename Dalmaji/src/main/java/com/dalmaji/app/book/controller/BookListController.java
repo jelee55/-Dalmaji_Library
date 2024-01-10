@@ -16,7 +16,7 @@ import com.dalmaji.app.book.vo.BookVo;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("book")
+@RequestMapping("search")
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class BookListController {
@@ -25,11 +25,8 @@ public class BookListController {
 	
 	//목록조회(no,제목,저자,발행처,발행년도,도서상태)
 	@GetMapping("list")
-	public String list(Model model) {
-		List<BookVo> voList = service.list();
-		model.addAttribute("bookVoList", voList);
-		
-		return "book/list";
+	public List<BookVo>list(){
+		return service.list();
 	}
 	
 	//검색(제목 or 저자 or 출판사)

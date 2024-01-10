@@ -6,13 +6,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.book.vo.BookVo;
+import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 
 @Repository
 public class BookDao {
 
 	//목록조회
 	public List<BookVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("BookMapper.insert");
+		List<BookVo> a = sst.selectList("BookMapper.list");
+
+		return sst.selectList("BookMapper.list");
 	}
 
 	//검색
