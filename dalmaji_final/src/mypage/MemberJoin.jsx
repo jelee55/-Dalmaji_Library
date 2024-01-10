@@ -13,13 +13,22 @@ const StyledMemberJoinDiv = styled.div`
 
 const MemberJoin = () => {
     const navigate = useNavigate();
-    const [vo] = useState({
-        id: "",
-        pwd: "",
-        name: ""
+
+    let isFetching = false;
+    const [vo, setVo] =  useState({
+        id : "",
+        pwd : "",
+        nick: ""
     });
 
-    const isFetching = false; // isFetching 변수를 선언
+    const handleInputChange = (event) => {
+        const {name , value} = event.target;
+
+        setVo({
+            ...vo,
+            [name] : value
+        });
+    }
 
     const handleJoinSubmit = (event) => {
         event.preventDefault();
@@ -29,42 +38,42 @@ const MemberJoin = () => {
             return;
         }
 
-    // 작업 시작
-    isFetching = true;
-    
-
-    fetch("http://127.0.0.1:8888/app/rest/member/join" , {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(vo)
-    })
-    .then( resp => {
-        if(!resp.ok){
-            throw new Error("회원가입 fetch 실패..");
-        }
-        return resp.json();
-    } )
-    .then( data => {
-        if( data.msg === "good" ){
-            alert("회원가입 성공 !");
-            navigate("/");
-        }else{
-            alert("회원가입 실패 ...");
-            navigate("/failpage~~~");
-        }
+        // 작업 시작
+        isFetching = true;
         
-    } )
-    .catch( (e) => {
-        console.log(e);
-        alert("회원가입 실패");
-    } )
-    .finally( () => {
-        isFetching = false;
-    } )
-    ;
-}
+
+        fetch("http://127.0.0.1:8888/app/member/join" , {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(vo)
+        })
+        .then( resp => {
+            if(!resp.ok){
+                throw new Error("회원가입 fetch 실패..");
+            }
+            return resp.json();
+        } )
+        .then( data => {
+            if( data.msg === "good" ){
+                alert("회원가입 성공 !");
+                navigate("/");
+            }else{
+                alert("회원가입 실패 ...");
+                navigate("/failpage~~~");
+            }
+            
+        } )
+        .catch( (e) => {
+            console.log(e);
+            alert("회원가입 실패");
+        } )
+        .finally( () => {
+            isFetching = false;
+        } )
+        ;
+    }
 
 
     return (
@@ -74,15 +83,15 @@ const MemberJoin = () => {
                     <tbody>
                         <tr>
                             <td>아이디</td>
-                            <td><input type="text" name='id'/></td>
+                            <td><input type="text" name='id' onChange={handleInputChange}/></td>
                         </tr>
                         <tr>
                             <td>비밀번호</td>
-                            <td><input type="password" name='pwd'/></td>
+                            <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
                         </tr>
                         <tr>
                             <td>이름</td>
-                            <td><input type="text" name='name'/></td>
+                            <td><input type="text" name='name' onChange={handleInputChange}/></td>
                         </tr>
                         <tr>
                             <td><input type='reset' /></td>

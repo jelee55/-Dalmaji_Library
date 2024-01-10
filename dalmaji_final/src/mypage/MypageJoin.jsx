@@ -34,7 +34,7 @@ const handleJoinSubmit = (event) => {
     isFetching = true;
     
 
-    fetch("http://127.0.0.1:8888/app/rest/member/join" , {
+    fetch("http://127.0.0.1:8888/app/member/join" , {
         method: "post",
         headers: {
             "Content-Type": "application/json"
