@@ -12,5 +12,6 @@ public class NoticeVo {
 	private String enrollDate;
 	private String delYn;
 	private String hit;
+	private String addFile;
 
 }

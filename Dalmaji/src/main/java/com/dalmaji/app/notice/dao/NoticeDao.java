@@ -17,6 +17,7 @@ public class NoticeDao {
 
 	//공지사항 목록조회
 	public List<NoticeVo> list(SqlSessionTemplate sst) {
+		List<NoticeVo> noticeVo = sst.selectList("NoticeMapper.list");
 		return sst.selectList("NoticeMapper.list");
 	}
 

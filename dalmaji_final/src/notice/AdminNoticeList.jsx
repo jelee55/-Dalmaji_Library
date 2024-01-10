@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledAdminNoticeListDiv = styled.div`
@@ -14,9 +14,7 @@ const StyledAdminNoticeListDiv = styled.div`
         display: grid;
         place-items: center center;
     }
-    & > div > h1 {
-        color: #217DFF;
-    }
+    
     & > div > table {
         text-align: center;
         width: 85%;
@@ -45,61 +43,87 @@ const StyledAdminNoticeListDiv = styled.div`
 
 const AdminNoticeList = () => {
 
-    console.log("NoticeList 컴포넌트 렌더링 ~~~");
+    //페이징 처리 준비
+    const itemsPerPage = 10;   // 한 페이지당 표시할 리스트 수
+    const [currentPage, setCurrentPage] = useState(1);  //페이지 첫 로딩시 1페이지 디폴드값으로 보여지도록
+    const [NoticeVoList, setNoticeVoList] = useState([]);
 
-    const navigate = useNavigate();
+    //전체 페이지 수 계산
+    const totalPages = Math.ceil(NoticeVoList.length / itemsPerPage);
+
+    //현재 페이지의 아이템 목록 계산
+    const currentItems = NoticeVoList.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     //fetch 를 이용해서 데이터 준비
-    const [AdminNoticeVoList,setAdminNoticeVoList] = useState([]);
-    const loadAdminNoticeVoList = () => {
+    const loadNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/admin/notice/list")
         .then( resp => resp.json() )
         .then( (data) => {
-            console.log(data);
-             setAdminNoticeVoList(data); })
+            console.log(data) 
+             setNoticeVoList(data); })
         ;
     }
 
     useEffect( ()=>{
-        console.log(AdminNoticeVoList);
-        loadAdminNoticeVoList();
+        loadNoticeVoList();
+        console.log(NoticeVoList);
     }, []);
 
-    console.log("return 직전 ~~~ (곧 렌더링-화면만들기-완료");
+    const handlePageChage = (page) => {
+        setCurrentPage(page);
+    };
+
     return (
         <StyledAdminNoticeListDiv>
-            <table>
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>조회수</th>
-                        <th>첨부파일</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div><h2>공지사항</h2></div>
+            <div>검색기능 추가</div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                            <th>첨부파일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            NoticeVoList.length === 0
+                            ?
+                            <h1>로딩중...</h1>
+                            :
+                            NoticeVoList.map( vo => <tr key={vo.no}>
+                                    <td>{vo.no}</td>
+                                    <td>{vo.adminNo}</td>
+                                    <td>{vo.enrollDate}</td>
+                                    <td>{vo.hit}</td>
+                                </tr>
+                                )
+                        }
+                    </tbody>
+                </table>
+            </div>
+                <div className='pagination'>
                     {
-                        adminNoticeVoList.length === 0
-                        ?
-                        <h1>로딩중...</h1>
-                        :
-                        adminNoticeVoList.map( vo => <tr key={vo.no}>
-                                <td>{vo.no}</td>
-                                <td>{vo.title}</td>
-                                <td>{vo.writer}</td>
-                                <td>{vo.hit}</td>
-                                <td>{vo.enrollDate}</td>
-                            </tr>
-                             )
+                        Array.from({length: totalPages}, (_, index) => (
+                            <button key={index + 1}
+                                onClick={ () => handlePageChage(index + 1) }
+                                className={currentPage === index + 1 ? 'active' : ''}
+                            >
+                                {index + 1}
+                            </button>
+                        ))
                     }
-                </tbody>
-            </table>
-           
+                </div>
                 <button onClick={ () => {
-                    navigate("/board/write");
-                }}>게시글 작성하기</button>
+                    Navigate("/admin/notice/list");
+                }}>작성하기</button>
 
         </StyledAdminNoticeListDiv>
     );
