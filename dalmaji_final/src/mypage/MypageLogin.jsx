@@ -6,18 +6,99 @@ const StyledLoginMainDiv = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
     place-items: center center;
     & > div {
         width: 100%;
         height: 100%;
-        display: grid;
-        place-items: center center;
+        margin: auto;
     }
-    & > table {
+    & > form {
+                width: 80%;
+                height: 80%;
+                border: 2px solid black;
+                /* background-color: beige; */
+        
+        
+        & > div:nth-child(1) {
+            height: 35%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: red; */
+        }
+        
+        & > div:nth-child(2) {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: yellow; */
+        }
+
+        & > div:nth-child(3) {
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: greenyellow; */
+        }
+
+        & > div > table {
             width: 100%;
             height: 100%;
-            table-layout: fixed;
+            display: flex;
+            justify-content: space-evenly;
+            /* table-layout: fixed; */
+            /* background-color: yellow; */
+        }
+
+        & > div > table > tbody > tr:nth-child(1) {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: pink; */
+        }
+
+        & > div > table > tbody > tr:nth-child(2) {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: aqua; */
+        }
+
+        & > div > table > tbody > tr:nth-child(3) {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: violet; */
+        }
+        
+        & > div > table > tbody > tr:nth-child(1) {
+            outline: none;
+            width: 450px;
+            height: 35px;
+            padding-left: 25px;
+            font-size: 15px;
+            border: 3px solid #051921;
+            border-radius: 25px;
+        }
+        
+        & > tbody > tr > td {
+            margin: 0;
+            padding: 0;
+            border: 2px solid white;
+        }
+
+        & > tbody > tr > td:nth-child(6) {
+            display: flex;
+            margin: 10%;
+        }
     }
 `;
 
@@ -88,25 +169,26 @@ const MypageLogin = () => {
     return (
         <StyledLoginMainDiv>
             <form onSubmit={ handleLoginSubmit }>
-                <div>빈칸</div>
                 <div><img src="/public/images/header/logo.png" alt="로고" /></div>
                 <div><h1>로그인</h1></div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>아이디</td>
-                            <td><input type="text" name='id' onChange={handleInputChange}/></td>
-                        </tr>
-                        <tr>
-                            <td>비밀번호</td>
-                            <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
-                        </tr>
-                        <tr>
-                            <td><input type="reset" /></td>
-                            <td><input type="submit" value="로그인"/></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>아이디</td>
+                                <td><input type="text" name='id' onChange={handleInputChange}/></td>
+                            </tr>
+                            <tr>
+                                <td>비밀번호</td>
+                                <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
+                            </tr>
+                            <tr>
+                                <td><button value="로그인"/></td>
+                                <td><button type="reset" value="초기화"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </form>
         </StyledLoginMainDiv>
     );
