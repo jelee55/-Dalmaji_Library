@@ -38,4 +38,7 @@ public class BookService {
 		return dao.delete(sst,vo);
 	}
 
+	/*
+	 * public List<BookVo> searchBooks(String keyword) { return dao }
+	 */
 }
