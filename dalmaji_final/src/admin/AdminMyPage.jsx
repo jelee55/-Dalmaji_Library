@@ -70,20 +70,28 @@ const AdminMyPage = () => {
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
 
     //fetch 이용해 데이터 준비
-    const loadAdminBorrowVoList = () => {
-        fetch("http://127.0.0.1:8888/app/admin/borrow/list")
+    const loadAdminBorrowVoList = (page) => {
+        // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
+        fetch(`http://127.0.0.1:8888/app/admin/borrow/list?page=${page}`)
         .then( resp => resp.json() )
         .then( (data) => {
             console.log(data) 
-            setAdminBorrowVoList(data);
+            setAdminBorrowVoList(data.list); //데이터 저장
+            setCurrentPage(data.currentPage); //현재 페이지 번호 저장
+            setTotalPages(data.totalPages); //총 페이지 수 저장
         } )
         ;
     }
 
     useEffect( () => {
-        loadAdminBorrowVoList();
+        loadAdminBorrowVoList(currentPage); //현재 페이지의 목록 불러오기
         console.log(adminBorrowVoList);
     }, [currentPage] );
+
+    //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
+    const handlerClickPageNum = (page) => {
+        setCurrentPage(page);
+    }
 
     return (
         <StyledAdminBorrowListDiv>
@@ -112,7 +120,9 @@ const AdminMyPage = () => {
                         {
                             adminBorrowVoList.length === 0
                             ?
-                            <h1>로딩중...</h1>
+                            (<tr>
+                                <td colSpan="12">로딩중...</td>
+                            </tr>)
                             :
                             adminBorrowVoList.map( vo => <tr key={vo.overdueNo}>
                                 <td>{vo.overdueNo}</td>
@@ -144,7 +154,21 @@ const AdminMyPage = () => {
                 </table>
             </div>
             <div>
-                페이징처리
+                {totalPages 
+                ? 
+                (
+                    Array.from({length: totalPages}, (_, i) =>
+                        <button
+                            key={`page_button_${i}`}
+                            onClick={() => handlerClickPageNum(i + 1)}
+                            disabled={currentPage === i+1}
+                        >
+                            {i + 1}
+                        </button>
+                    )) 
+                : 
+                null
+                }
             </div>
             <div>빈칸</div>
         </StyledAdminBorrowListDiv>
