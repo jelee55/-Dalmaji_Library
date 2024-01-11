@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledAdminBorrowListDiv = styled.div`
@@ -22,7 +22,6 @@ const StyledAdminBorrowListDiv = styled.div`
         height: 100%;
         margin: 0;
         padding: 0;
-        background-color: #D9F1FF;
         border-collapse: collapse;
         & > thead > tr {
             width: 100%;
@@ -31,11 +30,14 @@ const StyledAdminBorrowListDiv = styled.div`
         & > thead > tr > th {
             margin: 0;
             padding: 0;
+            background-color: #20407B;
+            color: white;
             border: 2px solid white;
         }
         & > tbody > tr > td {
             margin: 0;
             padding: 0;
+            background-color: #D9F1FF;
             border: 2px solid white;
         }
     }

@@ -21,7 +21,7 @@ public class PageVo {
 		this.listCount = listCount;
 		this.currentPage = currentPage;
 		this.pageLimit = pageLimit;
-		this.listLimit = 7;
+		this.listLimit = listLimit;
 		
 		this.maxPage = (int) Math.ceil((double)listCount/listLimit);
 		this.startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
