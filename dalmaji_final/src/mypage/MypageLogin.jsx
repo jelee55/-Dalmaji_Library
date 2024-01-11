@@ -13,93 +13,125 @@ const StyledLoginMainDiv = styled.div`
         margin: auto;
     }
     & > form {
-                width: 80%;
-                height: 80%;
-                border: 2px solid black;
-                /* background-color: beige; */
+        width: 60%;
+        height: 80%;
+        border: 2px solid black;
+        /* background-color: beige; */
         
         
-        & > div:nth-child(1) {
-            height: 35%;
+        & > .img {
+            height: 30%;
             display: flex;
             align-items: center;
             justify-content: center;
             /* background-color: red; */
         }
+
+        & > .img > img {
+            height: 70%;
+            margin-top: 30px;
+        }
+
         
         & > div:nth-child(2) {
-            height: 20%;
+            height: 15%;
             display: flex;
             justify-content: center;
             align-items: center;
             /* background-color: yellow; */
         }
 
-        & > div:nth-child(3) {
-            height: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* background-color: greenyellow; */
-        }
+       & > div:nth-child(3) {
+        height: 30px;
+        display: flex;
+        margin-left: 36%;
+        /* background-color: aqua; */
+       }
 
-        & > div > table {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-evenly;
-            /* table-layout: fixed; */
-            /* background-color: yellow; */
-        }
+       & > div:nth-child(4) {
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        /* margin-left: 45%; */
+        /* background-color: greenyellow; */
+       }
 
-        & > div > table > tbody > tr:nth-child(1) {
-            width: 100%;
-            height: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* background-color: pink; */
-        }
+       & > div:nth-child(4) > input {
+        width: 30%;
+        height: 35px;
+        border-radius: 12px;
+        border: 1px solid black;
+       }
 
-        & > div > table > tbody > tr:nth-child(2) {
-            width: 100%;
-            height: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* background-color: aqua; */
-        }
+       & > .none {
+        height: 40px;
+       }
 
-        & > div > table > tbody > tr:nth-child(3) {
-            width: 100%;
-            height: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* background-color: violet; */
-        }
-        
-        & > div > table > tbody > tr:nth-child(1) {
-            outline: none;
-            width: 450px;
-            height: 35px;
-            padding-left: 25px;
-            font-size: 15px;
-            border: 3px solid #051921;
-            border-radius: 25px;
-        }
-        
-        & > tbody > tr > td {
-            margin: 0;
-            padding: 0;
-            border: 2px solid white;
-        }
+       & > div:nth-child(6) {
+        height: 30px;
+        display: flex;
+        margin-left: 36%;
+        /* background-color: aqua; */
+       }
 
-        & > tbody > tr > td:nth-child(6) {
-            display: flex;
-            margin: 10%;
-        }
+       & > div:nth-child(7) {
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        /* margin-left: 45%; */
+        /* background-color: greenyellow; */
+       }
+
+       & > div:nth-child(7) > input {
+        width: 30%;
+        height: 35px;
+        border-radius: 12px;
+        border: 1px solid black;
+       }
+
+       & > div:nth-child(8) {
+        height: 45px;
+       }
+
+       & > div:nth-child(9) {
+        width: 100%;
+        height: 8%;
+        display: flex;
+        justify-content: center;
+        /* background-color: aqua; */
+       }
+
+       & > div > button {
+        width: 100px;
+        height: 35px;
+        border-radius: 12px;
+        background-color: navy;
+        color: white;
+        font-family: 'Pretendard';
+        font-weight: 700;
+        font-size: 16px;
+       }
+
+       & > .ul {
+        /* background-color: red; */
+
+       }
+
+       & > .ul > ul {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: space-evenly;
+        list-style: none;
+        /* background-color: aqua; */
     }
+
+    & > .ul > ul > li > a:hover {
+        color: blue;
+    }
+
+    }
+    
 `;
 
 
@@ -169,25 +201,21 @@ const MypageLogin = () => {
     return (
         <StyledLoginMainDiv>
             <form onSubmit={ handleLoginSubmit }>
-                <div><img src="/public/images/header/logo.png" alt="로고" /></div>
+                <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
                 <div><h1>로그인</h1></div>
-                <div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>아이디</td>
-                                <td><input type="text" name='id' onChange={handleInputChange}/></td>
-                            </tr>
-                            <tr>
-                                <td>비밀번호</td>
-                                <td><input type="password" name='pwd' onChange={handleInputChange}/></td>
-                            </tr>
-                            <tr>
-                                <td><button value="로그인"/></td>
-                                <td><button type="reset" value="초기화"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div>아이디</div>
+                <div><input type="text" name='id' onChange={handleInputChange}/></div>
+                <div className='none'></div>
+                <div>비밀번호</div>
+                <div><input type="password" name='pwd' onChange={handleInputChange}/></div>
+                <div></div>
+                <div><button>로그인</button></div>
+                <div className='ul'>
+                    <ul>
+                        <li><a>회원가입</a></li>
+                        <li><a>아이디 찾기</a></li>
+                        <li><a>비밀번호 찾기</a></li>
+                    </ul>
                 </div>
             </form>
         </StyledLoginMainDiv>
