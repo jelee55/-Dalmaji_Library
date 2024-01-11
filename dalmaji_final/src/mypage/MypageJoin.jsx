@@ -8,7 +8,98 @@ const StyledMypageJoinDiv = styled.div`
     display: grid;
     grid-template-rows: 1fr 1.5fr;
     place-items: center center;
-    background-color: red;
+    /* background-color: red; */
+
+    & > .img {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 100px;
+        background-color: red;
+
+        & > img {
+            height: 150px;
+            width: 150px;
+            /* margin-top: 400px; */
+        }
+
+    }
+
+    & > form {
+        width: 60%;
+        height: 100%;
+        margin-bottom: 10%;
+        border: 2px solid black;
+        /* background-color: beige; */
+
+        & > .none {
+            height: 40px;
+            background-color: yellow;
+        }
+
+        & > .id {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+            /* background-color: aqua; */
+        }
+
+        & > .idinput {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .pwd {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .pwdinput {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .name {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .nameinput {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .date {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .dateinput {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .phone {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+
+        & > .phoneinput {
+            height: 30px;
+            display: flex;
+            margin-left: 36%;
+        }
+    }
     `;
 
 const MypageJoin = () => {
@@ -70,28 +161,20 @@ const handleJoinSubmit = (event) => {
 
     return (
         <StyledMypageJoinDiv>
-            <form onSubmit={ handleJoinSubmit }>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>아이디</td>
-                            <td><input type="text" name='id'/></td>
-                        </tr>
-                        <tr>
-                            <td>비밀번호</td>
-                            <td><input type="password" name='pwd'/></td>
-                        </tr>
-                        <tr>
-                            <td>이름</td>
-                            <td><input type="text" name='name'/></td>
-                        </tr>
-                        <tr>
-                            <td><input type='reset' /></td>
-                            <td><input type="submit" value="회원가입"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+            <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
+                <form onSubmit={ handleJoinSubmit }>
+                <div className='none'>빈칸</div>
+                <div className='id'>아이디 *</div>
+                <div className='idinput'><input type="text" name='id' placeholder='5~15자(영문, 소문자)' /></div>
+                <div className='pwd'>비밀번호 *</div>
+                <div className='pwdinput'><input type="password" name='pwd' placeholder='9자~15자(영문, 숫자, 특수문자를 각 1개 이상 조합)' /></div>
+                <div className='name'>이름</div>
+                <div className='nameinput'><input type="text" name='name'/></div>
+                <div className='date'>생년월일</div>
+                <div className='dateinput'><input type="date" name="day"/></div>
+                <div className='phone'>휴대폰번호</div>
+                <div className='phoneinput'><input type="text" name="phone" /></div>
+                </form>
         </StyledMypageJoinDiv>
     );
 };

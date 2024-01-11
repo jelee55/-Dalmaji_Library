@@ -29,7 +29,7 @@ const AdminNoticeList = () => {
     const navigate = useNavigate();
 
     //fetch 를 이용해서 데이터 준비
-    const [noticeVoList,setNoticeVoList] = useState([]);
+    const [NoticeVoList,setNoticeVoList] = useState([]);
     const loadNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/admin/notice/list")
         .then( resp => resp.json() )
@@ -57,11 +57,11 @@ const AdminNoticeList = () => {
                 </thead>
                 <tbody>
                     {
-                        noticeVoList.length === 0
+                        NoticeVoList.length === 0
                         ?
                         <h1>로딩중...</h1>
                         :
-                        noticeVoList.map( vo => <tr key={vo.no}>
+                        NoticeVoList.map( vo => <tr key={vo.no}>
                                 <td>{vo.no}</td>
                                 <td>{vo.title}</td>
                                 <td>{vo.adminNo}</td>
