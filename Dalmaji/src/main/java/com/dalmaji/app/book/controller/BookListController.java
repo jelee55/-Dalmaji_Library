@@ -34,7 +34,7 @@ public class BookListController {
 	public String detail(BookVo vo, Model model) {
 		BookVo bookVo = service.detail(vo);
 		model.addAttribute("bookVo",bookVo);
-		return "board/detail";
+		return "search/detail";
 		
 	}
 	
