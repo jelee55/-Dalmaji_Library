@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.book.service.BookService;
@@ -31,13 +32,9 @@ public class BookListController {
 	
 	//검색(제목 or 저자 or 출판사)
 	@GetMapping("detail")
-	public String detail(BookVo vo, Model model) {
-		BookVo bookVo = service.detail(vo);
-		model.addAttribute("bookVo",bookVo);
-		return "search/detail";
-		
+	public List<BookVo> searchBooks(@RequestParam("검색어") String keyword) {
+		return service.searchBooks(keyword);
 	}
-	
 	
 	//게시글 수정(제목,저자,이미지)
 	@PostMapping("admin/edit")

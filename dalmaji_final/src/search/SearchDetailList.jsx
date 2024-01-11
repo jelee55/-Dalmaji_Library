@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-
-const StyledSearchListDiv = styled.div`
+const StyledDetailListDiv = styled.div`
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    & > table {
-        width: 80%;
-        height: 80%;
-        border: 3px solid black;
-    }
-   
+
 `;
 
-const SearchList = () => {
-
-
-
-
-    
+const SearchDetailList = () => {    
     //fetch 이용해 데이터 준비
     const [bookVoList, setBookVoList] = useState([]);
     const loadBookVoList = () => {
-        fetch("http://127.0.0.1:8888/app/search/list")
+        fetch("http://127.0.0.1:8888/app/search/detaillist")
             .then(resp => resp.json())
             .then((data) => {
                 console.log(data);
@@ -39,21 +24,34 @@ const SearchList = () => {
         loadBookVoList();
     }, []);
 
+
     return (
-        <StyledSearchListDiv>
-        <div>
-            <div><h1>스마트도서관 도서검색</h1></div>
-            <button>전체보기</button>
-            <button>검색</button>
-        </div>
-        <div>
-            <div>전체</div>
-            <div>소설</div>
-            <div>인문</div>
-            <div>경제/경영</div>
-            <div>역사/문화</div>
-            <div>여행</div>
-        </div>
+        <StyledDetailListDiv>
+        <form>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>제목</td>
+                        <td><input type="text" name='title'/></td>
+                    </tr>
+                    <tr>
+                        <td>작가</td>
+                        <td><input type="text" name='author'/></td>
+                    </tr>
+                    <tr>
+                        <td>출판사</td>
+                        <td><input type="text" name='company' /></td>
+                    </tr>
+                    <tr>
+                        <td><button>검색하기</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+
+
+        <form>
         <table>
             <thead>
                 <tr>
@@ -64,7 +62,7 @@ const SearchList = () => {
                     <th> 발행년도</th>
                     <th> 조회수</th>
                     <th> 도서상태</th>
-                    {/* <th> 상세조회</th> */}
+                    <th> 상세조회</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,15 +79,15 @@ const SearchList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     <td>{vo.bookState}</td>
-                    {/* <td><link to={<SearchDetail />} />상세조회</td> */}
+                    <td><link to="" />상세조회</td>
                 </tr>
                         )
                 }
                 
             </tbody>
         </table>
-        </StyledSearchListDiv>
+        </form>
+    </StyledDetailListDiv>
     );
 };
-
-export default SearchList;
+export default SearchDetailList;
