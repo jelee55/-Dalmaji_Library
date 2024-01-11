@@ -25,18 +25,19 @@
 		<property name="password" value="1234"/>
 	</bean>
 -->
-	
 	<!-- commons-dbcp2 > dbcp -->
 	<bean id="dbcpSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@129.154.52.135:40000:xe"/>
-		<property name="username" value="KH0821_09"/>
-		<property name="password" value="1234"/>
+		<property name="url" value="jdbc:oracle:thin:@dalmaji_high?TNS_ADMIN=/Users/jini/KH_DALMAJI/Wallet_DALMAJI"/>
+		<property name="username" value="ADMIN"/>
+		<property name="password" value="alwlsWkd1313"/>
 		
 		<property name="maxTotal" value="20"/>
 		<property name="maxIdle" value="10"/>
 		<property name="maxWaitMillis" value="3000"/>
 	</bean>
+
+
 	
 	<!-- spring jdbc > jdbcTemplate -->
 	<!--

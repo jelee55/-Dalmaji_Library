@@ -212,6 +212,24 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<!-- Oracle Cloud DB (ATP) -->
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>osdt_cert</artifactId>
+		    <version>21.10.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>oraclepki</artifactId>
+		    <version>21.10.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>osdt_core</artifactId>
+		    <version>21.10.0.0</version>
+		</dependency>
 		     
 	</dependencies>
     <build>
