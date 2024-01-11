@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+
 const StyledSearchListDiv = styled.div`
        width: 100%;
     height: 100%;
@@ -17,6 +18,7 @@ const StyledSearchListDiv = styled.div`
 `;
 
 const SearchList = () => {
+
 
 
 

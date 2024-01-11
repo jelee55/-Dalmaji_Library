@@ -6,11 +6,11 @@ const StyledEditDiv = styled.div`
     height: 100%;
 `;
 
-const SearchEdit = () => {
+const SearchAdminEdit = () => {
 
     return (
         <StyledEditDiv>
-        <form onSubmit={ handleJoinSubmit }>
+        {/* <form onSubmit={ handleJoinSubmit }>
             <table>
                 <tbody>
                     <tr>
@@ -31,9 +31,9 @@ const SearchEdit = () => {
                     </tr>
                 </tbody>
             </table>
-        </form>
+        </form> */}
     </StyledEditDiv>
     );
 };
 
-export default SearchEdit;
+export default SearchAdminEdit;
