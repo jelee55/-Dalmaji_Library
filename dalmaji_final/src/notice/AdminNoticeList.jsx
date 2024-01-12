@@ -75,7 +75,7 @@ const AdminNoticeList = () => {
            
                 <button onClick={ () => {
                     navigate("/admin/notice/list");
-                }}>게시글 작성하기</button>
+                }}>작성하기</button>
 
         </StyledNoticeListDiv>
     );

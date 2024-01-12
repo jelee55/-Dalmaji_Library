@@ -13,10 +13,10 @@ const StyledLoginMainDiv = styled.div`
         margin: auto;
     }
     & > form {
-                width: 60%;
-                height: 80%;
-                border: 2px solid black;
-                /* background-color: beige; */
+        width: 60%;
+        height: 80%;
+        border: 2px solid black;
+        /* background-color: beige; */
         
         
         & > .img {
@@ -41,7 +41,7 @@ const StyledLoginMainDiv = styled.div`
             /* background-color: yellow; */
         }
 
-       & > div:nth-child(3) {
+       & > .id {
         height: 30px;
         display: flex;
         margin-left: 36%;
@@ -67,7 +67,7 @@ const StyledLoginMainDiv = styled.div`
         height: 40px;
        }
 
-       & > div:nth-child(6) {
+       & > .pwd {
         height: 30px;
         display: flex;
         margin-left: 36%;
@@ -102,8 +102,8 @@ const StyledLoginMainDiv = styled.div`
        }
 
        & > div > button {
-        width: 25%;
-        height: 55%;
+        width: 100px;
+        height: 35px;
         border-radius: 12px;
         background-color: navy;
         color: white;
@@ -135,7 +135,7 @@ const StyledLoginMainDiv = styled.div`
 `;
 
 
-const MypageLogin = () => {
+const AdminLogin = () => {
 
     const navigate = useNavigate();
 
@@ -165,7 +165,7 @@ const MypageLogin = () => {
         //작업시작
         isFetching = true;
 
-        fetch("http://127.0.0.1:8888/app/member/login" , {
+        fetch("http://127.0.0.1:8888/app/admin/login" , {
         method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -202,11 +202,11 @@ const MypageLogin = () => {
         <StyledLoginMainDiv>
             <form onSubmit={ handleLoginSubmit }>
                 <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
-                <div><h1>로그인</h1></div>
-                <div>아이디</div>
+                <div><h1>Admin Login</h1></div>
+                <div className='id'>아이디</div>
                 <div><input type="text" name='id' onChange={handleInputChange}/></div>
                 <div className='none'></div>
-                <div>비밀번호</div>
+                <div className='pwd'>비밀번호</div>
                 <div><input type="password" name='pwd' onChange={handleInputChange}/></div>
                 <div></div>
                 <div><button>로그인</button></div>
@@ -222,4 +222,4 @@ const MypageLogin = () => {
     );
 };
 
-export default MypageLogin;
+export default AdminLogin;

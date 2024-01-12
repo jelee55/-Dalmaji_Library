@@ -72,7 +72,7 @@ public class MemberController {
 	}
 	
 	//회원 탈퇴
-	@GetMapping("quit")
+	@GetMapping("quit")                                       
 	public String quit(MemberVo vo, HttpSession session) throws Exception {
 		
 		int result = service.quit(vo);
