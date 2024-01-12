@@ -30,7 +30,12 @@ const SearchDetail = () => {
     const [bookDetailVo, setBookDetailVo] = useState([]);
 
     const loadBookDetailVo = () => {
-        fetch("http://127.0.0.1:8888/app/search/book/detail")
+        fetch("http://127.0.0.1:8888/app/search/book/detail", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
         .then( resp => resp.json() )
         .then( (data) => {
             console.log(data)

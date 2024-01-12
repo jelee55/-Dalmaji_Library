@@ -28,8 +28,8 @@ public class AdminBorrowController {
 	
 	// 대출 리스트 화면
 	@GetMapping("list")
-	public Map<String, Object> list(@RequestParam(value = "page", defaultValue = "1") int currentPage) {
-		int listCount = 10;
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage) {
+		int listCount = service.getTotalCount();
 		int pageLimit = 5;
 		int listLimit = 7;
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
