@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -9,11 +11,45 @@ const StyledSearchListDiv = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 3%;
     & > table {
         width: 80%;
         height: 80%;
-        border: 3px solid black;
+        padding-bottom: 3%
+        /* border-collapse: collapse; */
     }
+    & > table tr:first-child th{
+        background-color:  #2c2c6b;
+        /* border-top:  1px solid gray; */
+        border-bottom: 1px solid gray;
+        color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+  
+        
+    & >  table th,
+         table td{
+            border-left: none;
+            border-right: none;
+            text-align: center;
+
+         }
+
+    & > table td {
+        background-color: #c6c6b8d2;
+        
+    }
+    & > .ul > ul {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: space-evenly;
+        list-style: none;
+        /* background-color: aqua; */
+        }
+  
    
 `;
 
@@ -41,20 +77,28 @@ const SearchList = () => {
 
     return (
         <StyledSearchListDiv>
-        <div>
+        <div className='header'>
             <div><h1>스마트도서관 도서검색</h1></div>
             <button>전체보기</button>
             <button>검색</button>
+        {/* <ul>
+            <li><a>전체보기</a></li>
+            <li><a>검색</a></li>
+        </ul> */}
         </div>
 
+                <div className='ul'>
+                    <ul>
+                        <li><a>전체</a></li>
+                        <li><a>소설</a></li>
+                        <li><a>인문</a></li>
+                        <li><a>경제/경영</a></li>
+                        <li><a>역사/문화</a></li>
+                        <li><a>여행</a></li>
+                    </ul>
+                </div>
+       
 
-        
-            <div>전체</div>
-            <div>소설</div>
-            <div>인문</div>
-            <div>경제/경영</div>
-            <div>역사/문화</div>
-            <div>여행</div>
         <table>
             <thead>
                 <tr>
@@ -65,7 +109,7 @@ const SearchList = () => {
                     <th> 발행년도</th>
                     <th> 조회수</th>
                     <th> 도서상태</th>
-                    {/* <th> 상세조회</th> */}
+                    <th> 상세조회</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,7 +126,7 @@ const SearchList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     <td>{vo.bookState}</td>
-                    {/* <td><link to={<SearchDetail />} />상세조회</td> */}
+                    <td><Link to="/search/detail"><button>상세조회</button></Link></td>
                 </tr>
                         )
                 }

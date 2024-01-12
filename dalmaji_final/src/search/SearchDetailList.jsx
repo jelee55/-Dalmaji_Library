@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDetailListDiv = styled.div`
     width: 100%;
     height: 100%;
-
+& > table{
+    width: 80%;
+    height: 100%;
+}
 `;
 
 const SearchDetailList = () => {    
@@ -43,7 +47,7 @@ const SearchDetailList = () => {
                         <td><input type="text" name='company' /></td>
                     </tr>
                     <tr>
-                        <td><button>검색하기</button></td>
+                        <td><button>검색</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -79,7 +83,7 @@ const SearchDetailList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     <td>{vo.bookState}</td>
-                    <td><link to="" />상세조회</td>
+                    <td><Link to="/search/detail" />상세조회</td>
                 </tr>
                         )
                 }
