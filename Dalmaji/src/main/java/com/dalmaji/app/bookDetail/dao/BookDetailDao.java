@@ -12,5 +12,4 @@ public class BookDetailDao {
 		return sst.selectOne("BookDetailMapper.detail", vo);
 	}
 
-	
 }

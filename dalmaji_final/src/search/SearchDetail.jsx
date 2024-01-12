@@ -52,7 +52,11 @@ const SearchDetail = () => {
                 <div>
                     <div>{bookDetailVo.bookImg}</div>
                     <div>
-                        <div></div>
+                        <div>{bookDetailVo.title}</div>
+                        <div>{bookDetailVo.author}</div>
+                        <div>{bookDetailVo.company}</div>
+                        <div>{bookDetailVo.publisherYear}</div>
+                        <div>{bookDetailVo.bookNo}</div>
                     </div>
                 </div>
                 <div>3</div>
