@@ -151,11 +151,15 @@ const AdminMyPage = () => {
                                 <td>{vo.overdueCount}</td>
                                 <td>{vo.bookState}</td>
                                 <td className='restriction'>
-                                    <select>
-                                        <option value="정상이용">정상이용</option>
-                                        <option value="30일 대출금지">30일 대출금지</option>
-                                        <option value="이용금지">이용금지</option>
-                                    </select>
+                                    {vo.borrowYn}
+                                    {/* <div className='dropdown'>
+                                        <button className='dropdown-btn'>변경</button>
+                                        <div className='dropdown-content'>
+                                            <p onClick={ () => handleDropDownClick('정상이용')}>정상이용</p>
+                                            <p onClick={ () => handleDropDownClick('30일 대출금지')}>30일 대출금지</p>
+                                            <p onClick={ () => handleDropDownClick('이용금지')}>이용금지</p>
+                                        </div>
+                                    </div> */}
                                 </td>
                             </tr>
                             )

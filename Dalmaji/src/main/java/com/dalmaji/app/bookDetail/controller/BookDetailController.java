@@ -18,8 +18,8 @@ public class BookDetailController {
 	private final BookDetailService service;
 	
 	@GetMapping("detail")
-	public String detail(BookDetailVo vo, Model model,String no) {
-		BookDetailVo bookDetailVo = service.detail(vo,no);
+	public String detail(BookDetailVo vo, Model model) {
+		BookDetailVo bookDetailVo = service.detail(vo);
 		model.addAttribute("bookDetailVo", bookDetailVo);
 		return "search/book/detail";
 		
