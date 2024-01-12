@@ -1,5 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import AdminNoticeList from './AdminNoticeList';
+import AdminNoticeDetail from './AdminNoticeDetail';
+import AdminNoticeWrite from './AdminNoticeWrite';
+import AdminNoticeEdit from './AdminNoticeEdit';
+
 
 const NoticeMain = () => {
     return (
