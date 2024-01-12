@@ -35,6 +35,4 @@ public class PageVo {
 		this.lastRow = startRow + listLimit - 1;
 	}
 
-
-	
 }

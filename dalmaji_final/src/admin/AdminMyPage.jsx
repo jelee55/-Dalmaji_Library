@@ -57,6 +57,8 @@ const StyledAdminBorrowListDiv = styled.div`
         margin-top: 20px;
 
         & > button {
+            border: none;
+            border-radius: 20px;
             margin: 0 5px;
             padding: 5px 10px;
             cursor: pointer;
@@ -72,9 +74,6 @@ const AdminMyPage = () => {
     //fetch 이용해 데이터 준비
     const loadAdminBorrowVoList = (page) => {
 
-        //currentPage가 undefined일 경우 기본값 1을 사용
-        page = page || 1;
-
         // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
         fetch(`http://127.0.0.1:8888/app/admin/borrow/list?currentPage=${page}`, {
             method: "GET",
@@ -86,22 +85,27 @@ const AdminMyPage = () => {
         .then( (data) => {
             console.log('voList' , data.voList);
             setAdminBorrowVoList(data.voList); //데이터 저장
-            setCurrentPage(data.pvo.currentPage); //현재 페이지 번호 저장
+            // setCurrentPage(data.pvo.currentPage); //현재 페이지 번호 저장
             setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
             console.log('data' , data);
+            // console.log();
         } )
         ;
     }
 
-    useEffect( () => {
-        loadAdminBorrowVoList(currentPage); //현재 페이지의 목록 불러오기
-        console.log(adminBorrowVoList);
-    }, [currentPage] );
-
     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
     const handlerClickPageNum = (page) => {
-        setCurrentPage(page);
+        console.log(`page = ${page}`);
+        setCurrentPage(page);  //페이지 변경 요청 수행
     }
+
+    useEffect( () => {
+        loadAdminBorrowVoList(currentPage); //현재 페이지의 목록 불러오기
+    }, [currentPage] );
+    
+    useEffect( () => {
+        console.log(adminBorrowVoList);
+    }, [adminBorrowVoList] );
 
     return (
         <StyledAdminBorrowListDiv>
@@ -163,7 +167,7 @@ const AdminMyPage = () => {
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div className='pagination'>
                 {totalPages 
                 ? 
                 (

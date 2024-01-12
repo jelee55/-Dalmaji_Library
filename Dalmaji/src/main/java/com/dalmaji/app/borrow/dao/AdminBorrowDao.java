@@ -16,7 +16,7 @@ public class AdminBorrowDao {
 		
 		System.out.println("dao 호출");
 		
-		int offset = 0;//(pvo.getCurrentPage()-1) * pvo.getListLimit();   // 몇 개 건너뛸지... 
+		int offset = (pvo.getCurrentPage()-1) * pvo.getListLimit();   // 몇 개 건너뛸지... 
 		int limit = 7;   // 최대 몇개 보일지...
 		RowBounds rb = new RowBounds(offset, limit);       // 0개를 건너뛰고, 그 다음부터 10개를 조회할 예정...
 		
@@ -24,7 +24,5 @@ public class AdminBorrowDao {
 		
 		return sst.selectList("AdminBorrowListMapper.list", null , rb);
 	}
-	
-	
 	
 }
