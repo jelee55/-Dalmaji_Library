@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDetailListDiv = styled.div`
@@ -83,7 +82,7 @@ const SearchDetailList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     <td>{vo.bookState}</td>
-                    <td><Link to="/search/detail" />상세조회</td>
+                    <td><link to="/" />상세조회</td>
                 </tr>
                         )
                 }

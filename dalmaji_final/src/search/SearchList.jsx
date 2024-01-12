@@ -12,6 +12,11 @@ const StyledSearchListDiv = styled.div`
     align-items: center;
     flex-direction: column;
     padding: 3%;
+    /* width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr 3fr 2fr 3fr;
+    padding: 10%; */
     & > table {
         width: 80%;
         height: 80%;
@@ -19,7 +24,7 @@ const StyledSearchListDiv = styled.div`
         /* border-collapse: collapse; */
     }
     & > table tr:first-child th{
-        background-color:  #2c2c6b;
+        background-color:  #2f2f49;
         /* border-top:  1px solid gray; */
         border-bottom: 1px solid gray;
         color: white;
@@ -27,7 +32,12 @@ const StyledSearchListDiv = styled.div`
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-  
+    & > .header h1 {
+            border-bottom: 3px solid black;
+            width: 100%;
+
+
+        }
         
     & >  table th,
          table td{
@@ -38,7 +48,7 @@ const StyledSearchListDiv = styled.div`
          }
 
     & > table td {
-        background-color: #c6c6b8d2;
+        background-color: #F8F4EC;
         
     }
     & > .ul > ul {
@@ -48,9 +58,13 @@ const StyledSearchListDiv = styled.div`
         justify-content: space-evenly;
         list-style: none;
         /* background-color: aqua; */
+        
         }
   
-   
+    & > .bnt{
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
 `;
 
 const SearchList = () => {
@@ -78,7 +92,7 @@ const SearchList = () => {
     return (
         <StyledSearchListDiv>
         <div className='header'>
-            <div><h1>스마트도서관 도서검색</h1></div>
+            <div><h1>도서검색</h1></div>
             <button>전체보기</button>
             <button>검색</button>
         {/* <ul>
@@ -126,7 +140,7 @@ const SearchList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     <td>{vo.bookState}</td>
-                    <td><Link to="/search/detail"><button>상세조회</button></Link></td>
+                    <td><Link to="/search/detail"><button >상세조회</button></Link></td>
                 </tr>
                         )
                 }
