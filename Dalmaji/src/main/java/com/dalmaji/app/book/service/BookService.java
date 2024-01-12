@@ -18,22 +18,20 @@ public class BookService {
 	private final SqlSessionTemplate sst;
 	
 
-	// ¸ñ·ÏÁ¶È¸
+	// ëª©ë¡ì¡°íšŒ
 	public List<BookVo> list() {
 		return dao.list(sst);
 	}
 
-	//°Ë»ö
-	public BookVo detail(BookVo vo) {
-		return dao.detail(sst,vo);
-	}
-
-	//¼öÁ¤
+	/*
+	 * //ê²€ìƒ‰ public BookVo detail(String keyword) { return dao.detail(sst,keyword); }
+	 */
+	//ìˆ˜ì •
 	public int edit(BookVo vo) {
 		return dao.edit(sst,vo);
 	}
 
-	//»èÁ¦
+	//ì‚­ì œ
 	public int delete(BookVo vo) {
 		return dao.delete(sst,vo);
 	}

@@ -11,24 +11,23 @@ import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 @Repository
 public class BookDao {
 
-	//¸ñ·ÏÁ¶È¸
+	//ëª©ë¡ì¡°íšŒ
 	public List<BookVo> list(SqlSessionTemplate sst) {
 		List<BookVo> bookVo = sst.selectList("BookMapper.list");
 		return sst.selectList("BookMapper.list");
 	}
 
-	//°Ë»ö
-	public BookVo detail(SqlSessionTemplate sst, BookVo vo) {
-		return sst.selectOne("BookMapper.detail",vo);
-	}
-
-	//¼öÁ¤
+	/*
+	 * //ê²€ìƒ‰ public BookVo detail(SqlSessionTemplate sst, String keyword) { return
+	 * sst.selectOne("BookMapper.detail",keyword); }
+	 */
+	//ìˆ˜ì •
 	public int edit(SqlSessionTemplate sst, BookVo vo) {
 		return sst.update("BookMapper.edit" , vo);
 
 	}
 
-	//»èÁ¦
+	//ì‚­ì œ
 	public int delete(SqlSessionTemplate sst, BookVo vo) {
 		return sst.update("BookMapper.delete", vo);
 	}

@@ -46,14 +46,15 @@ const SearchList = () => {
             <button>전체보기</button>
             <button>검색</button>
         </div>
-        <div>
+
+
+        
             <div>전체</div>
             <div>소설</div>
             <div>인문</div>
             <div>경제/경영</div>
             <div>역사/문화</div>
             <div>여행</div>
-        </div>
         <table>
             <thead>
                 <tr>
