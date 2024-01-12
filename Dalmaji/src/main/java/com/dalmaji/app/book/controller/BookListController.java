@@ -24,19 +24,20 @@ public class BookListController {
 	
 	private final BookService service;
 	
-	//¸ñ·ÏÁ¶È¸(no,Á¦¸ñ,ÀúÀÚ,¹ßÇàÃ³,¹ßÇà³âµµ,µµ¼­»óÅÂ)
+	//ëª©ë¡ì¡°íšŒ(no,ì œëª©,ì €ì,ë°œí–‰ì²˜,ë°œí–‰ë…„ë„,ë„ì„œìƒíƒœ)
 	@GetMapping("list")
 	public List<BookVo>list(){
 		return service.list();
 	}
 	
-	//°Ë»ö(Á¦¸ñ or ÀúÀÚ or ÃâÆÇ»ç)
-	@GetMapping("detail")
-	public List<BookVo> searchBooks(@RequestParam("°Ë»ö¾î") String keyword) {
-		return service.searchBooks(keyword);
-	}
+	/*
+	 * //ê²€ìƒ‰(ì œëª© or ì €ì or ì¶œíŒì‚¬)
+	 * 
+	 * @GetMapping("detail") public List<BookVo> detail(@RequestParam("ê²€ìƒ‰ì–´") String
+	 * keyword) { return service.detail(keyword); }
+	 */
 	
-	//°Ô½Ã±Û ¼öÁ¤(Á¦¸ñ,ÀúÀÚ,ÀÌ¹ÌÁö)
+	//ê²Œì‹œê¸€ ìˆ˜ì •(ì œëª©,ì €ì,ì´ë¯¸ì§€)
 	@PostMapping("admin/edit")
 	public String edit(BookVo vo) throws Exception {
 		int result = service.edit(vo);
@@ -46,7 +47,7 @@ public class BookListController {
 		return "redirect:/search/admin/detail?no=" + vo.getBookNo();
 	}
 	
-	//°Ô½Ã±Û »èÁ¦(°ü¸®ÀÚ¸¸)
+	//ê²Œì‹œê¸€ ì‚­ì œ(ê´€ë¦¬ìë§Œ)
 	@GetMapping("admin/delete")
 	public String delete(BookVo vo) throws Exception {
 		int result = service.delete(vo);
