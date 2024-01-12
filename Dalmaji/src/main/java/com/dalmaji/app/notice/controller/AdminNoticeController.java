@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.notice.service.AdminNoticeService;
 import com.dalmaji.app.notice.service.NoticeService;
@@ -16,9 +18,10 @@ import com.dalmaji.app.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("admin/notice")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class AdminNoticeController {
 	
 	private final AdminNoticeService service;
@@ -37,21 +40,20 @@ public class AdminNoticeController {
 	}
 	
 	//공지사항 목록조회 (data+view)
-	@GetMapping("list")
-	public String list(Model model) {
-		
-		List<AdminNoticeVo> voList = service.list();
-		model.addAttribute("AdminNoticeVoList" , voList);
-		
-		return "admin/notice/list";
-	}
+//	@GetMapping("list")
+//	public String list(Model model) {
+//		
+//		List<AdminNoticeVo> voList = service.list();
+//		model.addAttribute("AdminNoticeVoList" , voList);
+//		
+//		return "admin/notice/list";
+//	}
 	
 	//공지사항 목록조회 (data)
-	@GetMapping
-	@ResponseBody
+	@GetMapping("list")
 	public List<AdminNoticeVo> restList(){
-		List<AdminNoticeVo> voList = service.list();
-		return voList;
+		return service.list();
+		
 	}
 	
 	//공지사항 상세조회

@@ -24,9 +24,11 @@ const StyledNoticeListDiv = styled.div`
 
 const NoticeList = () => {
 
-    console.log("NoticeList 컴포넌트 렌더링 ~~~");
+    console.log("AdminNoticeList 컴포넌트 렌더링 ~~~");
 
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
+    
+
 
     //fetch 를 이용해서 데이터 준비
     const [NoticeVoList,setNoticeVoList] = useState([]);
@@ -38,11 +40,11 @@ const NoticeList = () => {
     }
 
     useEffect(()=>{
-        console.log("useEffect 호출됨~~~");
+        console.log("useEffect 호출됨~");
         loadNoticeVoList();
     }, []);
 
-    console.log("return 직전 ~~~ (곧 렌더링-화면만들기-완료");
+
     return (
         <StyledNoticeListDiv>
             <table>
@@ -74,7 +76,7 @@ const NoticeList = () => {
             </table>
            
                 <button onClick={ () => {
-                    navigate("/admin/notice/list");
+                    Navigate("/notice/list");
                 }}>작성하기</button>
 
         </StyledNoticeListDiv>
