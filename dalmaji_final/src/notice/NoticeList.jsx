@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeListDiv = styled.div`
@@ -22,25 +22,27 @@ const StyledNoticeListDiv = styled.div`
 `;
 
 
-const AdminNoticeList = () => {
+const NoticeList = () => {
+
+    console.log("NoticeList 컴포넌트 렌더링 ~~~");
+
+    const navigate = useNavigate();
 
     //fetch 를 이용해서 데이터 준비
-    const [AdminNoticeVoList,setAdminNoticeVoList] = useState([]);
-    const loadAdminNoticeVoList = () => {
-        fetch("http://127.0.0.1:8888/app/admin/notice/list")
+    const [NoticeVoList,setNoticeVoList] = useState([]);
+    const loadNoticeVoList = () => {
+        fetch("http://127.0.0.1:8888/app/notice/list")
         .then( resp => resp.json() )
-        .then((data) => {
-            console.log(data);
-            setAdminNoticeVoList(data);})
+        .then( (x) => { setNoticeVoList(x); })
         ;
     }
 
     useEffect(()=>{
-        console.log("useEffect 호출됨~");
-        loadAdminNoticeVoList();
+        console.log("useEffect 호출됨~~~");
+        loadNoticeVoList();
     }, []);
 
-
+    console.log("return 직전 ~~~ (곧 렌더링-화면만들기-완료");
     return (
         <StyledNoticeListDiv>
             <table>
@@ -55,11 +57,11 @@ const AdminNoticeList = () => {
                 </thead>
                 <tbody>
                     {
-                        AdminNoticeVoList.length === 0
+                        NoticeVoList.length === 0
                         ?
                         <h1>로딩중...</h1>
                         :
-                        AdminNoticeVoList.map( vo => <tr key={vo.no}>
+                        NoticeVoList.map( vo => <tr key={vo.no}>
                                 <td>{vo.no}</td>
                                 <td>{vo.title}</td>
                                 <td>{vo.adminNo}</td>
@@ -72,11 +74,11 @@ const AdminNoticeList = () => {
             </table>
            
                 <button onClick={ () => {
-                    Navigate("/admin/notice/list");
+                    navigate("/admin/notice/list");
                 }}>작성하기</button>
 
         </StyledNoticeListDiv>
     );
 };
 
-export default AdminNoticeList;
+export default NoticeList;

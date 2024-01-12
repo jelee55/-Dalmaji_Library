@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import ErrorPageNotFound from '../error/ErrorPageNotFound';
 import MypageJoin from './MypageJoin';
 import MypageLogin from './MypageLogin';
 import MemberEdit from './MemberEdit';
+import ErrorPageNotFound from '../error/ErrorPageNotFound';
 
 const MypageMain = () => {
     return (

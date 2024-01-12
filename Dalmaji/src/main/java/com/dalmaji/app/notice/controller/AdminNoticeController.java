@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dalmaji.app.notice.service.AdminNoticeService;
 import com.dalmaji.app.notice.service.NoticeService;
+import com.dalmaji.app.notice.vo.AdminNoticeVo;
 import com.dalmaji.app.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
@@ -19,11 +21,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminNoticeController {
 	
-	private final NoticeService service;
+	private final AdminNoticeService service;
 	
 	//공지사항 작성
 	@PostMapping("insert")
-	public String insert(NoticeVo vo) throws Exception {
+	public String insert(AdminNoticeVo vo) throws Exception {
 		
 		int result = service.insert(vo);
 		
@@ -38,8 +40,8 @@ public class AdminNoticeController {
 	@GetMapping("list")
 	public String list(Model model) {
 		
-		List<NoticeVo> voList = service.list();
-		model.addAttribute("noticeVoList" , voList);
+		List<AdminNoticeVo> voList = service.list();
+		model.addAttribute("AdminNoticeVoList" , voList);
 		
 		return "admin/notice/list";
 	}
@@ -47,22 +49,22 @@ public class AdminNoticeController {
 	//공지사항 목록조회 (data)
 	@GetMapping
 	@ResponseBody
-	public List<NoticeVo> restList(){
-		List<NoticeVo> voList = service.list();
+	public List<AdminNoticeVo> restList(){
+		List<AdminNoticeVo> voList = service.list();
 		return voList;
 	}
 	
 	//공지사항 상세조회
 	@GetMapping("admin/detail")
-	public String detail(NoticeVo vo, Model model) {
-		NoticeVo noticeVo = service.detail(vo);
-		model.addAttribute("noticeVo", noticeVo);
+	public String detail(AdminNoticeVo vo, Model model) {
+		AdminNoticeVo adminNoticeVo = service.detail(vo);
+		model.addAttribute("noticeVo", adminNoticeVo);
 		return "admin/notice/detail";
 	}
 	
 	//공지사항 삭제 (번호)
 	@GetMapping("delete")
-	public String delete(NoticeVo vo) throws Exception {
+	public String delete(AdminNoticeVo vo) throws Exception {
 		int result = service.delete(vo);
 		if(result != 1) {
 			throw new Exception();
@@ -72,7 +74,7 @@ public class AdminNoticeController {
 	
 	//공지사항 수정 (제목, 내용)
 	@PostMapping("edit")
-	public String edit(NoticeVo vo) throws Exception {
+	public String edit(AdminNoticeVo vo) throws Exception {
 		int result = service.edit(vo);
 		if(result != 1) {
 			throw new Exception();
