@@ -1,10 +1,13 @@
 package com.dalmaji.app.borrow.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,15 +27,20 @@ public class AdminBorrowController {
 	
 	// 대출 리스트 화면
 	@GetMapping("list")
-	public List<AdminBorrowVo> list() {
-		PageVo pvo = new PageVo();
-		return service.list(pvo);
+	public Map<String, Object> list() {
+		int listCount = 10;
+		int currentPage = 1;
+		int pageLimit = 5;
+		int listLimit = 7;
+		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+		List<AdminBorrowVo> voList = service.list(pvo);
+		for( AdminBorrowVo vo : voList) {
+			System.out.println(vo);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("voList", voList);
+		map.put("pvo", pvo);
+		return map;
 	}
-	
-//	// 제한사항 상태 변경
-//	@PostMapping("list")
-//	public void list(String no) {
-//		return service.list();
-//	}
 
 }//class

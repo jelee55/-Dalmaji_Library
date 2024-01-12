@@ -36,7 +36,5 @@ public class PageVo {
 	}
 
 
-	public PageVo() {
-		
-	}
+	
 }

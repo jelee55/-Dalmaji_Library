@@ -19,7 +19,6 @@ public class AdminBorrowService {
 	private final SqlSessionTemplate sst;
 
 	public List<AdminBorrowVo> list(PageVo pvo) {
-		System.out.println(sst);
 		return dao.list(sst, pvo);
 	}
 }
