@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,26 +17,26 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("notice")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class NoticeController {
 	
 	private final NoticeService service;
 	
 	//공지사항 목록조회 (data+view)
-	@GetMapping("list")
-	public String list(Model model) {
-		
-		List<NoticeVo> voList = service.list();
-		model.addAttribute("noticeVoList" , voList);
-		
-		return "notice/list";
-	}
+//	@GetMapping("list")
+//	public String list(Model model) {
+//		
+//		List<NoticeVo> voList = service.list();
+//		model.addAttribute("noticeVoList" , voList);
+//		
+//		return "notice/list";
+//	}
 	
 	//공지사항 목록조회 (data)
-	@GetMapping
+	@GetMapping("list")
 	@ResponseBody
 	public List<NoticeVo> restList(){
-		List<NoticeVo> voList = service.list();
-		return voList;
+		return service.list();
 	}
 	
 	//공지사항 상세조회

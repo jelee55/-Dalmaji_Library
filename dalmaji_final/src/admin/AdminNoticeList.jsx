@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeListDiv = styled.div`
@@ -24,14 +24,18 @@ const StyledNoticeListDiv = styled.div`
 
 const AdminNoticeList = () => {
 
+    console.log("AdminNoticeList 컴포넌트 렌더링 ~~~");
+
+    const Navigate = useNavigate();
+    
+
+
     //fetch 를 이용해서 데이터 준비
     const [AdminNoticeVoList,setAdminNoticeVoList] = useState([]);
     const loadAdminNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/admin/notice/list")
         .then( resp => resp.json() )
-        .then((data) => {
-            console.log(data);
-            setAdminNoticeVoList(data);})
+        .then( (x) => { setAdminNoticeVoList(x); })
         ;
     }
 

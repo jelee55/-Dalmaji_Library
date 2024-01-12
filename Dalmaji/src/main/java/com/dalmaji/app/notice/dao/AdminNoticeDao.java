@@ -17,7 +17,6 @@ public class AdminNoticeDao {
 
 	//공지사항 목록조회
 	public List<AdminNoticeVo> list(SqlSessionTemplate sst) {
-		List<AdminNoticeVo> adminNoticeVo = sst.selectList("AdminNoticeMapper.list");
 		return sst.selectList("AdminNoticeMapper.list");
 	}
 
