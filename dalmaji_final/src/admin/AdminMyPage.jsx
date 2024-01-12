@@ -71,14 +71,24 @@ const AdminMyPage = () => {
 
     //fetch 이용해 데이터 준비
     const loadAdminBorrowVoList = (page) => {
+
+        //currentPage가 undefined일 경우 기본값 1을 사용
+        page = page || 1;
+
         // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
-        fetch(`http://127.0.0.1:8888/app/admin/borrow/list?page=${page}`)
+        fetch(`http://127.0.0.1:8888/app/admin/borrow/list?currentPage=${page}`, {
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+        })
         .then( resp => resp.json() )
         .then( (data) => {
-            console.log(data) 
-            setAdminBorrowVoList(data.list); //데이터 저장
-            setCurrentPage(data.currentPage); //현재 페이지 번호 저장
-            setTotalPages(data.totalPages); //총 페이지 수 저장
+            console.log('voList' , data.voList);
+            setAdminBorrowVoList(data.voList); //데이터 저장
+            setCurrentPage(data.pvo.currentPage); //현재 페이지 번호 저장
+            setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
+            console.log('data' , data);
         } )
         ;
     }
@@ -118,13 +128,13 @@ const AdminMyPage = () => {
                     </thead>
                     <tbody>
                         {
-                            adminBorrowVoList.length === 0
+                            adminBorrowVoList && adminBorrowVoList.length === 0
                             ?
                             (<tr>
                                 <td colSpan="12">로딩중...</td>
                             </tr>)
                             :
-                            adminBorrowVoList.map( vo => <tr key={vo.overdueNo}>
+                            adminBorrowVoList && adminBorrowVoList.map( vo => <tr key={vo.overdueNo}>
                                 <td>{vo.overdueNo}</td>
                                 <td>{vo.bookNo}</td>
                                 <td>{vo.title}</td>
