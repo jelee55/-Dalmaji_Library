@@ -26,7 +26,7 @@ const StyledTopMenu = styled.div`
     }
 
     & > a > div > img {
-        width: 95px;
+        width: 150px;
         height: 95px;
         //img를 중앙에 오도록 하려면 일단 block 요인으로 만들어야함.
         display: block;
@@ -76,7 +76,7 @@ const Header = () => {
             <StyledTopMenu>
                 <div></div>
                 <Link to='/'>
-                <div><img src="/images/header/logo.png" alt="logo" /></div>
+                <div><img src="/images/header/newlogo.png" alt="logo" /></div>
                 </Link>
                 <div>
                     <input type='search' name='search' placeholder='검색어를 입력하세요.'></input>
