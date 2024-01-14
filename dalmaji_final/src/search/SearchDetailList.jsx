@@ -4,13 +4,37 @@ import styled from 'styled-components';
 const StyledDetailListDiv = styled.div`
     width: 100%;
     height: 100%;
-& > table{
-    width: 80%;
+    display: grid;
+    place-items: center center;
+    background-color: red;
+& > div {
+    width: 100%;
     height: 100%;
+    margin: auto;
+    background-color: blue;
 }
+& > form {
+        width: 60%;
+        height: 80%;
+        /* border: 2px solid black; */
+        /* background-color: beige; */
+}        
+& > div > button {
+        width: 100px;
+        height: 35px;
+        border-radius: 12px;
+        background-color: navy;
+        color: white;
+        font-family: 'Pretendard';
+        font-weight: 700;
+        font-size: 16px;
+       }
+
 `;
 
 const SearchDetailList = () => {    
+   
+
     //fetch 이용해 데이터 준비
     const [bookVoList, setBookVoList] = useState([]);
     const loadBookVoList = () => {
@@ -29,32 +53,24 @@ const SearchDetailList = () => {
 
 
     return (
+        
         <StyledDetailListDiv>
-        <form>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>제목</td>
-                        <td><input type="text" name='title'/></td>
-                    </tr>
-                    <tr>
-                        <td>작가</td>
-                        <td><input type="text" name='author'/></td>
-                    </tr>
-                    <tr>
-                        <td>출판사</td>
-                        <td><input type="text" name='company' /></td>
-                    </tr>
-                    <tr>
-                        <td><button>검색</button></td>
-                    </tr>
-                </tbody>
-            </table>
+        <form >
+            <div>
+                <div className='title'>제목</div>
+                <div><input type="text" name='title' /></div>
+                <div className='author'>작성자</div>
+                <div><input type="text" name='author' /></div>
+                <div className='company'>출판사</div>
+                <div><input type="text" name='company' /></div>
+                <div><button type='button'>검색</button></div>
+                <div><button type='button'>다시쓰기</button></div>
+           </div>
         </form>
 
 
 
-        <form>
+        {/* <form>
         <table>
             <thead>
                 <tr>
@@ -89,7 +105,7 @@ const SearchDetailList = () => {
                 
             </tbody>
         </table>
-        </form>
+        </form> */}
     </StyledDetailListDiv>
     );
 };
