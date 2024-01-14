@@ -70,6 +70,11 @@ const AdminMyPage = () => {
     const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
+    const [oNo, setONo] = useState();
+
+    const handleChangeRestriction = (e) => {
+        setONo(e.target.value);
+    };
 
     //fetch 이용해 데이터 준비
     const loadAdminBorrowVoList = (page) => {
@@ -85,10 +90,8 @@ const AdminMyPage = () => {
         .then( (data) => {
             console.log('voList' , data.voList);
             setAdminBorrowVoList(data.voList); //데이터 저장
-            // setCurrentPage(data.pvo.currentPage); //현재 페이지 번호 저장
             setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
             console.log('data' , data);
-            // console.log();
         } )
         ;
     }
@@ -151,15 +154,11 @@ const AdminMyPage = () => {
                                 <td>{vo.overdueCount}</td>
                                 <td>{vo.bookState}</td>
                                 <td className='restriction'>
-                                    {vo.borrowYn}
-                                    {/* <div className='dropdown'>
-                                        <button className='dropdown-btn'>변경</button>
-                                        <div className='dropdown-content'>
-                                            <p onClick={ () => handleDropDownClick('정상이용')}>정상이용</p>
-                                            <p onClick={ () => handleDropDownClick('30일 대출금지')}>30일 대출금지</p>
-                                            <p onClick={ () => handleDropDownClick('이용금지')}>이용금지</p>
-                                        </div>
-                                    </div> */}
+                                    <select defaultValue={vo.bOption}>
+                                        <option value={`vo.oNo = ${1}`} onChange={handleChangeRestriction}>정상이용</option>
+                                        <option value={`vo.oNo = ${2}`}>30일 대출금지</option>
+                                        <option value={`vo.oNo = ${3}`}>이용금지</option>
+                                    </select>
                                 </td>
                             </tr>
                             )

@@ -28,10 +28,10 @@ public class AdminBorrowController {
 	
 	// 대출 리스트 화면
 	@GetMapping("list")
-	public Map<String, Object> list(@RequestParam(value = "page", defaultValue = "1") int currentPage) {
-		int listCount = 10;
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage) {
+		int listCount = service.getTotalCount();
 		int pageLimit = 5;
-		int listLimit = 7;
+		int listLimit = 8;
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
 		List<AdminBorrowVo> voList = service.list(pvo);
 	
@@ -44,6 +44,16 @@ public class AdminBorrowController {
 		map.put("voList", voList);
 		map.put("pvo", pvo);
 		return map;
+	}
+	
+	// 대출 제한 상태 변경
+	@PostMapping("list")
+	public String edit (AdminBorrowVo vo) throws Exception {
+		int result = service.edit(vo);
+		if(result != 1) {
+			throw new Exception();
+		}
+		return "redirect:/admin/borrow/list";
 	}
 
 }//class
