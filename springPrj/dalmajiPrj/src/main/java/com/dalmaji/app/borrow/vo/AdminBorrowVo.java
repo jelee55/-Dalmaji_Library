@@ -12,6 +12,8 @@ public class AdminBorrowVo {
 	private String dueDate;
 	private String overdueCount;
 	private String bookState;
-	private String borrowYn;
+	private String bOption;
+	private String oNo;
+	
 	
 }
