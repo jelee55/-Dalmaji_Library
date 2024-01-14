@@ -17,7 +17,7 @@ const StyledMypageJoinDiv = styled.div`
         align-items: center;
         justify-content: center;
         margin-bottom: 100px;
-        /* background-color: red; */
+        /* background-color: re 5d; */
 
         & > img {
             height: 150px;
