@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDetailListDiv = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
+    /* grid-template-rows: 20% 60% 20%; */
     place-items: center center;
     background-color: red;
 & > div {
     width: 100%;
     height: 100%;
+}
+& > .header {
+    width: 80%;
+    height: 20%;
+    padding: 0%;
     margin: auto;
     background-color: blue;
+    display: grid;
+    place-items: center center;
+    
 }
+& > .header h1 {
+            border-bottom: 3px solid black;
+            width: 100%;
+
+        }
+& > .btn button {
+    /* display: flex;
+    justify-content: space-evenly;
+    color: yellow; */
+}     
 & > form {
         width: 60%;
         height: 80%;
         /* border: 2px solid black; */
         /* background-color: beige; */
-}        
-& > div > button {
-        width: 100px;
-        height: 35px;
-        border-radius: 12px;
-        background-color: navy;
-        color: white;
-        font-family: 'Pretendard';
-        font-weight: 700;
-        font-size: 16px;
-       }
 
+}
 `;
 
 const SearchDetailList = () => {    
@@ -55,6 +65,11 @@ const SearchDetailList = () => {
     return (
         
         <StyledDetailListDiv>
+            <div className='header'>
+            <div><h1>도서검색</h1></div>
+            <div className='btn'><Link to="/search/list"><button>전체보기</button></Link></div> 
+            <div className='btn'><Link to="/search/detaillist"><button>검색</button></Link></div> 
+        </div>
         <form >
             <div>
                 <div className='title'>제목</div>
@@ -63,49 +78,17 @@ const SearchDetailList = () => {
                 <div><input type="text" name='author' /></div>
                 <div className='company'>출판사</div>
                 <div><input type="text" name='company' /></div>
-                <div><button type='button'>검색</button></div>
-                <div><button type='button'>다시쓰기</button></div>
+                <div>
+                    <input type='submit' value="검색" title="검색" className='searhB'/>
+                    <input type='reset' value="다시쓰기"title="다시쓰기"/>
+                </div>
+                
            </div>
         </form>
 
 
 
-        {/* <form>
-        <table>
-            <thead>
-                <tr>
-                    <th> No.</th>
-                    <th> 제목</th>
-                    <th> 저자</th>
-                    <th> 발행처</th>
-                    <th> 발행년도</th>
-                    <th> 조회수</th>
-                    <th> 도서상태</th>
-                    <th> 상세조회</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    bookVoList.length === 0
-                    ?
-                    <h1>로딩중...</h1>
-                    :
-                    bookVoList.map(vo =><tr key={vo.bookNo}>
-                    <td>{vo.bookNo}</td>
-                    <td>{vo.title}</td>
-                    <td>{vo.author}</td>
-                    <td>{vo.company}</td>
-                    <td>{vo.publisherYear}</td>
-                    <td>{vo.cont}</td>
-                    <td>{vo.bookState}</td>
-                    <td><link to="/" />상세조회</td>
-                </tr>
-                        )
-                }
-                
-            </tbody>
-        </table>
-        </form> */}
+      
     </StyledDetailListDiv>
     );
 };
