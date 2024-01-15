@@ -1,67 +1,85 @@
 package com.dalmaji.app.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.member.service.MemberService;
 import com.dalmaji.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("member")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class MemberController {
 	
 	private final MemberService service;
 	
 	//회원가입 (화면)
-	@GetMapping("member/join")
+	@GetMapping("join")
 	public String join() {
 		return "member/join";
 	}
 	
 	//회원가입
-	@PostMapping("member/join")
-	public String join(MemberVo vo) throws Exception {
-		int result = service.join(vo);
+	@PostMapping("join")
+	public Map<String, String> join(@RequestBody MemberVo vo) throws Exception {
+			
+			Thread.sleep(3000);
+			
+			System.out.println("fetch 통해서 받은 데이터 : " + vo);
+			int result = service.join(vo);
+			
+			Map<String, String> map = new HashMap<String, String>();
+			if(result == 1) {
+				map.put("msg", "good");
+			} else {
+				map.put("msg", "bad");
+			}
+			
+			return map;
 		
-		if(result != 1) {
-			throw new Exception();
-		}
-		
-		return "redirect:/home";	//회원가입 성공시 홈페이지로 redirect
 	}
 	
 	
 	//로그인
 	@PostMapping("login")
-	public String login(MemberVo vo, HttpSession session) throws Exception {
-		
+	public Map<String, String> login(@RequestBody MemberVo vo, HttpSession session) throws Exception {
+		System.out.println(vo);
 		MemberVo loginMember = service.login(vo);
 		
-		if(loginMember == null) {
-			throw new Exception("로그인 실패");
-		}
+//		if(loginMember == null) {
+//			throw new Exception("로그인 실패");
+//		}
 		
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("alerMsg", "로그인 성공!");
-		
-		return "redirect:/home";
+		Map<String , String> map = new HashMap<>();
+		map.put("msg", "good");
+		if(loginMember == null) {
+			map.put("msg", "bad");
+		}
+		return map;
 			
 	}
 	
 	
 	//회원 정보 수정
 	@PostMapping("edit")
-	public String edit(MemberVo vo) throws Exception {
+	public String edit(@RequestBody MemberVo vo) throws Exception {
 		int result = service.edit(vo);
 		
 		if(result != 1) {
