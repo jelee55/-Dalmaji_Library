@@ -1,5 +1,8 @@
 package com.dalmaji.app.borrow.vo;
 
+import lombok.Data;
+
+@Data
 public class AdminBorrowVo {
 	private String overdueNo;
 	private String bookNo;

@@ -35,8 +35,6 @@ public class AdminBorrowController {
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
 		List<AdminBorrowVo> voList = service.list(pvo);
 	
-		System.out.println("voList ::: " + voList);
-		
 		for( AdminBorrowVo vo : voList) {
 			System.out.println(vo);
 		}
@@ -47,13 +45,16 @@ public class AdminBorrowController {
 	}
 	
 	// 대출 제한 상태 변경
-	@PostMapping("list")
-	public String edit (AdminBorrowVo vo) throws Exception {
+	@PostMapping("edit")
+	public String edit (@RequestBody AdminBorrowVo vo) throws Exception {
+		System.out.println("memberNo:::" + vo.getMemberNo());
+		System.out.println("oNo:::" + vo.getONo());
 		int result = service.edit(vo);
+		System.out.println("vo 출력하기" + vo);
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/admin/borrow/list";
+		return "/admin/borrow/list";
 	}
 
 }//class
