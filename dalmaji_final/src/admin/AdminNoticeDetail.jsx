@@ -79,7 +79,7 @@ const StyledNoticeDetailDiv = styled.div`
                         height: 500px;
                         margin-left: 24px;
                         margin-bottom: 15px;
-                        border-bottom: 1.5px solid;
+                        /* border-bottom: 1.5px solid; */
                         /* background-color: red; */
                     
                             & > .content{
@@ -97,7 +97,7 @@ const StyledNoticeDetailDiv = styled.div`
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        margin-top: 30px;
+                        margin-top: 50px;
                         /* background-color: yellowgreen; */
                     }
 
@@ -113,15 +113,9 @@ const StyledNoticeDetailDiv = styled.div`
                     }
                     
                 }       
-
                 
-    
             }
-
-        }
-
-        
-`;
+`; 
 
 const AdminNoticeDetail = () => {
 
