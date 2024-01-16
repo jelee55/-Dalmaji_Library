@@ -77,14 +77,18 @@ const AdminMyPage = () => {
         memberNo: "",
     });
 
+    const [adminBorrowVo, setAdminBorrowVo] = useState([]);
+
     const navigate = useNavigate();
 
     const handleChangeRestriction = (e) => {
+        const selectedValue = parseInt(e.target.value);
         console.log(e.target.value);
-        setVo(parseInt(e.target.value));
+        // setVo(parseInt(e.target.value));
         setVo({
-            "oNo": e.target.value,
-            "memberNo": e.target.value,
+            ...vo,
+            "oNo": selectedValue, // 수정
+            "memberNo": selectedValue,//수정
         })
         // updateRestriction(vo);
     };
@@ -92,6 +96,7 @@ const AdminMyPage = () => {
     useEffect(() =>{
         updateRestriction();
     },[vo])
+    
     //fetch 이용해 데이터 준비 (페이지 처리)
     const loadAdminBorrowVoList = (page) => {
 
@@ -112,29 +117,22 @@ const AdminMyPage = () => {
         ;
     }
 
-    
-
-    // 제한사항부분 업데이트
-    function updateRestriction() {
-        console.log(vo);
+    const updateRestriction = (updatedVo) => { 
+        console.log(updatedVo);
         fetch("http://127.0.0.1:8888/app/admin/borrow/edit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(vo)
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedVo)
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Update successful', data);
-          loadAdminBorrowVoList(currentPage);
-          navigate("/admin/borrow/list")
-        })
-        .catch((error) => {
-          console.error('Error:', error);
+            console.log('vo', data.vo);
+            setAdminBorrowVo(data.vo);
+            navigate("/admin/borrow/list");
         });
-      }
-
+    }
 
     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
     const handlerClickPageNum = (page) => {
@@ -197,9 +195,16 @@ const AdminMyPage = () => {
                                 <td>{vo.bookState}</td>
                                 <td className='restriction'>
                                     <select defaultValue={vo.bOption}  onChange={handleChangeRestriction}>
+                                        {
+                                            adminBorrowVo && adminBorrowVo.length === 0
+                                            ?
+                                            <option value="로딩중">로딩중...</option>
+                                            :
+                                            adminBorrowVo && adminBorrowVo.map(vo => (
+                                                <option key={vo.overdueNo} value="1">{vo.bOption}</option>
+                                            ))
+                                        }
                                         <option value="1">정상이용</option>
-                                        <option value="2">30일 대출금지</option>
-                                        <option value="3">이용금지</option>
                                     </select>
                                 </td>
                             </tr>
