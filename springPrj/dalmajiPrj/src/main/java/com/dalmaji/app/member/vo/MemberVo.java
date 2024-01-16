@@ -6,11 +6,13 @@ import lombok.Data;
 public class MemberVo {
 
 	private String no;
+	private String oNo;
 	private String id;
 	private String pwd;
-	private String nick;
+	private String name;
 	private String phone;
 	private String borrowPwd;
+	private String overdueCount;
 	private String joinDate;
 	private String delYn;
 }

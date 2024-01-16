@@ -6,80 +6,206 @@ import styled from 'styled-components';
 const StyledNoticeListDiv = styled.div`
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    & > table {
-        width: 80%;
-        height: 80%;
-        border: 3px solid black;
+    display: grid;
+    grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
+    place-items: center center;
+    padding: 3%;
+    & > div {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center center;
     }
-    & > button {
-        width: 30%;
-        font-size: 2rem;
+
+    & > .table > table {
+        text-align: center;
+        width: 85%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-collapse: collapse;
+        & > thead > tr {
+            width: 100%;
+            height: 55px;
+        }
+        & > thead > tr > th {
+            margin: 0;
+            padding: 0;
+            background-color:  #2f2f49;
+            color: white;
+            border: 2px solid white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        & > tbody > tr {
+            width: 100%;
+            height: 55px;
+        }
+        & > tbody > tr > td {
+            margin: 0;
+            padding: 0;
+            background-color: #F8F4EC;
+            border: 2px solid white;
+        }
+    }
+    & > .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        & > button {
+            border: none;
+            border-radius: 20px;
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     }
 `;
 
 
 const NoticeList = () => {
 
-    console.log("AdminNoticeList 컴포넌트 렌더링 ~~~");
+    console.log("AdminNoticeList 컴포넌트 렌더링");
+        const [noticeListVoList, setnoticeListVoList] = useState([]);
+        const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
+        const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
+        const [oNo, setONo] = useState();
+        const [vo, setVo] = useState({
+            oNo: "",
+            memberNo: "",
+        });
 
-    const Navigate = useNavigate();
+        const [noticeListVo, setnoticeListVo] = useState([]);
+
+        const navigate = useNavigate();
+    //  const Navigate = useNavigate();
     
-
-
-    //fetch 를 이용해서 데이터 준비
-    const [NoticeVoList,setNoticeVoList] = useState([]);
-    const loadNoticeVoList = () => {
-        fetch("http://127.0.0.1:8888/app/notice/list")
-        .then( resp => resp.json() )
-        .then( (x) => { setNoticeVoList(x); })
-        ;
-    }
+    // const handleChangeRestriction = (e) => {
+    //     const selectedValue = parseInt(e.target.value);
+    //     console.log(e.target.value);
+    //     // setVo(parseInt(e.target.value));
+    //     setVo({
+    //         ...vo,
+    //         "oNo": selectedValue, // 수정
+    //         "memberNo": selectedValue,//수정
+    //     })
+    //     // updateRestriction(vo);
+    // };
 
     useEffect(()=>{
         console.log("useEffect 호출됨~");
         loadNoticeVoList();
     }, []);
 
+    //fetch 이용해 데이터 준비 (페이지 처리)
+    // const [NoticeVoList,setNoticeVoList] = useState([]);
+    const loadNoticeVoList = (page) => {
+        
+        // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
+        fetch(`http://127.0.0.1:8888/app/notice/list?currentPage=${page}` , {
+            method: "GET" ,
+            headers: {
+                "Content-Type" : "application/json",
+            },
+        })
+        .then( resp => resp.json() )
+        .then( (data) => {
+            console.log('voList' , data.voList);
+            setnoticeListVoList(data.voList); //데이터 저장
+            setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
+            console.log('data' , data);
+        })
+        ;
+    }
+
+    // const updateRestriction = (updatedVo) => { 
+    //     console.log(updatedVo);
+    //     fetch("http://127.0.0.1:8888/app/notice/list/edit", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(updatedVo)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('vo', data.vo);
+    //         setnoticeListVo(data.vo);
+    //         navigate("/notice/list");
+    //     });
+    // }
+
+    //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
+    const handlerClickPageNum = (page) => {
+        console.log(`page = ${page}`);
+        setCurrentPage(page);  //페이지 변경 요청 수행
+    }
+
+    useEffect( () => {
+        loadNoticeVoList(currentPage); //현재 페이지의 목록 불러오기
+    }, [currentPage] );
+    
+    useEffect( () => {
+        console.log(noticeListVoList);
+    }, [noticeListVoList] );
+    
+
+    
+
 
     return (
         <StyledNoticeListDiv>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                        NoticeVoList.length === 0
-                        ?
-                        (<tr>
-                            <td colSpan="5">로딩중...</td>
-                        </tr>)
-                        :
-                        NoticeVoList.map( vo => <tr key={vo.no}>
-                                <td>{vo.no}</td>
-                                <td>{vo.title}</td>
-                                <td>{vo.adminNo}</td>
-                                <td>{vo.enrollDate}</td>
-                                <td>{vo.hit}</td>
-                            </tr>
-                             )
-                    }
-                </tbody>
-            </table>
+            <div></div>
+            <div className='notice_title'><h1>공지사항</h1></div>
+            <div className='search'>검색기능</div>
+            <div className='table'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                            noticeListVoList.length === 0
+                            ?
+                            (<tr>
+                                <td colSpan="4">로딩중...</td>
+                            </tr>)
+                            :
+                            noticeListVoList.map( vo => <tr key={vo.no}>
+                                    <td>{vo.no}</td>
+                                    <td>{vo.title}</td>
+                                    <td>{vo.enrollDate}</td>
+                                    <td>{vo.hit}</td>
+                                </tr>
+                                )
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div className='pagination'>
+                {totalPages 
+                ? 
+                (
+                    Array.from({length: totalPages}, (_, i) =>
+                        <button
+                            key={`page_button_${i}`}
+                            onClick={() => handlerClickPageNum(i + 1)}
+                            disabled={currentPage === i+1}
+                        >
+                            {i + 1}
+                        </button>
+                    )) 
+                : 
+                null
+                }
+            </div>
            
-                <button onClick={ () => {
-                    Navigate("/notice/list");
-                }}>작성하기</button>
 
         </StyledNoticeListDiv>
     );

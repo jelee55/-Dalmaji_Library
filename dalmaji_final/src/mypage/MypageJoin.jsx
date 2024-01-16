@@ -185,6 +185,12 @@ const MypageJoin = () => {
         });
     }
     const handleJoinSubmit = (event) => {
+        event.preventDefault();
+
+        //작업을 해도되나 안해도되나 검사하는 작업
+        if(isFetching){
+            return;
+        }
 
         //작업시작
         isFetching = true;
@@ -229,18 +235,20 @@ const MypageJoin = () => {
             <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
                 <form onSubmit={ handleJoinSubmit }>
                 <div className='none1'></div>
+                <div className='name'>이름</div>
+                <div className='nameinput'><input type="text" name='name' placeholder='이름을 입력하세요'  onChange={handleInputChange}/></div>
+                <div className='none2'></div>
                 <div className='id'>아이디</div>
                 <div className='idinput'><input type="text" name='id' placeholder='아이디를 입력하세요'  onChange={handleInputChange} /></div>
                 <div className='none2'></div>
                 <div className='pwd'>비밀번호</div>
                 <div className='pwdinput'><input type="password" name='pwd' placeholder='비밀번호를 입력하세요'  onChange={handleInputChange} /></div>
                 <div className='none2'></div>
-                <div className='name'>이름</div>
-                <div className='nameinput'><input type="text" name='name'  onChange={handleInputChange}/></div>
-                <div className='none2'></div>
                 <div className='phone'>휴대폰번호</div>
-                <div className='phoneinput'><input type="text" name="phone"  onChange={handleInputChange} /></div>
-
+                <div className='phoneinput'><input type="text" name="phone"  placeholder='하이픈(-) 까지 모두 입력' onChange={handleInputChange} /></div>
+                <div className='none2'></div>
+                <div className='phone'>대출 비밀번호 설정</div>
+                <div className='phoneinput'><input type="pwd" name="borrowPwd" placeholder='대출 시 입력할 비밀번호 4자리를 입력하세요'  onChange={handleInputChange} /></div>
                 <div className='none2'></div>
                 <div className='joinbutton'><input type="submit" value="가입하기" /></div>
                 <div className='resetbutton'><button type='reset'>초기화</button></div>
