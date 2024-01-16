@@ -13,7 +13,7 @@
 			, ID
 			, PWD
 			, PHONE
-			, 0_NO
+			, BORROW_PWD
 		) 
 		VALUES
 		(
@@ -22,7 +22,7 @@
 			, #{id}
 			, #{pwd}
 			, #{phone}
-			, #{o_no}
+			, #{borrowPwd}
 		) 
 	</insert>
 	

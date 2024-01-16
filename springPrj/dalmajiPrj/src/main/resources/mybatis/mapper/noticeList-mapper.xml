@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NoticeListMapper">
+  
+  <select id="list" resultType="com.dalmaji.app.notice.vo.NoticeVo">
+  	SELECT
+    NO
+    , TITLE
+    , ENROLL_DATE
+    , HIT
+	FROM NOTICE
+	WHERE DEL_YN = 'N'
+	ORDER BY NO DESC
+  </select>
+  
+  <select id="count" resultType="String">
+ 	SELECT COUNT(*) AS LISTCOUNT
+	FROM OVERDUE O
+	JOIN BORROW B ON B.BORROW_NO = O.BORROW_NO 
+	JOIN BOOK_STATUS S ON S.STATUS_NO = O.STATUS_NO
+	JOIN BOOK_LIST L ON L.BOOK_NO = B.BOOK_NO
+	JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
+	WHERE M.DEL_YN = 'N'
+  </select>
+  
+  <update id="edit">
+  	UPDATE MEMBER
+	    SET O_NO = #{oNo}
+	WHERE MEMBER_NO = #{memberNo}
+  </update>
+  
+  
+</mapper>

@@ -27,55 +27,38 @@ const StyledNoticeWriteDiv = styled.div`
                 align-items: center;
                 margin: auto;
                 margin-top: 3%;
-                justify-content: flex-start;
-                border-bottom: 2px solid black;
+                justify-content: center;
+                /* border-bottom: 2px solid black; */
                 font-size:24px;
                 font-weight: bolder;
                 /* background-color: greenyellow; */
             }
 
             & > .none1 {
-                height: 5%;
+                height: 3%;
                 /* background-color: yellow; */
             }
 
             & > form {
-                width: 1000px;
+                width: 65%;
                 height: 80%;
                 margin: auto;
                 border: 2px solid black;
                 /* background-color: beige; */
 
-                & > .dropdown_head {    
-                    width: 80%;
-                    height: 10%;
+                & > .title {    
+                    width: 100%;
+                    height: 15%;
                     margin: auto;
                     margin-top: 20px;
-                    /* background-color: greenyellow; */
+                    background-color: greenyellow;
 
-                    &> .date {
+                    & > .title > dl {
+                        display: inline-block;
                         width: 50%;
-                        height: 50%;
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
-                        margin-top: 10px;
-                        margin-left: 10%;
-                        font-size: 15px;
-                        /* background-color: azure; */
-                        }
-        
-                    & > .notice_title{
-                        /* width: 50%;
-                        height: 50%; */
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
-                        margin: auto;
-                        /* margin-left: 10%; */
-                        /* background-color: aqua; */
-                        }
+                        vertical-align: middle;
                     }
+                }
 
                     & > .none2 {
                     height: 4%;
@@ -127,13 +110,13 @@ const AdminNoticeWrite = () => {
         <StyledNoticeWriteDiv>
             <div className='notice_wrap'>
                 <div className='notice'>공지사항</div>
-                <div className='none1'>빈칸</div>
+                <div className='none1'></div>
                 <form action="">
-                    <div className="dropdown_head">
-                        <div className="date">2024.01.14</div>
-                        <div className="notice_title">
-                            <textarea name="ntitle" id="notice_title" cols="300" rows="5"></textarea>
-                        </div>
+                    <div className="title">
+                        <dl>
+                            <dt>제목</dt>
+                            <dd><input type="text" id='title' placeholder='제목 입력' /></dd>
+                        </dl>
                     </div>
                     <div className='none2'></div>
                     <div className="content">
