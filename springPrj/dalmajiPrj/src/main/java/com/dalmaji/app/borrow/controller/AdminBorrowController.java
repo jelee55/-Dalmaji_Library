@@ -46,11 +46,11 @@ public class AdminBorrowController {
 	
 	// 대출 제한 상태 변경
 	@PostMapping("edit")
-	public String edit (@RequestBody AdminBorrowVo vo) throws Exception {
-		System.out.println("memberNo:::" + vo.getMemberNo());
-		System.out.println("oNo:::" + vo.getONo());
-		int result = service.edit(vo);
-		System.out.println("vo 출력하기" + vo);
+	public String edit (@RequestBody AdminBorrowVo updatedVo) throws Exception {
+		System.out.println("memberNo:::" + updatedVo.getMemberNo());
+		System.out.println("oNo:::" + updatedVo.getONo());
+		int result = service.edit(updatedVo);
+		System.out.println("updatedVo 출력하기" + updatedVo);
 		if(result != 1) {
 			throw new Exception();
 		}

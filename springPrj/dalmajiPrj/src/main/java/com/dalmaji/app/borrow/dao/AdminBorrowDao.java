@@ -33,8 +33,8 @@ public class AdminBorrowDao {
 	}
 
 	// 대출 제한 상태 변경
-	public int edit(AdminBorrowVo vo, SqlSessionTemplate sst) {
-		return sst.update("AdminBorrowListMapper.edit", vo);
+	public int edit(AdminBorrowVo updatedVo, SqlSessionTemplate sst) {
+		return sst.update("AdminBorrowListMapper.edit", updatedVo);
 	}
 	
 }
