@@ -25,8 +25,8 @@ const StyledNoticeWriteDiv = styled.div`
                 height: 10%;
                 display: flex;
                 align-items: center;
+                margin: auto;
                 margin-top: 3%;
-                margin-left: 20%;
                 justify-content: flex-start;
                 border-bottom: 2px solid black;
                 font-size:24px;
@@ -42,13 +42,15 @@ const StyledNoticeWriteDiv = styled.div`
             & > form {
                 width: 1000px;
                 height: 80%;
-                margin-left: 20%;
+                margin: auto;
                 border: 2px solid black;
                 /* background-color: beige; */
 
                 & > .dropdown_head {    
-                    width: 100%;
+                    width: 80%;
                     height: 10%;
+                    margin: auto;
+                    margin-top: 20px;
                     /* background-color: greenyellow; */
 
                     &> .date {
@@ -64,12 +66,13 @@ const StyledNoticeWriteDiv = styled.div`
                         }
         
                     & > .notice_title{
-                        width: 50%;
-                        height: 50%;
+                        /* width: 50%;
+                        height: 50%; */
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
-                        margin-left: 10%;
+                        margin: auto;
+                        /* margin-left: 10%; */
                         /* background-color: aqua; */
                         }
                     }
@@ -82,15 +85,29 @@ const StyledNoticeWriteDiv = styled.div`
                     
                     & > .content{
                         height: 60%;
-                        width: 100%;
-                        display: flex;
+                        width: 80%;
+                        margin: auto;
+                        border: 1px solid gray;
                         justify-content: center;
-                        /* border: 1px solid black; */
-                        /* background-color: lightgray; */
 
-                        & > .content > textarea {
+                        & > textarea {
+                            height: 100%;
+                            width: 100%;
+                            /* background-color: lightgray; */
                         }
-                    }       
+                    } 
+                    
+                    & > .update {
+                        /* height: 35px; */
+                        display: flex;
+                        margin-top: 40px;
+                        background-color: yellow;
+
+                        .update > ul{
+                            display: inline-flex;
+                            margin-left: 90%;
+                        }
+                    }
 
                 
     
@@ -114,11 +131,19 @@ const AdminNoticeWrite = () => {
                 <form action="">
                     <div className="dropdown_head">
                         <div className="date">2024.01.14</div>
-                        <div className="notice_title">[공지] 유저에게 알리는 소식</div>
+                        <div className="notice_title">
+                            <textarea name="ntitle" id="notice_title" cols="300" rows="5"></textarea>
+                        </div>
                     </div>
                     <div className='none2'></div>
                     <div className="content">
-                        <textarea name="content" id="content" cols="120" rows="30"></textarea>
+                    <textarea name="content" id="content" cols="120" rows="30" placeholder=' 내용을 입력하세요'></textarea>
+                    </div>
+                    <div className="update">
+                        <ul>
+                            <li id="update_detail"><input type="submit" value="올리기" /></li>
+                            <li id="update_detail"><input type="submit" value="취소" /></li>
+                        </ul>
                     </div>
                 </form>
             </div>

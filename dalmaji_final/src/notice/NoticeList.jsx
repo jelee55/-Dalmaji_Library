@@ -58,10 +58,12 @@ const NoticeList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                {
                         NoticeVoList.length === 0
                         ?
-                        <h1>로딩중...</h1>
+                        (<tr>
+                            <td colSpan="5">로딩중...</td>
+                        </tr>)
                         :
                         NoticeVoList.map( vo => <tr key={vo.no}>
                                 <td>{vo.no}</td>

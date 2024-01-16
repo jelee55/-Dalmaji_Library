@@ -61,7 +61,9 @@ const AdminNoticeList = () => {
                     {
                         AdminNoticeVoList.length === 0
                         ?
-                        <h1>로딩중...</h1>
+                        (<tr>
+                            <td colSpan="5">로딩중...</td>
+                        </tr>)
                         :
                         AdminNoticeVoList.map( vo => <tr key={vo.no}>
                                 <td>{vo.no}</td>
@@ -70,7 +72,7 @@ const AdminNoticeList = () => {
                                 <td>{vo.enrollDate}</td>
                                 <td>{vo.hit}</td>
                             </tr>
-                             )
+                            )
                     }
                 </tbody>
             </table>

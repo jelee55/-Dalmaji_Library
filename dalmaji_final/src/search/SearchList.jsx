@@ -93,8 +93,8 @@ const SearchList = () => {
         <StyledSearchListDiv>
         <div className='header'>
             <div><h1>도서검색</h1></div>
-            <button>전체보기</button>
-            <button>검색</button>
+            <Link to="/search/list"><button>전체보기</button></Link>
+            <Link to="/search/detaillist"><button>검색</button></Link>
         {/* <ul>
             <li><a>전체보기</a></li>
             <li><a>검색</a></li>

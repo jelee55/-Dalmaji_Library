@@ -18,8 +18,8 @@ const AdminMain = () => {
             <Route path='/delete/*' element={<SearchAdminDelete />}></Route>
             <Route path='/notice/list/*' element={<AdminNoticeList />}></Route>
             <Route path='/notice/write/*' element={<AdminNoticeWrite />}></Route>
-            <Route path='/notice/edit/*' element={<AdminNoticeEdit />}></Route>
             <Route path='/notice/detail/*' element={<AdminNoticeDetail />}></Route>
+            <Route path='/notice/edit/*' element={<AdminNoticeEdit />}></Route>
         </Routes>
     );
 };

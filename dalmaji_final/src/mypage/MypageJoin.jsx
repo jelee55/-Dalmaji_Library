@@ -185,12 +185,6 @@ const MypageJoin = () => {
         });
     }
     const handleJoinSubmit = (event) => {
-        event.preventDefault();
-
-        //작업을 해도되나 안해도되나 검사하는 작업
-        if(isFetching){
-            return;
-        }
 
         //작업시작
         isFetching = true;
@@ -246,9 +240,7 @@ const MypageJoin = () => {
                 <div className='none2'></div>
                 <div className='phone'>휴대폰번호</div>
                 <div className='phoneinput'><input type="text" name="phone"  onChange={handleInputChange} /></div>
-                <div className='none2'></div>
-                <div className='phone'>대출 비밀번호 설정</div>
-                <div className='phoneinput'><input type="pwd" name="borrow_pwd"  onChange={handleInputChange} /></div>
+
                 <div className='none2'></div>
                 <div className='joinbutton'><input type="submit" value="가입하기" /></div>
                 <div className='resetbutton'><button type='reset'>초기화</button></div>

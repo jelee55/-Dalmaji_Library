@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const StyledAdminBorrowListDiv = styled.div`
     width: 100%;
@@ -71,12 +72,27 @@ const AdminMyPage = () => {
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
     const [oNo, setONo] = useState();
+    const [vo, setVo] = useState({
+        oNo: "",
+        memberNo: "",
+    });
+
+    const navigate = useNavigate();
 
     const handleChangeRestriction = (e) => {
-        setONo(e.target.value);
+        console.log(e.target.value);
+        setVo(parseInt(e.target.value));
+        setVo({
+            "oNo": e.target.value,
+            "memberNo": e.target.value,
+        })
+        // updateRestriction(vo);
     };
 
-    //fetch 이용해 데이터 준비
+    useEffect(() =>{
+        updateRestriction();
+    },[vo])
+    //fetch 이용해 데이터 준비 (페이지 처리)
     const loadAdminBorrowVoList = (page) => {
 
         // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
@@ -96,6 +112,30 @@ const AdminMyPage = () => {
         ;
     }
 
+    
+
+    // 제한사항부분 업데이트
+    function updateRestriction() {
+        console.log(vo);
+        fetch("http://127.0.0.1:8888/app/admin/borrow/edit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vo)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Update successful', data);
+          loadAdminBorrowVoList(currentPage);
+          navigate("/admin/borrow/list")
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      }
+
+
     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
     const handlerClickPageNum = (page) => {
         console.log(`page = ${page}`);
@@ -109,6 +149,8 @@ const AdminMyPage = () => {
     useEffect( () => {
         console.log(adminBorrowVoList);
     }, [adminBorrowVoList] );
+    
+   
 
     return (
         <StyledAdminBorrowListDiv>
@@ -154,10 +196,10 @@ const AdminMyPage = () => {
                                 <td>{vo.overdueCount}</td>
                                 <td>{vo.bookState}</td>
                                 <td className='restriction'>
-                                    <select defaultValue={vo.bOption}>
-                                        <option value={`vo.oNo = ${1}`} onChange={handleChangeRestriction}>정상이용</option>
-                                        <option value={`vo.oNo = ${2}`}>30일 대출금지</option>
-                                        <option value={`vo.oNo = ${3}`}>이용금지</option>
+                                    <select defaultValue={vo.bOption}  onChange={handleChangeRestriction}>
+                                        <option value="1">정상이용</option>
+                                        <option value="2">30일 대출금지</option>
+                                        <option value="3">이용금지</option>
                                     </select>
                                 </td>
                             </tr>

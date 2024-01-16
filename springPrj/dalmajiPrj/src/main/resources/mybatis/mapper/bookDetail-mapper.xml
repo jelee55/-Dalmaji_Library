@@ -15,7 +15,7 @@
 		    , PUBLISHER_YEAR
 		    , BOOK_NO
 		FROM BOOK_LIST
-		WHERE BOOK_NO = '1'
+		WHERE BOOK_NO = #{bookNo}
 	</select>
 
 	
