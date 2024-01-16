@@ -33,11 +33,15 @@ const StyledSearchListDiv = styled.div`
             border-top-right-radius: 10px;
         }
     & > .header h1 {
-            border-bottom: 3px solid black;
-            width: 100%;
+        width: 100%;
+        
+        
+    }
+    & > .header > .border {
+        border-bottom: 3px solid black;
+        background-color: red;
 
-
-        }
+    }   
         
     & >  table th,
          table td{
@@ -92,7 +96,7 @@ const SearchList = () => {
     return (
         <StyledSearchListDiv>
         <div className='header'>
-            <div><h1>도서검색</h1></div>
+            <div className='border'><h1>도서검색</h1></div>
             <Link to="/search/list"><button>전체보기</button></Link>
             <Link to="/search/detaillist"><button>검색</button></Link>
         {/* <ul>
@@ -122,7 +126,7 @@ const SearchList = () => {
                     <th> 발행처</th>
                     <th> 발행년도</th>
                     <th> 조회수</th>
-                    <th> 도서상태</th>
+                    {/* <th> 도서상태</th> */}
                     <th> 상세조회</th>
                 </tr>
             </thead>
@@ -139,7 +143,7 @@ const SearchList = () => {
                     <td>{vo.company}</td>
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
-                    <td>{vo.bookState}</td>
+                    {/* <td>{vo.bookState}</td> */}
                     <td><Link to="/search/detail"><button >상세조회</button></Link></td>
                 </tr>
                         )

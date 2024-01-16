@@ -1,6 +1,8 @@
 package com.dalmaji.app.book.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.book.service.BookService;
 import com.dalmaji.app.book.vo.BookVo;
+import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,9 +30,21 @@ public class BookListController {
 	
 	//목록조회(no,제목,저자,발행처,발행년도,도서상태)
 	@GetMapping("list")
-	public List<BookVo>list(){
-		return service.list();
-	}
+	public Map<String, Object>list(@RequestParam(defaultValue = "1") int currentPage){
+		
+		int listCount = service.getTotalCount();
+		int pageLimit = 5;
+		int listLimit = 8;
+		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+		List<BookVo> voList = service.list(pvo);
+	
+		for( BookVo vo : voList) {
+			System.out.println(vo);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("voList", voList);
+		map.put("pvo", pvo);
+		return map;	}
 	
 	/*
 	 * //검색(제목 or 저자 or 출판사)
