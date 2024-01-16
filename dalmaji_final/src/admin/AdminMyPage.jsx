@@ -71,35 +71,33 @@ const AdminMyPage = () => {
     const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
-    const [oNo, setONo] = useState();
-    const [vo, setVo] = useState({
-        oNo: "",
-        memberNo: "",
-    });
-
-    const [adminBorrowVo, setAdminBorrowVo] = useState([]);
-
+    
+    const [optionList, setOptionList] = useState([]);
+    // const [vo, setVo] = useState({
+    //         ...vo,
+    //     });
+        
     const navigate = useNavigate();
-
-    const handleChangeRestriction = (e) => {
-        const selectedValue = parseInt(e.target.value);
-        console.log(e.target.value);
-        // setVo(parseInt(e.target.value));
-        setVo({
-            ...vo,
-            "oNo": selectedValue, // 수정
-            "memberNo": selectedValue,//수정
+    
+    // 제한사항 옵션용
+    const loadOptionList = () => {
+        fetch("http://127.0.0.1:8888/app/admin/borrow/option")
+        .then(resp => resp.json())
+        .then((data) => {
+            console.log('optionList', data.optionList);
+            setOptionList(data.optionList);
         })
-        // updateRestriction(vo);
-    };
-
+        ;
+    }
+        
     useEffect(() =>{
-        updateRestriction();
-    },[vo])
+        console.log('useEffect called....');
+        loadOptionList(optionList.bOption);
+    },[optionList.bOption])
     
     //fetch 이용해 데이터 준비 (페이지 처리)
     const loadAdminBorrowVoList = (page) => {
-
+        
         // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
         fetch(`http://127.0.0.1:8888/app/admin/borrow/list?currentPage=${page}`, {
             method: "GET",
@@ -116,40 +114,38 @@ const AdminMyPage = () => {
         } )
         ;
     }
-
-    const updateRestriction = (updatedVo) => { 
-        console.log(updatedVo);
-        fetch("http://127.0.0.1:8888/app/admin/borrow/edit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedVo)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('vo', data.vo);
-            setAdminBorrowVo(data.vo);
-            navigate("/admin/borrow/list");
-        });
-    }
-
+    
     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
     const handlerClickPageNum = (page) => {
         console.log(`page = ${page}`);
         setCurrentPage(page);  //페이지 변경 요청 수행
     }
-
+    
     useEffect( () => {
         loadAdminBorrowVoList(currentPage); //현재 페이지의 목록 불러오기
     }, [currentPage] );
     
     useEffect( () => {
-        console.log(adminBorrowVoList);
+        console.log("adminBorrowVoList", adminBorrowVoList);
     }, [adminBorrowVoList] );
-    
-   
+        
+    //제한사항 변경할 경우    
+    const updateRestriction = () => { 
+        fetch("http://127.0.0.1:8888/app/admin/borrow/edit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('msg', data.msg);
+            console.log("path", data.path);
+            navigate(data.path);
+        });
+    }
 
+    
     return (
         <StyledAdminBorrowListDiv>
             <div></div>
@@ -194,17 +190,16 @@ const AdminMyPage = () => {
                                 <td>{vo.overdueCount}</td>
                                 <td>{vo.bookState}</td>
                                 <td className='restriction'>
-                                    <select defaultValue={vo.bOption}  onChange={handleChangeRestriction}>
+                                    <select defaultValue={vo.bOption} onChange={updateRestriction}>
                                         {
-                                            adminBorrowVo && adminBorrowVo.length === 0
+                                            optionList && optionList.length === 0
                                             ?
                                             <option value="로딩중">로딩중...</option>
                                             :
-                                            adminBorrowVo && adminBorrowVo.map(vo => (
-                                                <option key={vo.overdueNo} value="1">{vo.bOption}</option>
+                                            optionList && optionList.map(vo => (
+                                                <option key={vo.oNo} value={vo.oNo}>{vo.bOption}</option>
                                             ))
                                         }
-                                        <option value="1">정상이용</option>
                                     </select>
                                 </td>
                             </tr>

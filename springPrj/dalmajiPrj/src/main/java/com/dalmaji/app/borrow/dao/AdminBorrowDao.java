@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.borrow.vo.OptionVo;
 import com.dalmaji.app.page.vo.PageVo;
 
 @Repository
@@ -33,8 +34,14 @@ public class AdminBorrowDao {
 	}
 
 	// 대출 제한 상태 변경
-	public int edit(AdminBorrowVo updatedVo, SqlSessionTemplate sst) {
-		return sst.update("AdminBorrowListMapper.edit", updatedVo);
+	public int edit(AdminBorrowVo vo, SqlSessionTemplate sst) {
+		System.out.println("dao에서의 vo" +vo);
+		return sst.update("AdminBorrowListMapper.edit", vo);
+	}
+
+	// 대출 제한 3가지 옵션 가져오기
+	public List<OptionVo> option(SqlSessionTemplate sst) {
+		return sst.selectList("AdminBorrowListMapper.option");
 	}
 	
 }

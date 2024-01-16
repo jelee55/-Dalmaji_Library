@@ -27,27 +27,27 @@ const StyledDetailContentDiv = styled.div`
 
 const SearchDetail = () => {
 
-    // const [bookDetailVo, setBookDetailVo] = useState([]);
+    // 사용할 변수 준비
+    const [bookDetailVo, setBookDetailVo] = useState([]);
 
-    // const loadBookDetailVo = () => {
-    //     fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${bookNo}`,{
-    //             method: "GET",
-    //                 headers: {
-    //                     "Content-Type" : "application/json",
-    //                 },
-    //         })
-    //     .then( resp => resp.json() )
-    //     .then( (data) => {
-    //         console.log(data)
-    //         setBookDetailVo(data);
-    //     } )
-    //     ;
-    // }
+    const loadBookDetailVo = (bookNo) => {
+        fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${bookNo}`,{
+                method: "GET",
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+            })
+        .then( resp => resp.json() )
+        .then( (data) => {
+            console.log(data);
+            setBookDetailVo(data);
+        } )
+        ;
+    }
 
-    // useEffect( () => {
-    //     loadBookDetailVo();
-    //     console.log(loadBookDetailVo);
-    // }, [] );
+    useEffect( () => {
+        loadBookDetailVo(bookDetailVo);
+    }, [bookDetailVo] );
 
     return (
         <StyledSearchDetailDiv>
@@ -55,14 +55,14 @@ const SearchDetail = () => {
             <StyledDetailContentDiv>
                 <div><h1>상세정보</h1></div>
                 <div>
-                    {/* <div>{bookDetailVo.bookImg}</div>
+                    <div>{bookDetailVo.bookImg}</div>
                     <div>
                         <div>{bookDetailVo.title}</div>
                         <div>{bookDetailVo.author}</div>
                         <div>{bookDetailVo.company}</div>
                         <div>{bookDetailVo.publisherYear}</div>
                         <div>{bookDetailVo.bookNo}</div>
-                    </div> */}
+                    </div>
                 </div>
                 <div>3</div>
                 <div>4</div>

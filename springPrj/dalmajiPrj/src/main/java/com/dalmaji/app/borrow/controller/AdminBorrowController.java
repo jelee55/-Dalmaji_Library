@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.borrow.service.AdminBorrowService;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.borrow.vo.OptionVo;
 import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
@@ -46,15 +47,31 @@ public class AdminBorrowController {
 	
 	// 대출 제한 상태 변경
 	@PostMapping("edit")
-	public String edit (@RequestBody AdminBorrowVo updatedVo) throws Exception {
-		System.out.println("memberNo:::" + updatedVo.getMemberNo());
-		System.out.println("oNo:::" + updatedVo.getONo());
-		int result = service.edit(updatedVo);
-		System.out.println("updatedVo 출력하기" + updatedVo);
+	public Map<String, Object> edit (@RequestBody AdminBorrowVo vo) throws Exception {
+		System.out.println("memberNo:::" + vo.getMemberNo());
+		System.out.println("oNo:::" + vo.getONo());
+		int result = service.edit(vo);
+		System.out.println("vo 출력하기" + vo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("msg", "good");
+		map.put("path", "/admin/borrow/list");
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "/admin/borrow/list";
+		return map;
 	}
 
+	// 대출 제한 3가지 옵션 가져오기
+	@GetMapping("option")
+	public Map<String, Object> option() {
+		
+		List<OptionVo> optionList = service.option();
+		Map<String, Object> map = new HashMap<>();
+		map.put("optionList", optionList);
+		System.out.println("optionList :::" + optionList);
+		
+		return map;
+	}
+	
+	
 }//class

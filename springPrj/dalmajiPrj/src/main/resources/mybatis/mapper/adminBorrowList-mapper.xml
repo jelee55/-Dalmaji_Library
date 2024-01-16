@@ -44,5 +44,11 @@
 	WHERE MEMBER_NO = #{memberNo}
   </update>
   
+  <select id="option" resultType="com.dalmaji.app.borrow.vo.OptionVo">
+  	SELECT 
+	    O_NO
+	    , B_OPTION
+	FROM B_OPTION
+  </select>
   
 </mapper>
