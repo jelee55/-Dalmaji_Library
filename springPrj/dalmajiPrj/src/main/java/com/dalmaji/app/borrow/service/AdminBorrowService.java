@@ -1,12 +1,14 @@
 package com.dalmaji.app.borrow.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.dalmaji.app.borrow.dao.AdminBorrowDao;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
+import com.dalmaji.app.borrow.vo.OptionVo;
 import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,13 @@ public class AdminBorrowService {
 
 	// 대출 제한 상태 변경
 	public int edit(AdminBorrowVo vo) {
+		System.out.println("service에서 받은 vo"+ vo);
 		return dao.edit(vo, sst);
+	}
+
+	// 대출 제한 3가지 옵션 가져오기
+	public List<OptionVo> option() {
+		return dao.option(sst);
 	}
 
 }
