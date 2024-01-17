@@ -16,13 +16,9 @@ public class AdminBorrowDao {
 	// 대출 리스트 화면
 	public List<AdminBorrowVo> list(SqlSessionTemplate sst, PageVo pvo) {
 		
-		System.out.println("dao 호출");
-		
 		int offset = (pvo.getCurrentPage()-1) * pvo.getListLimit();   // 몇 개 건너뛸지... 
 		int limit = 8;   // 최대 몇개 보일지...
 		RowBounds rb = new RowBounds(offset, limit);       // 0개를 건너뛰고, 그 다음부터 10개를 조회할 예정...
-		
-		System.out.println("limit 출력 ::: " +rb);
 		
 		return sst.selectList("AdminBorrowListMapper.list", null , rb);
 	}
@@ -35,7 +31,6 @@ public class AdminBorrowDao {
 
 	// 대출 제한 상태 변경
 	public int edit(AdminBorrowVo vo, SqlSessionTemplate sst) {
-		System.out.println("dao에서의 vo" +vo);
 		return sst.update("AdminBorrowListMapper.edit", vo);
 	}
 

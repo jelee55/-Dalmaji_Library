@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from "react-router-dom";
 
 const StyledAdminBorrowListDiv = styled.div`
     width: 100%;
@@ -68,16 +67,13 @@ const StyledAdminBorrowListDiv = styled.div`
 `;
 
 const AdminMyPage = () => {
+    console.log("AdminMyPage render ~~~");
     const [adminBorrowVoList, setAdminBorrowVoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
     
+    const [change, setChange] = useState(true);
     const [optionList, setOptionList] = useState([]);
-    // const [vo, setVo] = useState({
-    //         ...vo,
-    //     });
-        
-    const navigate = useNavigate();
     
     // 제한사항 옵션용
     const loadOptionList = () => {
@@ -91,9 +87,9 @@ const AdminMyPage = () => {
     }
         
     useEffect(() =>{
-        console.log('useEffect called....');
-        loadOptionList(optionList.bOption);
-    },[optionList.bOption])
+        console.log('useEffect called....', optionList);
+        loadOptionList(optionList.oNo);
+    },[optionList.oNo])
     
     //fetch 이용해 데이터 준비 (페이지 처리)
     const loadAdminBorrowVoList = (page) => {
@@ -123,25 +119,27 @@ const AdminMyPage = () => {
     
     useEffect( () => {
         loadAdminBorrowVoList(currentPage); //현재 페이지의 목록 불러오기
-    }, [currentPage] );
-    
-    useEffect( () => {
-        console.log("adminBorrowVoList", adminBorrowVoList);
-    }, [adminBorrowVoList] );
+    }, [currentPage, change] );
         
     //제한사항 변경할 경우    
-    const updateRestriction = () => { 
+    const updateRestriction = (memberNo, oNo) => { 
+
+        const option = {
+            memberNo,
+            oNo,
+        }
+
         fetch("http://127.0.0.1:8888/app/admin/borrow/edit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify(option)
         })
         .then(response => response.json())
         .then(data => {
             console.log('msg', data.msg);
-            console.log("path", data.path);
-            navigate(data.path);
+            setChange(!change);
         });
     }
 
@@ -177,28 +175,36 @@ const AdminMyPage = () => {
                                 <td colSpan="12">로딩중...</td>
                             </tr>)
                             :
-                            adminBorrowVoList && adminBorrowVoList.map( vo => <tr key={vo.overdueNo}>
-                                <td>{vo.overdueNo}</td>
-                                <td>{vo.bookNo}</td>
-                                <td>{vo.title}</td>
-                                <td>{vo.author}</td>
-                                <td>{vo.company}</td>
-                                <td>{vo.memberNo}</td>
-                                <td>{vo.name}</td>
-                                <td>{vo.borrowDate}</td>
-                                <td>{vo.dueDate}</td>
-                                <td>{vo.overdueCount}</td>
-                                <td>{vo.bookState}</td>
+                            adminBorrowVoList && adminBorrowVoList.map( adminBorrowVo => <tr key={adminBorrowVoList.overdueNo}>
+                                <td>{adminBorrowVo.overdueNo}</td>
+                                <td>{adminBorrowVo.bookNo}</td>
+                                <td>{adminBorrowVo.title}</td>
+                                <td>{adminBorrowVo.author}</td>
+                                <td>{adminBorrowVo.company}</td>
+                                <td>{adminBorrowVo.memberNo}</td>
+                                <td>{adminBorrowVo.name}</td>
+                                <td>{adminBorrowVo.borrowDate}</td>
+                                <td>{adminBorrowVo.dueDate}</td>
+                                <td>{adminBorrowVo.overdueCount}</td>
+                                <td>{adminBorrowVo.bookState}</td>
                                 <td className='restriction'>
-                                    <select defaultValue={vo.bOption} onChange={updateRestriction}>
+                                    <select onChange={(e) => {
+                                        updateRestriction(adminBorrowVo.memberNo, e.target.value);
+                                    }}>
                                         {
                                             optionList && optionList.length === 0
                                             ?
                                             <option value="로딩중">로딩중...</option>
                                             :
-                                            optionList && optionList.map(vo => (
-                                                <option key={vo.oNo} value={vo.oNo}>{vo.bOption}</option>
-                                            ))
+                                            optionList && optionList.map(optionVo => {
+                                                console.log('adminBorrowVo',adminBorrowVo.oNo);
+                                                console.log('optionVo.oNo',optionVo.oNo);
+                                                if(adminBorrowVo.oNo === optionVo.oNo){
+                                                    return <option selected key={optionVo.oNo} value={optionVo.oNo}>{optionVo.bOption}</option>                                                
+                                                }else{
+                                                    return <option key={optionVo.oNo} value={optionVo.oNo}>{optionVo.bOption}</option>
+                                                }
+                                            })
                                         }
                                     </select>
                                 </td>

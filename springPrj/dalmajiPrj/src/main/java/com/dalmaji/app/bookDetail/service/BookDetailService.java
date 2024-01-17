@@ -15,8 +15,8 @@ public class BookDetailService {
 	private final SqlSessionTemplate sst;
 	private final BookDetailDao dao;
 	
-	public BookDetailVo detail(BookDetailVo vo) {
-		return dao.detail(sst, vo);
+	public BookDetailVo detail() {
+		return dao.detail(sst);
 	}
 	
 }
