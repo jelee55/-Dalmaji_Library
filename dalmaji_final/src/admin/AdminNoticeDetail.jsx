@@ -125,7 +125,10 @@ const AdminNoticeDetail = () => {
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
-                <div className='notice'>공지사항</div>
+                <div className='notice'>
+                    공지사항
+                    <div></div>
+                    </div>
                 <form action="">
                     <div className="dropdown_head">
                         <div className="date">2024.01.14</div>
