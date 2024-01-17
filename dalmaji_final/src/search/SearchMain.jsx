@@ -10,7 +10,7 @@ const SearchMain = () => {
     return (
         <Routes>
             <Route path='list' element={<SearchList />}/>
-            <Route path='detail' element={<SearchDetail />}/>
+            <Route path='detail/:bookNo' element={<SearchDetail/>}/>
             <Route path='detaillist' element={<SearchDetailList />}/>
         </Routes>
     );
