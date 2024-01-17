@@ -29,9 +29,13 @@ public class BookService {
 		return dao.getTotalCount(sst);
 	}
 
-	/*
-	 * //검색 public BookVo detail(String keyword) { return dao.detail(sst,keyword); }
-	 */
+	
+	//검색(목록)
+	public List<BookVo> detail(BookVo vo) {
+	    return dao.detail(sst, vo);
+	}
+	
+	
 	// 수정
 	public int edit(BookVo vo) {
 		return dao.edit(sst, vo);
@@ -42,7 +46,6 @@ public class BookService {
 		return dao.delete(sst, vo);
 	}
 
-	/*
-	 * public List<BookVo> searchBooks(String keyword) { return dao }
-	 */
+	
+
 }

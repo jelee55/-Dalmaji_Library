@@ -31,11 +31,12 @@ public class BookDao {
 		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!!
 		return Integer.parseInt(sst.selectOne("BookMapper.count"));
 	}
-
-	/*
-	 * //검색 public BookVo detail(SqlSessionTemplate sst, String keyword) { return
-	 * sst.selectOne("BookMapper.detail",keyword); }
-	 */
+	
+	//검색(목록 상세 조히)
+	public List<BookVo> detail(SqlSessionTemplate sst, BookVo vo) {
+	    return sst.selectList("BookMapper.detail", vo);
+	}
+	
 	// 수정
 	public int edit(SqlSessionTemplate sst, BookVo vo) {
 		return sst.update("BookMapper.edit", vo);
@@ -46,5 +47,6 @@ public class BookDao {
 	public int delete(SqlSessionTemplate sst, BookVo vo) {
 		return sst.update("BookMapper.delete", vo);
 	}
+
 
 }
