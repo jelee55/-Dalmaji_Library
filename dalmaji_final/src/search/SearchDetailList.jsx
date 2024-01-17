@@ -8,25 +8,27 @@ const StyledDetailListDiv = styled.div`
   display: grid;
   grid-template-rows: 2fr 1fr 5fr;
   place-items: center center;
-  background-color: #8c00ff;
+  /* background-color: #8c00ff; */
   padding: 0%;
   
   & > .header1 {
       width: 80%;
-      height: 20%;
+      height: 25%;
       margin: auto;
-      background-color: #9af097;
+      /* background-color: #9af097; */
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: right;
       justify-content: center;
-      border-bottom: 3px solid black;
+      border-bottom: 5px solid #2f2f49;
       padding: 0%;
+      margin-bottom: 10%;
 
     h1 {
         width: 100%;
         margin: 0;
         padding: 0;
+        font: bold;
     }
   
 }
@@ -44,8 +46,9 @@ const StyledDetailListDiv = styled.div`
     }
   }
 
+
 & > form {
-    width: 40%;  /* 화면의 45%로 설정 */
+    width: 35%;  /* 화면의 45%로 설정 */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -53,29 +56,43 @@ const StyledDetailListDiv = styled.div`
 
     & > div {
         width: 100%;
+        height: 100%;
         margin-top: 10px;
-
+        
         .title,
         .author,
         .company {
-            margin-bottom: 5px;
+          margin-top: 10%;
+          margin-bottom: 5px;
+          font-size: 20px;
+          /* font: bold; */
+          color: red;
         }
 
         input {
+
             width: 100%;
-            
+            height: 40px;
+            border-radius: 10px;
+          }
         }
-    }
-    .search-buttons {
+        .click {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center center;
         margin-top: 10px;
-
+        
         input[type="submit"],
         input[type="reset"] {
-            width: 48%;
+          
+          width: 20%;
+          height: 40px;
+          margin-top: 10px;
+          background-color: #2f2f49;
+          color: white
         }
+       
     }
   }
 `;
@@ -123,12 +140,12 @@ const SearchDetailList = () => {
       <div className='header2'>
         <div className="btn">
           <Link to="/search/list">
-            <button>전체보기</button>
+            <a href='#' className='link_box'>전체보기</a>
           </Link>
         </div>
         <div className="btn">
           <Link to="/search/detaillist">
-            <button>검색</button>
+            <a href='#' className='link_box'>검색</a>
           </Link>
         </div>
       </div>
@@ -161,7 +178,7 @@ const SearchDetailList = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div>
+          <div className='click'>
             <input type="submit" value="검색" title="검색" className="searchB" />
             <input type="reset" value="다시쓰기" title="다시쓰기" />
           </div>
