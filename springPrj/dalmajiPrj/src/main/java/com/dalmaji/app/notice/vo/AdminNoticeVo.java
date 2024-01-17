@@ -13,5 +13,6 @@ public class AdminNoticeVo {
 	private String delYn;
 	private String hit;
 	private String addFile;
+//	private String noticeImg;
 	
 }
