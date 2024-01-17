@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.bookDetail.service.BookDetailService;
@@ -21,17 +22,27 @@ public class BookDetailController {
 	
 	private final BookDetailService service;
 	
+	/**
+	 * 책 번호에 따른 상세페이지
+	 * 화면구현
+	 * 
+	 * @param bookNo
+	 * @return vo
+	 * @throws Exception
+	 */
 	@GetMapping("detail")
-	public Map<String, Object> detail(@RequestBody BookDetailVo vo) {
+	public BookDetailVo detail(@RequestParam String bookNo)throws Exception {
 		
-		BookDetailVo detailVo = service.detail();
-		Map<String, Object> map = new HashMap<>();
-		map.put("vo", vo);
+		BookDetailVo vo = service.detail(bookNo);
 		
-		System.out.println("detailVo 호출 ::: " + detailVo);
+		if(vo == null) {
+			throw new Exception("bookNo 못찾음...");
+		}
+		
 		System.out.println("vo 호출 ::: " + vo);
+		System.out.println("bookNo 호출 ::: " + bookNo);
 		
-		return map;
+		return vo;
 	}
 
 }
