@@ -34,7 +34,7 @@ public class BookListController {
 		
 		int listCount = service.getTotalCount();
 		int pageLimit = 5;
-		int listLimit = 8;
+		int listLimit = 5;
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
 		List<BookVo> voList = service.list(pvo);
 	

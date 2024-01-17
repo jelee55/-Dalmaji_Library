@@ -73,12 +73,12 @@ const StyledSearchListDiv = styled.div`
 
 const SearchList = () => {
 
-
-
-
     
     //fetch 이용해 데이터 준비
     const [bookVoList, setBookVoList] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
+    const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
+    
     const loadBookVoList = () => {
         fetch("http://127.0.0.1:8888/app/search/list")
             .then(resp => resp.json())
@@ -92,6 +92,44 @@ const SearchList = () => {
         console.log("useEffect 호출됨");
         loadBookVoList();
     }, []);
+
+
+
+        //fetch 이용해 데이터 준비 (페이지 처리)
+        const loadBookVoListTwo = (page) => {
+        
+            // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
+            fetch(`http://127.0.0.1:8888/app/search/list?currentPage=${page}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+            })
+            .then( resp => resp.json() )
+            .then( (data) => {
+                console.log('voList' , data.voList);
+                setBookVoList(data.voList); //데이터 저장
+                setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
+                console.log('data' , data);
+            } )
+            ;
+        }
+
+     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
+     const handlerClickPageNum = (page) => {
+        console.log(`page = ${page}`);
+        setCurrentPage(page);  //페이지 변경 요청 수행
+    }
+    
+    useEffect( () => {
+        loadBookVoListTwo(currentPage); //현재 페이지의 목록 불러오기
+    }, [currentPage] );
+    
+    useEffect( () => {
+        console.log("bookVoList", bookVoList);
+    }, [bookVoList] );
+        
+    
 
     return (
         <StyledSearchListDiv>
@@ -151,6 +189,24 @@ const SearchList = () => {
                 
             </tbody>
         </table>
+        <div className='pagination'>
+                {totalPages 
+                ? 
+                (
+                    Array.from({length: totalPages}, (_, i) =>
+                        <button
+                            key={`page_button_${i}`}
+                            onClick={() => handlerClickPageNum(i + 1)}
+                            disabled={currentPage === i+1}
+                        >
+                            {i + 1}
+                        </button>
+                    )) 
+                : 
+                null
+                }
+            </div>
+            <div></div>
         </StyledSearchListDiv>
     );
 };
