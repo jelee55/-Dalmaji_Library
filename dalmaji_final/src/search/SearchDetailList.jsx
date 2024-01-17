@@ -6,15 +6,16 @@ const StyledDetailListDiv = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 2fr 1fr 5fr;
+  grid-template-rows:1fr 0.5fr 0.5fr 5fr;
   place-items: center center;
   /* background-color: #8c00ff; */
   padding: 0%;
-  
+  /* border: 1px solid black; */
+
   & > .header1 {
-      width: 80%;
+      width: 70%;
       height: 25%;
-      margin: auto;
+      margin: none;
       /* background-color: #9af097; */
       display: flex;
       flex-direction: column;
@@ -22,8 +23,9 @@ const StyledDetailListDiv = styled.div`
       justify-content: center;
       border-bottom: 5px solid #2f2f49;
       padding: 0%;
-      margin-bottom: 10%;
-
+      margin-top: 10%;
+      margin-bottom: 35px;
+   
     h1 {
         width: 100%;
         margin: 0;
@@ -32,20 +34,28 @@ const StyledDetailListDiv = styled.div`
     }
   
 }
+& > .search_book {
+      background-color: red;
+    }
 & > .header2 {
-    width: 80%;
+    width: 70%;
+    height: 40px;
     margin: none;
     display: flex;
     /* justify-content: ; */
     margin-top: 10px;  /* .header2 위 간격 조절 */
-    background-color: yellow;
+    border: 1px solid black;
+    background-color: #636394;
+    font-size: 20px;
     .btn {
       display: flex;
       justify-content: space-between;
       /* color: #8c00ff; */
     }
   }
-
+& > a {
+  font-size: 25px;
+}
 
 & > form {
     width: 35%;  /* 화면의 45%로 설정 */
@@ -54,11 +64,12 @@ const StyledDetailListDiv = styled.div`
     flex-direction: column;
     align-items: center;
 
+     
     & > div {
         width: 100%;
-        height: 100%;
-        margin-top: 10px;
-        
+        height: 25%;
+        margin-top: none;
+        padding: 0%;
         .title,
         .author,
         .company {
@@ -67,12 +78,13 @@ const StyledDetailListDiv = styled.div`
           font-size: 20px;
           /* font: bold; */
           color: red;
+       
         }
 
         input {
 
             width: 100%;
-            height: 40px;
+            height: 50px;
             border-radius: 10px;
           }
         }
@@ -95,7 +107,14 @@ const StyledDetailListDiv = styled.div`
        
     }
   }
-`;
+ /* & > .form {
+  background-color: red;
+  width: 70%;
+  height: 800px;
+  margin-top: 5%;
+  border: 1px solid black;
+ }  */
+    `;
 
 const SearchDetailList = () => {
   const [bookVoList, setBookVoList] = useState([]);
@@ -133,7 +152,7 @@ const SearchDetailList = () => {
   return (
     <StyledDetailListDiv>
       <div className="header1">
-        <div >
+        <div className='search_book'>
           <h1>도서검색</h1>
         </div>
       </div>
@@ -149,8 +168,9 @@ const SearchDetailList = () => {
           </Link>
         </div>
       </div>
+      {/* <div className='form'> */}
       <form onSubmit={handleSearch}>
-        <div>
+        <div className='search_input'>
           <div className="title">제목</div>
           <div>
             <input
@@ -184,6 +204,8 @@ const SearchDetailList = () => {
           </div>
         </div>
       </form>
+      {/* </div> */}
+      
     </StyledDetailListDiv>
   );
 };
