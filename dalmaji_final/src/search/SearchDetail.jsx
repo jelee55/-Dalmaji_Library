@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledSearchDetailDiv = styled.div`
@@ -25,15 +26,19 @@ const StyledDetailContentDiv = styled.div`
     }
 `;
 
-const SearchDetail = ({bookNo}) => {
+const SearchDetail = () => {
     console.log("SearchDetail render!!!");
+
+    //url에서 bookNo 추출
+    const selectedBookNo = useParams();
+    console.log("selectedBookNo ::: ", selectedBookNo);
 
     // 사용할 변수 준비
     const [bookDetailVo, setBookDetailVo] = useState([]);
 
     useEffect( () => {
-        const loadBookDetailVo = (bookNo) => {
-            fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${bookNo}`,{
+        const loadBookDetailVo = () => {
+            fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${selectedBookNo}`,{
                     method: "GET",
                         headers: {
                             "Content-Type" : "application/json",
@@ -47,7 +52,7 @@ const SearchDetail = ({bookNo}) => {
             ;
         }
         loadBookDetailVo();
-    }, [bookNo] )
+    }, [] )
 
     return (
         <StyledSearchDetailDiv>
@@ -55,13 +60,15 @@ const SearchDetail = ({bookNo}) => {
             <StyledDetailContentDiv>
                 <div><h1>상세정보</h1></div>
                 <div>
-                    <div>{bookDetailVo.bookImg}</div>
+                    <div>
+                        <img src={bookDetailVo.bookImg} alt={bookDetailVo.title} />
+                    </div>
                     <div>
                         <div>{bookDetailVo.title}</div>
-                        <div>{bookDetailVo.author}</div>
-                        <div>{bookDetailVo.company}</div>
-                        <div>{bookDetailVo.publisherYear}</div>
-                        <div>{bookDetailVo.bookNo}</div>
+                        <div><strong>작가: </strong> {bookDetailVo.author}</div>
+                        <div><strong>출판사: </strong> {bookDetailVo.company}</div>
+                        <div><strong>출판년도: </strong> {bookDetailVo.publisherYear}</div>
+                        <div><strong>도서번호: </strong> {bookDetailVo.bookNo}</div>
                     </div>
                 </div>
                 <div>3</div>
