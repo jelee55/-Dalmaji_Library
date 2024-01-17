@@ -38,8 +38,10 @@
 		,BOOK_IMG
 		FROM
 		BOOK_LIST
-		WHERE TITLE = #{title} OR AUTHOR = #{author} OR COMPANY =
-		#{company}
+		WHERE 
+        TITLE LIKE '%' || #{title} || '%' OR
+        AUTHOR LIKE '%' || #{author} || '%' OR
+        COMPANY LIKE '%' || #{company} || '%'
 	</select>
 
 	<update id="edit">

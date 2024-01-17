@@ -25,53 +25,57 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class BookListController {
-	
+
 	private final BookService service;
-	
-	//목록조회(no,제목,저자,발행처,발행년도,도서상태)
+
+	// 목록조회(no,제목,저자,발행처,발행년도,도서상태)
 	@GetMapping("list")
-	public Map<String, Object>list(@RequestParam(defaultValue = "1") int currentPage){
-		
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage) {
+
 		int listCount = service.getTotalCount();
 		int pageLimit = 5;
 		int listLimit = 8;
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
 		List<BookVo> voList = service.list(pvo);
-	
-		for( BookVo vo : voList) {
+
+		for (BookVo vo : voList) {
 			System.out.println(vo);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("voList", voList);
 		map.put("pvo", pvo);
-		return map;	}
+		return map;
+	}
+
+	// 검색(게시글 목록 조회)
+	@GetMapping("detaillist")
+	public List<BookVo> detail(BookVo vo, Model model) {
+	    List<BookVo> bookVoList = service.detail(vo);
+	    model.addAttribute("bookVoList", bookVoList);
+	    return bookVoList;
+	}
 	
-	/*
-	 * //검색(제목 or 저자 or 출판사)
-	 * 
-	 * @GetMapping("detail") public List<BookVo> detail(@RequestParam("검색어") String
-	 * keyword) { return service.detail(keyword); }
-	 */
 	
-	//게시글 수정(제목,저자,이미지)
+	
+
+	// 게시글 수정(제목,저자,이미지)
 	@PostMapping("admin/edit")
 	public String edit(BookVo vo) throws Exception {
 		int result = service.edit(vo);
-		if(result != 1) {
+		if (result != 1) {
 			throw new Exception();
 		}
 		return "redirect:/search/admin/detail?no=" + vo.getBookNo();
 	}
-	
-	//게시글 삭제(관리자만)
+
+	// 게시글 삭제(관리자만)
 	@GetMapping("admin/delete")
 	public String delete(BookVo vo) throws Exception {
 		int result = service.delete(vo);
-		if(result != 1) {
+		if (result != 1) {
 			throw new Exception();
 		}
 		return "redirect:/book/admin/list";
 	}
-	
 
 }

@@ -198,12 +198,25 @@ const SearchDetailList = () => {
               onChange={handleInputChange}
             />
           </div>
+          <form>
           <div className='click'>
             <input type="submit" value="검색" title="검색" className="searchB" />
             <input type="reset" value="다시쓰기" title="다시쓰기" />
           </div>
+          </form>
         </div>
       </form>
+      {/* 도서 목록을 보여줄 부분 */}
+      <div className='bookList'>
+        <h2>도서 목록</h2>
+        <ul>
+          {bookVoList.map((vo) => (
+            <li key={vo.BOOK_NO}>
+              <strong>{vo.TITLE}</strong> by {vo.AUTHOR}
+            </li>
+          ))}
+        </ul>
+      </div>
       {/* </div> */}
       
     </StyledDetailListDiv>
