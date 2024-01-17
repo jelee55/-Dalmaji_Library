@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDeleteMainDiv = styled.div`
@@ -60,14 +61,70 @@ const StyledDeleteMainDiv = styled.div`
     
         }
 
-        & > form {
+        & > .delete > form {
             width: 100%;
             height: 100%;
-            /* background-color: beige; */
+            display: ;
+            margin: auto;
+            margin-top: 70px;
+            /* margin-bottom: 80px; */
+            /* background-color: lightblue; */
 
-            & > form > .delete_box {
-                background-color: beige;
+            & > .delete_box {
+                width: 50%;
+                height: 70%;
+                margin: auto;
+                border: 1.5px solid black;
+                /* background-color: beige; */
+
+                & > .delete_title {
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 20px;
+                    border-bottom: 1px solid black;
+                    background-color: beige;
+                }
+                
             }
+            
+            & > .update {
+                width: 25%;
+                height: 40px;
+                margin-top: 40px;
+                margin-left: 37%;
+                /* background-color: yellow; */
+
+                & > ul {
+                    display: flex;
+                    justify-content: space-between;
+                    /* margin: auto; */
+                    list-style: none;
+
+                    & > li > .u {
+                        width: 90px;
+                        height: 40px;
+                        border-radius: 10%;
+                        background-color: lightgray;
+                        color: black;
+                        font-family: 'Pretendard';
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+
+                    & > li > a >.c {
+                        width: 90px;
+                        height: 40px;
+                        border-radius: 10%;
+                        background-color: white;
+                        font-family: 'Pretendard';
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+                }
+            }
+
         }
     
 
@@ -78,6 +135,27 @@ const StyledDeleteMainDiv = styled.div`
 `;
 
 const MemberDelete = () => {
+
+    console.log("MemberList 컴포넌트 렌더링");
+
+    const navigate = useNavigate();
+
+    //fetch 를 이용해서 데이터 준비
+    const [memberVoList,setMemberVoList] = useState([]);
+    const loadMemberVoList = () => {
+        fetch("http://127.0.0.1:8888/app/member/quit")
+        .then( resp => resp.json() )
+        .then( (x) => { setMemberVoList(x); })
+        ;
+    }
+
+    useEffect(()=>{
+        console.log("useEffect 호출됨~~~");
+        loadMemberVoList();
+    }, []);
+
+    console.log("return 직전 -- (곧 렌더링 완료)");
+
     return (
         <StyledDeleteMainDiv>
             <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
@@ -93,11 +171,44 @@ const MemberDelete = () => {
                         <br /><br />
                         대출 정지기간인 경우 대출 정지 기간이 경과한 후 탈퇴가 가능합니다.
                     </div>
+
                     <form>
                         <div className='delete_box'>
-                            <div>회탈퇴회원정보</div>
-                            <div>어쩌구</div>
+                            <div className='delete_title'>탈퇴 회원정보</div>
+                            <div className='delete_content'>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>성명</th>
+                                            <th>아이디</th>
+                                            <th>탈퇴가능 여부</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                            memberVoList.length === 0
+                                            ?
+                                            (<tr>
+                                                <td colSpan="3">로딩중...</td>
+                                            </tr>)
+                                            :
+                                            memberVoList.map( vo => <tr key={vo.no}>
+                                                    <td>{vo.name}</td>
+                                                    <td>{vo.id}</td>
+                                                    <td>{vo.oNo}</td>
+                                                </tr>
+                                                )
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <div className="update">
+                        <ul>
+                            <li id="update_detail"><input type="submit" value="탈퇴" className='u' /></li>
+                            <li id="update_detail"><a href=""><input type="submit" value="취소" className='c'/></a></li>
+                        </ul>
+                    </div>
                     </form>
                 </div>
             </div>

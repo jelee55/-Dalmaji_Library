@@ -73,6 +73,16 @@
 			AND DEL_YN = 'N'
 	</update>
 	
+	<select id="quit" resultType="com.dalmaji.app.member.vo.MemberVo">
+		SELECT
+			MEMBER_NO
+			,NAME
+			,ID
+		FROM MEMBER
+		WHERE DEL_YN = 'N'
+		ORDER BY MEMBER_NO DESC
+	</select>
+	
 	<update id="quit">
 	UPDATE MEMBER
 	SET 
