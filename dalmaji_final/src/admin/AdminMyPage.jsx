@@ -72,7 +72,7 @@ const AdminMyPage = () => {
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
     
-    const [change, setChange] = useState(true);
+    const [change, setChange] = useState(true);  // 이 변수를 이용해 랜더링 새로 해야할 때 사용하려고 만든것
     const [optionList, setOptionList] = useState([]);
     
     // 제한사항 옵션용

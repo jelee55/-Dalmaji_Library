@@ -8,8 +8,8 @@ import com.dalmaji.app.bookDetail.vo.BookDetailVo;
 @Repository
 public class BookDetailDao {
 
-	public BookDetailVo detail(SqlSessionTemplate sst) {
-		return sst.selectOne("BookDetailMapper.detail");
+	public BookDetailVo detail(SqlSessionTemplate sst, String bookNo) {
+		return sst.selectOne("BookDetailMapper.detail", bookNo);
 	}
 
 }

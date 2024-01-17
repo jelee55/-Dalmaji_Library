@@ -25,29 +25,29 @@ const StyledDetailContentDiv = styled.div`
     }
 `;
 
-const SearchDetail = () => {
+const SearchDetail = ({bookNo}) => {
+    console.log("SearchDetail render!!!");
 
     // 사용할 변수 준비
     const [bookDetailVo, setBookDetailVo] = useState([]);
 
-    const loadBookDetailVo = (bookNo) => {
-        fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${bookNo}`,{
-                method: "GET",
-                    headers: {
-                        "Content-Type" : "application/json",
-                    },
-            })
-        .then( resp => resp.json() )
-        .then( (data) => {
-            console.log(data);
-            setBookDetailVo(data);
-        } )
-        ;
-    }
-
     useEffect( () => {
-        loadBookDetailVo(bookDetailVo);
-    }, [bookDetailVo] );
+        const loadBookDetailVo = (bookNo) => {
+            fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${bookNo}`,{
+                    method: "GET",
+                        headers: {
+                            "Content-Type" : "application/json",
+                        },
+                })
+            .then( resp => resp.json() )
+            .then( (data) => {
+                console.log('msg', data.msg);
+                setBookDetailVo(data);
+            })
+            ;
+        }
+        loadBookDetailVo();
+    }, [bookNo] )
 
     return (
         <StyledSearchDetailDiv>
