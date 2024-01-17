@@ -31,7 +31,7 @@ const StyledNoticeDetailDiv = styled.div`
                 border-bottom: 2px solid black;
                 font-size:24px;
                 font-weight: bolder;
-                /* background-color: greenyellow; */
+                background-color: greenyellow;
             }
 
             & > form {

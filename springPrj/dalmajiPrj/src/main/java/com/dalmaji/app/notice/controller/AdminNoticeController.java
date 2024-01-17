@@ -44,7 +44,7 @@ public class AdminNoticeController {
 //		return "redirect:/admin/notice/list";
 //	}
 	
-	//게시글 작성하기
+	//공지사항 작성하기
 	@PostMapping("write")
 	public Map<String, String> write(@RequestBody AdminNoticeVo vo, HttpSession session) {
 		Map<String, String> map = new HashMap<String, String>();
