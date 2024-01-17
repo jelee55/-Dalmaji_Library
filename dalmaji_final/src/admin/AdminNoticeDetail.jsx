@@ -137,7 +137,7 @@ const AdminNoticeDetail = () => {
                             <textarea name="content" id="content" cols="120" rows="30"></textarea>
                         </div>
                     </div>
-                    <div className='list'><a href=''>목록보기</a></div>
+                    <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
                 </form>
             </div>
         </StyledNoticeDetailDiv>

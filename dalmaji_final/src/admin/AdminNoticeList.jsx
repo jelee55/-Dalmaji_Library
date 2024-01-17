@@ -214,7 +214,7 @@ const NoticeList = () => {
                     </tbody>
                 </table>
             </div>
-            <div className='write_btn'><a href="">글 작성하기</a></div>
+            <div className='write_btn'><a href="http://localhost:3000/admin/notice/write">글 작성하기</a></div>
             <div className='pagination'>
                 {totalPages 
                 ? 
