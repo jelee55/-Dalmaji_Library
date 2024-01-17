@@ -1,12 +1,17 @@
 package com.dalmaji.app.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,17 +31,32 @@ public class AdminNoticeController {
 	
 	private final AdminNoticeService service;
 	
-	//공지사항 작성
-	@PostMapping("insert")
-	public String insert(AdminNoticeVo vo) throws Exception {
-		
+//	//공지사항 작성
+//	@PostMapping("write")
+//	public String insert(AdminNoticeVo vo) throws Exception {
+//		
+//		int result = service.insert(vo);
+//		
+//		if(result != 1) {
+//			throw new Exception();
+//		}
+//		
+//		return "redirect:/admin/notice/list";
+//	}
+	
+	//게시글 작성하기
+	@PostMapping("write")
+	public Map<String, String> write(@RequestBody AdminNoticeVo vo, HttpSession session) {
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.insert(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
 		}
 		
-		return "redirect:/admin/notice/list";
+		return map;
 	}
 	
 	//공지사항 목록조회 (data+view)
@@ -57,7 +77,7 @@ public class AdminNoticeController {
 	}
 	
 	//공지사항 상세조회
-	@GetMapping("admin/detail")
+	@GetMapping("detail")
 	public String detail(AdminNoticeVo vo, Model model) {
 		AdminNoticeVo adminNoticeVo = service.detail(vo);
 		model.addAttribute("noticeVo", adminNoticeVo);

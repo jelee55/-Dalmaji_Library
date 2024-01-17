@@ -113,10 +113,6 @@ const StyledLoginMainDiv = styled.div`
         font-size: 16px;
        }
 
-       & > .ul {
-        /* background-color: red; */
-
-       }
 
        & > .ul > ul {
         width: 100%;

@@ -9,14 +9,12 @@
 		INSERT INTO NOTICE 
 		(
 			NO
-			, ADMIN_NO
 			, TITLE
 			, CONTENT
 		) 
 		VALUES
 		(
 			SEQ_NOTICE_NO.NEXTVAL
-			, #{adminNo}
 			, #{title}
 			, #{content}
 		)
@@ -25,7 +23,6 @@
 	<select id="list" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
 		SELECT 
 		    NO
-		    , ADMIN_NO
 		    , TITLE
 		    , CONTENT
 		    , ENROLL_DATE
@@ -40,7 +37,6 @@
 	<select id="detail" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
 		SELECT 
 	        NO
-	        ,ADMIN_NO
 	        ,TITLE
 	        ,CONTENT
 	        ,ENROLL_DATE

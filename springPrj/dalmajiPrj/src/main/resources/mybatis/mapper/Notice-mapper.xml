@@ -5,7 +5,7 @@
 
 <mapper namespace="NoticeMapper">
   
-  <insert id="insert">
+  <insert id="write">
 		INSERT INTO NOTICE 
 		(
 			NO
