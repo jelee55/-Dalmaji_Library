@@ -32,7 +32,6 @@ public class AdminBorrowService {
 
 	// 대출 제한 상태 변경
 	public int edit(AdminBorrowVo vo) {
-		System.out.println("service에서 받은 vo"+ vo);
 		return dao.edit(vo, sst);
 	}
 
