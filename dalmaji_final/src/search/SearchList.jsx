@@ -79,24 +79,24 @@ const SearchList = () => {
     const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
     const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
     
-    // const loadBookVoList = () => {
-    //     fetch("http://127.0.0.1:8888/app/search/list")
-    //         .then(resp => resp.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //             setBookVoList(data);})
-    //         ;
-    // }
+    const loadBookVoList = () => {
+        fetch("http://127.0.0.1:8888/app/search/list")
+            .then(resp => resp.json())
+            .then((data) => {
+                console.log('data ::: ', data);
+                setBookVoList(data.voList);})
+            ;
+    }
 
-    // useEffect(() => {
-    //     console.log("useEffect 호출됨");
-    //     loadBookVoList();
-    // }, []);
+    useEffect(() => {
+        console.log("useEffect 호출됨");
+        loadBookVoList();
+    }, []);
 
 
 
         //fetch 이용해 데이터 준비 (페이지 처리)
-        const loadBookVoList = (page) => {
+        const loadBookVoListTwo = (page) => {
         
             // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
             fetch(`http://127.0.0.1:8888/app/search/list?currentPage=${page}`, {
@@ -122,15 +122,13 @@ const SearchList = () => {
     }
     
     useEffect( () => {
-        loadBookVoList(currentPage); //현재 페이지의 목록 불러오기
+        loadBookVoListTwo(currentPage); //현재 페이지의 목록 불러오기
     }, [currentPage] );
     
     useEffect( () => {
         console.log("bookVoList", bookVoList);
     }, [bookVoList] );
         
-    
-
     return (
         <StyledSearchListDiv>
         <div className='header'>
@@ -170,7 +168,7 @@ const SearchList = () => {
             </thead>
             <tbody>
                 {
-                    bookVoList.length === 0
+                    bookVoList === undefined && bookVoList === null && bookVoList.length === 0
                     ?
                     <h1>로딩중...</h1>
                     :
@@ -182,7 +180,7 @@ const SearchList = () => {
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
                     {/* <td>{vo.bookState}</td> */}
-                    <td><Link to="/search/detail"><button >상세조회</button></Link></td>
+                    <td><Link to={`/search/detail/${vo.bookNo}`}><button >상세조회</button></Link></td>
                 </tr>
                         )
                 }

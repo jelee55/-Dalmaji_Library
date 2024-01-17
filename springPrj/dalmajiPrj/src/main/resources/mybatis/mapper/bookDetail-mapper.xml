@@ -12,7 +12,7 @@
 		    , TITLE
 		    , AUTHOR
 		    , COMPANY
-		    , PUBLISHER_YEAR
+		    , TO_CHAR(PUBLISHER_YEAR, 'YYYY/MM/DD') PUBLISHER_YEAR
 		    , BOOK_NO
 		FROM BOOK_LIST
 		WHERE BOOK_NO = #{bookNo}
