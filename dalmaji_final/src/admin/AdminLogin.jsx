@@ -130,7 +130,7 @@ const AdminLogin = () => {
     const handleInputChange = (event) => {
         const {name , value} = event.target;
 
-        setVo({
+        setVo({ 
             ...vo,
             [name] : value
         });
@@ -163,7 +163,7 @@ const AdminLogin = () => {
         .then( data => {
             if( data.msg === "good" ){
                 alert("로그인 성공 !");
-                navigate("/");
+                navigate("admin/mypage");
             }else{
                 alert("로그인 실패 ...");
                 navigate("/failpage~~");

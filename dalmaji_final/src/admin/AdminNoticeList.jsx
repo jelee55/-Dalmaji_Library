@@ -105,19 +105,6 @@ const NoticeList = () => {
         const [noticeListVo, setnoticeListVo] = useState([]);
 
         const navigate = useNavigate();
-    //  const Navigate = useNavigate();
-    
-    // const handleChangeRestriction = (e) => {
-    //     const selectedValue = parseInt(e.target.value);
-    //     console.log(e.target.value);
-    //     // setVo(parseInt(e.target.value));
-    //     setVo({
-    //         ...vo,
-    //         "oNo": selectedValue, // 수정
-    //         "memberNo": selectedValue,//수정
-    //     })
-    //     // updateRestriction(vo);
-    // };
 
     useEffect(()=>{
         console.log("useEffect 호출됨~");
@@ -145,22 +132,6 @@ const NoticeList = () => {
         ;
     }
 
-    // const updateRestriction = (updatedVo) => { 
-    //     console.log(updatedVo);
-    //     fetch("http://127.0.0.1:8888/app/notice/list/edit", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(updatedVo)
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('vo', data.vo);
-    //         setnoticeListVo(data.vo);
-    //         navigate("/notice/list");
-    //     });
-    // }
 
     //페이지 번호를 클릭하면 해당 페이지의 목록을 불러오는 함수
     const handlerClickPageNum = (page) => {
@@ -204,12 +175,12 @@ const NoticeList = () => {
                             </tr>)
                             :
                             noticeListVoList.map( vo => <tr key={vo.no}>
-                                    <td>{vo.no}</td>
-                                    <td><a href="">{vo.title}</a></td>
-                                    <td>{vo.enrollDate}</td>
-                                    <td>{vo.hit}</td>
-                                </tr>
-                                )
+                                <td>{vo.no}</td>
+                                <td>{vo.title}</td>
+                                <td>{vo.enrollDate}</td>
+                                <td>{vo.hit}</td>
+                            </tr>
+                            )
                         }
                     </tbody>
                 </table>
