@@ -85,10 +85,10 @@ const Header = () => {
                     </button>
                 </div>
                 <div>
-                    <Link to='/'>
+                    <Link to='http:/localhost:3000/member/login'>
                     <div>로그인</div>
                     </Link>
-                    <Link to='/' >
+                    <Link to='http:/localhost:3000/member/join' >
                     <div>회원가입</div>
                     </Link>
                 </div>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalmaji.app.admin.dao.AdminDao;
 import com.dalmaji.app.admin.vo.AdminVo;
+import com.dalmaji.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 

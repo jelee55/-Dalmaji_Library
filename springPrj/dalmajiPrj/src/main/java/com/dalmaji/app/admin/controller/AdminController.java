@@ -1,10 +1,14 @@
 package com.dalmaji.app.admin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dalmaji.app.admin.service.AdminService;
@@ -23,18 +27,19 @@ public class AdminController {
 	
 	//로그인
 	@PostMapping("login")
-	public String login(AdminVo vo, HttpSession session) throws Exception {
-		
+	public Map<String, String> login(@RequestBody AdminVo vo, HttpSession session) throws Exception {
+		System.out.println(vo);
 		AdminVo loginAdmin = service.login(vo);
 		
-		if(loginAdmin == null) {
-			throw new Exception("로그인 실패");
-		}
-		
-		session.setAttribute("loginMember", loginAdmin);
+		session.setAttribute("loginAdmin", loginAdmin);
 		session.setAttribute("alerMsg", "로그인 성공!");
-		
-		return "redirect:/home";
+		Map<String , String> map = new HashMap<>();
+		map.put("msg", "good");
+		if(loginAdmin == null) {
+			map.put("msg", "bad");
+		}
+		return map;
+			
 	}
 	
 	//로그아웃

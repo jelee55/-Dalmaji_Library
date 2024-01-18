@@ -5,23 +5,6 @@
 
 <mapper namespace="AdminMapper">
 
-	<insert id="join">
-		INSERT INTO ADMIN 
-		(
-			ADMIN_NO
-            ,NAME
-            ,ID
-            ,PWD
-		) 
-		VALUES
-		(
-			SEQ_ADMIN_NO.NEXTVAL
-			, #{name}
-			, #{id}
-			, #{pwd}
-		) 
-	</insert>
-	
 	
 	<select id="login" resultType="com.dalmaji.app.admin.vo.AdminVo">
 		SELECT
