@@ -1,6 +1,8 @@
 package com.dalmaji.app.book.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -46,6 +48,27 @@ public class BookDao {
 	// 삭제
 	public int delete(SqlSessionTemplate sst, BookVo vo) {
 		return sst.update("BookMapper.delete", vo);
+	}
+
+	
+	// 검색에 대한 총 게시글 수 조회
+	public int getSearchTotalCount(SqlSessionTemplate sst, String title, String author, String company) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("title", title);
+	    map.put("author", author);
+	    map.put("company", company);
+	    return sst.selectOne("BookMapper.getSearchTotalCount", map);
+	}
+
+	// 검색 결과 목록 조회
+	public List<BookVo> searchList(SqlSessionTemplate sst, PageVo pvo, String title, String author, String company) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("title", title);
+	    map.put("author", author);
+	    map.put("company", company);
+	    map.put("startRow", pvo.getStartRow());
+	    map.put("listLimit", pvo.getListLimit());
+	    return sst.selectList("BookMapper.searchList", map);
 	}
 
 
