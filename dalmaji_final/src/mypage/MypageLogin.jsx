@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledLoginMainDiv = styled.div`
@@ -144,28 +144,30 @@ const MypageLogin = () => {
     const sessionLoginMemberVo = JSON.parse(jsonStr);
     const [loginMemberVo , setLoginMemberVo] = useState(sessionLoginMemberVo);
 
-    let isFetching = false;
-    const [vo, setVo] =  useState({
-        id : "",
-        pwd : "",
-    });
+
+    const handleClickJoin = () => {
+        navigate('/member/join');
+    }
+
+    const [vo , setVo] = useState();
 
     const handleInputChange = (event) => {
-        const {name , value} = event.target;
+       
+        const {name, value} = event.target
 
         setVo({
-            ...vo,
+            ...vo ,
             [name] : value
         });
     }
 
-    const handleLoginSubmit = (event) => {
-        event.preventDefault();
+    const handleClickLogin = (event) => {
 
         event.preventDefault();
+
 
         fetch("http://127.0.0.1:8888/app/member/login" , {
-            method : "POST" ,
+        method : "POST" ,
             headers : {
                 "Content-Type" : "application/json",
             },
@@ -189,20 +191,7 @@ const MypageLogin = () => {
 
     return (
         <StyledLoginMainDiv>
-            {loginMemberVo ? (
-                <div>
-                    <h3>{loginMemberVo.name} 님 환영합니다.</h3>
-                    <button
-                    onClick={() => {
-                        sessionStorage.removeItem("loginMemberVo");
-                        setLoginMemberVo(null);
-                    }}
-                    >
-                    로그아웃
-                    </button>
-                </div>
-            ) : (
-                <form onSubmit={ handleLoginSubmit }>
+            <form onSubmit={handleClickLogin}>
                 <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
                 <div><h1>로그인</h1></div>
                 <div>아이디</div>
@@ -214,16 +203,20 @@ const MypageLogin = () => {
                 <div><button>로그인</button></div>
                 <div className='ul'>
                     <ul>
-                        <li><Link to="http:/localhost:3000/member/join">회원가입</Link></li>
+                        <li><a href="http:/localhost:3000/member/join">회원가입</a></li>
                         <li><a>아이디 찾기</a></li>
                         <li><a>비밀번호 찾기</a></li>
                     </ul>
                 </div>
             </form>
-              )}
-            
-            
-
+            :
+            <div>
+                <h3>{loginMemberVo.nick} 님 환영합니다.</h3>
+                <button onClick={ () => {
+                    sessionStorage.removeItem("loginMemberVo");
+                    setLoginMemberVo(null);
+                }}>로그아웃</button>
+            </div>
         </StyledLoginMainDiv>
     );
 };

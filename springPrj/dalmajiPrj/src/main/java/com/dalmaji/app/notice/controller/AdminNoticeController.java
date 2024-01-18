@@ -31,7 +31,7 @@ public class AdminNoticeController {
 	
 	private final AdminNoticeService service;
 	
-//	//공지사항 작성
+//	//공지사항 작성	-> redirect는 리엑트 안됨
 //	@PostMapping("write")
 //	public String insert(AdminNoticeVo vo) throws Exception {
 //		
@@ -41,7 +41,7 @@ public class AdminNoticeController {
 //			throw new Exception();
 //		}
 //		
-//		return "redirect:/admin/notice/list";
+//		return "redirect:/admin/notice/list";	
 //	}
 	
 	//공지사항 작성하기
@@ -76,11 +76,11 @@ public class AdminNoticeController {
 		
 	}
 	
-	//공지사항 상세조회
+	//공지사항 상세조회 (번호)
 	@GetMapping("detail")
 	public String detail(AdminNoticeVo vo, Model model) {
 		AdminNoticeVo adminNoticeVo = service.detail(vo);
-		model.addAttribute("noticeVo", adminNoticeVo);
+		model.addAttribute("adminNoticeVo", adminNoticeVo);
 		return "admin/notice/detail";
 	}
 	
@@ -91,7 +91,7 @@ public class AdminNoticeController {
 		if(result != 1) {
 			throw new Exception();
 		}
-		return "redirect:/admin/notice/list";
+		return "admin/notice/list";
 	}
 	
 	//공지사항 수정 (제목, 내용)

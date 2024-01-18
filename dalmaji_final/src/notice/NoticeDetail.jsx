@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeDetailDiv = styled.div`
@@ -43,7 +44,8 @@ const StyledNoticeDetailDiv = styled.div`
 
                     & > .dropdown_head {    
                         width: 100%;
-                        height: 10%;
+                        height: 14%;
+                        margin-bottom: 50px;
                         /* background-color: greenyellow; */
 
                         &> .date {
@@ -53,7 +55,7 @@ const StyledNoticeDetailDiv = styled.div`
                             justify-content: flex-start;
                             align-items: center;
                             margin-top: 20px;
-                            margin-left: 8%;
+                            margin-left: 10%;
                             font-size: 15px;
                             /* background-color: azure; */
                             }
@@ -69,13 +71,9 @@ const StyledNoticeDetailDiv = styled.div`
                             }
                     }
 
-                    & > .none {
-                    height: 4%;
-                    /* background-color: yellow; */
-                    }
 
                     & > .dropdown_content{
-                        width: 940px;
+                        width: 100%;
                         height: 500px;
                         margin-left: 24px;
                         margin-bottom: 15px;
@@ -84,10 +82,12 @@ const StyledNoticeDetailDiv = styled.div`
                     
                             & > .content{
                                 height: 90%;
-                                width: 100%;
+                                width: 90%;
                                 display: flex;
                                 justify-content: center;
-                                /* border: 1px solid black; */
+                                margin-bottom: 80px;
+                                margin-left: 50px;
+                                border: 1px solid black;
                                 /* background-color: lightgray; */
                             }
                     }   
@@ -118,15 +118,38 @@ const StyledNoticeDetailDiv = styled.div`
     
             }
 
-        
-
-        
 `;
+
 
 const AdminNoticeDetail = () => {
 
-    const str = sessionStorage.getItem("loginMemberVo");
-    const vo = JSON
+    console.log("NoticeDetail 렌더링 중");
+
+    //url에서 noticeNo 추출
+    const selectedNoticeNo = useParams();
+    console.log("selectedNoticekNo ::: ", selectedNoticeNo);
+    console.log("selectedNoticeNo.bookNo ::: ", selectedNoticeNo.noticeNo);
+
+    // 사용할 변수 준비
+    const [noticeDetailVo, setNoticeDetailVo] = useState([]);
+
+    useEffect( () => {
+        const loadNoticeDetailVo = () => {
+            fetch(`http://127.0.0.1:8888/app/notice/detail?noticeNo=${selectedNoticeNo.noticeNo}`,{
+                    method: "GET",
+                        headers: {
+                            "Content-Type" : "application/json",
+                        },
+                })
+            .then( resp => resp.json() )
+            .then( (data) => {
+                console.log('data:::', data);
+                setNoticeDetailVo(data);
+            })
+            ;
+        }
+        loadNoticeDetailVo();
+    }, [selectedNoticeNo.noticeNo] )
 
     return (
         <StyledNoticeDetailDiv>
@@ -134,16 +157,14 @@ const AdminNoticeDetail = () => {
                 <div className='notice'>공지사항</div>
                 <form action="">
                     <div className="dropdown_head">
-                        <div className="date">2024.01.14</div>
-                        <div className="notice_title">[공지] 유저에게 알리는 소식</div>
+                        <div className="date">{noticeDetailVo.enrollDate}</div>
+                        <div className="notice_title">{noticeDetailVo.title}</div>
                     </div>
                     <div className='none'></div>
                     <div className='dropdown_content'>
-                        <div className="content">
-                            <textarea name="content" id="content" cols="120" rows="30"></textarea>
-                        </div>
+                        <div className="content">{noticeDetailVo.content}</div>
                     </div>
-                    <div className='list'><a href=''>목록보기</a></div>
+                    <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
                 </form>
             </div>
         </StyledNoticeDetailDiv>
