@@ -207,7 +207,7 @@ const SearchDetailList = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="author">작성자</div>
+          <div className="author">작성자</div>                                           
           <div>
             <input
               type="text"
