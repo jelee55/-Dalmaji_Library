@@ -23,10 +23,19 @@ public class BookService {
 	public List<BookVo> list(PageVo pvo) {
 		return dao.list(sst, pvo);
 	}
+    // 총 게시글 수 가져오는 메소드
+    public int getTotalCount() {
+        return dao.getTotalCount(sst);
+    }
 
-	// 총 게시글 수 가져오는 메소드
-	public int getTotalCount() {
-		return dao.getTotalCount(sst);
+	// 검색에 대한 총 게시글 수 가져오는 메소드
+	public int getSearchTotalCount(String title, String author, String company) {
+	    return dao.getSearchTotalCount(sst, title, author, company);
+	}
+
+	// 검색 결과 목록 조회
+	public List<BookVo> searchList(PageVo pvo, String title, String author, String company) {
+	    return dao.searchList(sst, pvo, title, author, company);
 	}
 
 	

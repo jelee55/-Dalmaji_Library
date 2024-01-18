@@ -30,22 +30,31 @@ public class BookListController {
 
 	// 목록조회(no,제목,저자,발행처,발행년도,도서상태)
 	@GetMapping("list")
-	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage) {
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int currentPage,
+	                                @RequestParam(required = false) String title,
+	                                @RequestParam(required = false) String author,
+	                                @RequestParam(required = false) String company) {
 
-		int listCount = service.getTotalCount();
-		int pageLimit = 5;
-		int listLimit = 8;
-		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-		List<BookVo> voList = service.list(pvo);
+	    // 검색 조건이 있는 경우 검색 결과에 대한 총 아이템 수를 가져옵니다.
+	    int listCount = (title != null || author != null || company != null)
+	                        ? service.getSearchTotalCount(title, author, company)
+	                        : service.getTotalCount();
+	    
+	    int pageLimit = 5;
+	    int listLimit = 8;
+	    PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+	    
+	    // 검색 조건이 있는 경우 검색 결과 목록을 가져옵니다.
+	    List<BookVo> voList = (title != null || author != null || company != null)
+	                            ? service.searchList(pvo, title, author, company)
+	                            : service.list(pvo);
 
-		for (BookVo vo : voList) {
-			System.out.println(vo);
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("voList", voList);
-		map.put("pvo", pvo);
-		return map;
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("voList", voList);
+	    map.put("pvo", pvo);
+	    return map;
 	}
+
 
 	// 검색(게시글 목록 조회)
 	@GetMapping("detaillist")

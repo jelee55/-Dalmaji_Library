@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 
 const StyledDetailListDiv = styled.div`
   width: 100%;
@@ -124,6 +125,8 @@ const SearchDetailList = () => {
     company: '',
   });
 
+  const navigate = useNavigate();
+
   const loadBookVoList = () => {
     fetch('http://127.0.0.1:8888/app/search/detaillist')
       .then((resp) => resp.json())
@@ -145,8 +148,30 @@ const SearchDetailList = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // 실제 서버 API를 기반으로 검색 기능을 구현하세요
+
+    // 검색 기능을 구현하세요
     console.log('검색:', searchValues);
+
+
+    // 검색 결과가 있을 때만 SearchList 페이지로 이동
+    const searchResults = bookVoList.filter((vo) => {
+      return (
+        (vo.title && vo.title.includes(searchValues.title)) ||
+        (vo.author && vo.author.includes(searchValues.author)) ||
+        (vo.company && vo.company.includes(searchValues.company))
+      );
+    });
+
+    console.log('검색 결과:', searchResults);
+    
+
+    if (searchResults.length > 0) {
+      console.log('이동할 경로:', '/search/list');
+      navigate('/search/list', { state: { searchResults: searchResults } });
+    } else {
+      // 검색 결과가 없으면 알림 띄우기
+      alert('검색 결과가 없습니다.');
+    }
   };
 
   return (
@@ -158,13 +183,13 @@ const SearchDetailList = () => {
       </div>
       <div className='header2'>
         <div className="btn">
-          <Link to="/search/list">
-            <a href='#' className='link_box'>전체보기</a>
+          <Link to="/search/list" className='link_box'>
+            전체보기
           </Link>
         </div>
         <div className="btn">
-          <Link to="/search/detaillist">
-            <a href='#' className='link_box'>검색</a>
+          <Link to="/search/detaillist"className='link_box'>
+            검색
           </Link>
         </div>
       </div>
@@ -198,26 +223,13 @@ const SearchDetailList = () => {
               onChange={handleInputChange}
             />
           </div>
-          <form>
           <div className='click'>
             <input type="submit" value="검색" title="검색" className="searchB" />
             <input type="reset" value="다시쓰기" title="다시쓰기" />
           </div>
-          </form>
         </div>
       </form>
-      {/* 도서 목록을 보여줄 부분 */}
-      <div className='bookList'>
-        <h2>도서 목록</h2>
-        <ul>
-          {bookVoList.map((vo) => (
-            <li key={vo.BOOK_NO}>
-              <strong>{vo.TITLE}</strong> by {vo.AUTHOR}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* </div> */}
+    
       
     </StyledDetailListDiv>
   );
