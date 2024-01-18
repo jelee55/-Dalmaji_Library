@@ -18,13 +18,19 @@
 		    , R.ROOM_NAME
 		    , S.STATUS_NO
 		    , S.BOOK_STATE
-		    , TO_CHAR(B.DUE_DATE, 'YYYY/MM/DD') DUE_DATE
 		FROM BOOK_LIST L
 		JOIN BOOK_ROOM R ON R.BOOK_ROOM_NO = L.BOOK_ROOM_NO
 		JOIN BOOK_STATUS S ON S.STATUS_NO = L.STATUS_NO
-		JOIN BORROW B ON B.BOOK_NO = L.BOOK_NO
 		WHERE L.BOOK_NO = #{bookNo}
 	</select>
-
+	
+	<select id="dueDate" resultType="com.dalmaji.app.borrow.vo.BorrowVo">
+		SELECT
+		    B.BOOK_NO
+		    , TO_CHAR(B.DUE_DATE, 'YYYY/MM/DD') DUE_DATE
+		FROM BORROW B
+		JOIN BOOK_LIST L ON L.BOOK_NO = B.BOOK_NO
+		WHERE L.BOOK_NO = #{bookNo}
+	</select>
 	
 </mapper>

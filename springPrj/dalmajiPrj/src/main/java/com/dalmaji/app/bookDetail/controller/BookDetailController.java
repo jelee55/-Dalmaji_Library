@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.bookDetail.service.BookDetailService;
 import com.dalmaji.app.bookDetail.vo.BookDetailVo;
+import com.dalmaji.app.borrow.vo.BorrowVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,11 +30,11 @@ public class BookDetailController {
 	 * 화면구현
 	 * 
 	 * @param bookNo
-	 * @return vo
+	 * @return
 	 * @throws Exception
 	 */
 	@GetMapping("detail")
-	public BookDetailVo detail(@RequestParam String bookNo)throws Exception {
+	public Map<String, Object> detail(@RequestParam String bookNo)throws Exception {
 		
 		BookDetailVo vo = service.detail(bookNo);
 		
@@ -41,10 +42,20 @@ public class BookDetailController {
 			throw new Exception("bookNo 못찾음...");
 		}
 		
+		// 반납일자가 있는 경우 반영되도록
+		BorrowVo borrowVo = service.dueDate(bookNo);
+		
+		// 결과를 MAP에 담아 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("vo", vo);
+		map.put("borrowVo", borrowVo);
+		
 		System.out.println("vo 호출 ::: " + vo);
 		System.out.println("bookNo 호출 ::: " + bookNo);
 		
-		return vo;
+		return map;
 	}
+	
+	
 
-}
+}//class
