@@ -119,6 +119,7 @@ const StyledDetailListDiv = styled.div`
 
 const SearchDetailList = () => {
   const [bookVoList, setBookVoList] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchValues, setSearchValues] = useState({
     title: '',
     author: '',
@@ -132,6 +133,7 @@ const SearchDetailList = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setBookVoList(data);
+        setSearchResults(data); // 모든 데이터로 검색 결과를 초기화합니다.
       });
   };
 
