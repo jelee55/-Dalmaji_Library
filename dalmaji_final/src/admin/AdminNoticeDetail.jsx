@@ -131,13 +131,13 @@ const AdminNoticeDetail = () => {
                     </div>
                 <form action="">
                     <div className="dropdown_head">
-                        <div className="date">2024.01.14</div>
-                        <div className="notice_title">[공지] 유저에게 알리는 소식</div>
+                        <div className="date">{vo.enrollDate}</div>
+                        <div className="notice_title">{vo.title}</div>
                     </div>
                     <div className='none'></div>
                     <div className='dropdown_content'>
                         <div className="content">
-                            <textarea name="content" id="content" cols="120" rows="30"></textarea>
+                            <textarea name="content" id="content" cols="120" rows="30">{vo.content}</textarea>
                         </div>
                     </div>
                     <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>

@@ -86,6 +86,25 @@ const StyledDeleteMainDiv = styled.div`
                     border-bottom: 1px solid black;
                     background-color: beige;
                 }
+
+                & > .delete_content table {
+                    display: flex;
+                    flex-direction: row; /* 가로 정렬 */
+                    border-collapse: collapse; /* 테이블 셀 경계를 병합합니다. */
+                    width: 100%; /* 테이블 전체 너비를 100%로 설정 */
+                }
+
+                    & > .delete_content table thead,
+                        .delete_content table tbody {
+                        display: flex;
+                        flex-direction: column; /* 세로 정렬 */
+                    }
+
+                    & > .delete_content table td, .delete_content table th {
+                        flex: 1; /* 셀이 나타낼 수 있는 공간을 균등하게 나눕니다. */
+                        border: 1px solid #dddddd; /* 셀 경계 선 스타일 지정 */
+                        padding: 8px; /* 셀 안의 내용과 경계 사이의 간격 지정 */
+                    }
                 
             }
             
