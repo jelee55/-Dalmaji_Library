@@ -205,7 +205,7 @@ const NoticeList = () => {
                             :
                             noticeListVoList.map( vo => <tr key={vo.no}>
                                     <td>{vo.no}</td>
-                                    <td>{vo.title}</td>
+                                    <td><a href="">{vo.title}</a></td>
                                     <td>{vo.enrollDate}</td>
                                     <td>{vo.hit}</td>
                                 </tr>
