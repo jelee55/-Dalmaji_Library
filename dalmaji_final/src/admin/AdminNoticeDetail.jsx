@@ -121,50 +121,46 @@ const StyledNoticeDetailDiv = styled.div`
 `;
 
 const AdminNoticeDetail = () => {
-
     console.log("AdminNoticeDetail 렌더링 중");
 
-    //url에서 noticeNo 추출
-    const selectedAdminNoticeNo = useParams();
-    console.log("selectedAdminNoticekNo ::: ", selectedAdminNoticeNo);
-    console.log("selectedAdminNoticeNo.bookNo ::: ", selectedAdminNoticeNo.amdinNoticeNo);
+    // url에서 noticeNo 추출
+    const { no } = useParams(); // 수정된 부분
 
     // 사용할 변수 준비
-    const [adminNoticeDetailVo, setAdminNoticeDetailVo] = useState([]);
+    const [vo, setVo] = useState([]);
 
-    useEffect( () => {
-        const loadAdminNoticeDetailVo = () => {
-            fetch(`http://127.0.0.1:8888/app/notice/detail?noticeNo=${selectedAdminNoticeNo.adminNoticeNo}`,{
-                    method: "GET",
-                        headers: {
-                            "Content-Type" : "application/json",
-                        },
-                })
-            .then( resp => resp.json() )
-            .then( (data) => {
-                console.log('data:::', data);
-                setAdminNoticeDetailVo(data);
+    useEffect(() => {
+        const loadNoticeDetailVo = () => {
+            fetch(`http://127.0.0.1:8888/app/admin/notice/detail?no=${no}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
             })
-            ;
-        }
-        loadAdminNoticeDetailVo();
-    }, [selectedAdminNoticeNo.adminNoticeNo] )
+                .then((resp) => resp.json())
+                .then((data) => {
+                    console.log('data:::', data);
+                    setVo(data.vo);
+                });
+        };
+        loadNoticeDetailVo();
+    }, [no]);
 
 
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
             <div className='notice'>공지사항</div>
-                <form action="">
+                <form >
                     <div className="dropdown_head">
-                        <div className="date">날짜 : {adminNoticeDetailVo.enrollDate}</div>
-                        <div className="notice_title">제목 : {adminNoticeDetailVo.title}</div>
+                        <div className="date">날짜 : {vo.enrollDate}</div>
+                        <div className="notice_title">제목 : {vo.title}</div>
                     </div>
                     <div className='none'></div>
                     <div className='dropdown_content'>
-                        <div className="content">{adminNoticeDetailVo.content}</div>
+                        <div className="content">{vo.content}</div>
                     </div>
-                    <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
+                    <div className='list'><a href='/admin/notice/list'>목록보기</a></div>
                 </form>
             </div>
         </StyledNoticeDetailDiv>

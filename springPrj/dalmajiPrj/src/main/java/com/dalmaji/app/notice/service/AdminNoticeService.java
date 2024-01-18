@@ -30,8 +30,8 @@ public class AdminNoticeService {
 		}
 
 		//공지사항 상세조회
-		public AdminNoticeVo detail(AdminNoticeVo vo) {
-			return dao.detail(sst, vo);
+		public AdminNoticeVo detail(String no) {
+			return dao.detail(sst, no);
 		}
 
 		//공지사항 삭제

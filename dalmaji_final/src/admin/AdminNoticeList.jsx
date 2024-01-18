@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeListDiv = styled.div`
@@ -96,15 +96,11 @@ const NoticeList = () => {
         const [noticeListVoList, setnoticeListVoList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
         const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
-        const [oNo, setONo] = useState();
-        const [vo, setVo] = useState({
-            oNo: "",
-            memberNo: "",
-        });
 
         const [noticeListVo, setnoticeListVo] = useState([]);
 
         const navigate = useNavigate();
+    
 
     useEffect(()=>{
         console.log("useEffect 호출됨~");
@@ -112,7 +108,6 @@ const NoticeList = () => {
     }, []);
 
     //fetch 이용해 데이터 준비 (페이지 처리)
-    // const [NoticeVoList,setNoticeVoList] = useState([]);
     const loadNoticeVoList = (page) => {
         
         // URL 문자열 안에 변수를 넣을 때는 백틱(``)을 사용하고, 변수는 ${}로 감싸줌
@@ -175,12 +170,12 @@ const NoticeList = () => {
                             </tr>)
                             :
                             noticeListVoList.map( vo => <tr key={vo.no}>
-                                <td>{vo.no}</td>
-                                <td>{vo.title}</td>
-                                <td>{vo.enrollDate}</td>
-                                <td>{vo.hit}</td>
-                            </tr>
-                            )
+                                    <td>{vo.no}</td>
+                                    <td><Link to={`/admin/notice/detail/${vo.no}`}>{vo.title}</Link></td>
+                                    <td>{vo.enrollDate}</td>
+                                    <td>{vo.hit}</td>
+                                </tr>
+                                )
                         }
                     </tbody>
                 </table>
