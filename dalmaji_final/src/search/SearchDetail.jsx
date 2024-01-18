@@ -14,7 +14,7 @@ const StyledDetailContentDiv = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 5fr 3fr 2fr 3fr;
+    grid-template-rows: 1fr 5fr 3fr 2fr;
     & > div:first-child > h1 {
             margin-top: 50px;
             border-bottom: 3px solid black;
@@ -22,20 +22,55 @@ const StyledDetailContentDiv = styled.div`
     & > div:nth-child(2){
         width: 100%;
         height: 100%;
+        margin: 50px;
         display: flex;
-        gap: 80px;
+        justify-content: space-between;
+        align-items: center;
         & > div {
             width: 100%;
             height: 100%;
             & > .title{
                 font-size: 33px;
             }
+            & > div {
+                margin-top: 15px;
+                font-size: 24px;
+            }
         }
         & > div > img{
-            width: 450px;
-            height: 650px;
+            width: 350px;
+            height: 500px;
         }
 
+    }
+`;
+
+const StyledTableDiv = styled.div`
+    width: 100%;
+    height: 100%;
+    & > div:first-child {
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        font-size: 27px;
+        background-color: #D9F1FF;
+    }
+    & > table {
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        height: 30%;
+        & > thead {
+            background-color: #EFEFF1;
+            & > tr {
+            width: 100%;
+            height: 50px;
+            }   
+        }
+        & > tbody > tr {
+            width: 100%;
+            height: 30px;
+        }
     }
 `;
 
@@ -78,16 +113,35 @@ const SearchDetail = () => {
                         <img src={bookDetailVo.bookImg} alt={bookDetailVo.title} />
                     </div>
                     <div>
-                        <div className='title'>{bookDetailVo.title}</div>
+                        <div className='title'><strong>{bookDetailVo.title}</strong></div>
                         <div><strong>작가: </strong> {bookDetailVo.author}</div>
                         <div><strong>출판사: </strong> {bookDetailVo.company}</div>
                         <div><strong>출판일: </strong> {bookDetailVo.publisherYear}</div>
-                        <div><strong>도서번호: </strong> {bookDetailVo.bookNo}</div>
                     </div>
                 </div>
-                <div>3</div>
+                <StyledTableDiv>
+                    <div>소장정보</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NO.</th>
+                                <th>소장위치</th>
+                                <th>도서상태</th>
+                                <th>반납예정일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{bookDetailVo.bookNo}</td>
+                                <td>{bookDetailVo.roomName}</td>
+                                <td>{bookDetailVo.bookState}</td>
+                                <td>{bookDetailVo.dueDate}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button>대출</button>
+                </StyledTableDiv>
                 <div>4</div>
-                <div>5</div>
             </StyledDetailContentDiv>
             <div>3</div>
         </StyledSearchDetailDiv>

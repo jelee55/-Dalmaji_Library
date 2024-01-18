@@ -11,5 +11,10 @@ public class BookDetailVo {
 	private String company;
 	private String publisherYear;
 	private String bookNo;
+	private String bookRoomNo;
+	private String roomName;
+	private String statusNo;
+	private String bookState;
+	private String dueDate;
 	
 }
