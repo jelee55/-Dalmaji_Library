@@ -4,12 +4,19 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.bookDetail.vo.BookDetailVo;
+import com.dalmaji.app.borrow.vo.BorrowVo;
 
 @Repository
 public class BookDetailDao {
 
+	// 책 번호에 따른 상세페이지 화면구현
 	public BookDetailVo detail(SqlSessionTemplate sst, String bookNo) {
 		return sst.selectOne("BookDetailMapper.detail", bookNo);
+	}
+
+	// 반납일자가 있는 경우 반영되도록
+	public BorrowVo dueDate(SqlSessionTemplate sst, String bookNo) {
+		return sst.selectOne("BookDetailMapper.dueDate", bookNo);
 	}
 
 }

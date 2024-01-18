@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
 const StyledSearchDetailDiv = styled.div`
@@ -81,19 +82,35 @@ const StyledTableDiv = styled.div`
             height: 30px;
         }
     }
-    & > button {
-        width: 80px;
-        height: 35px;
-        font-size: 18px;
-        margin-top: 30px;
-        background-color: #275FBC;
-        border: none;
-        border-radius: 7px;
-        color: white;
-        cursor: pointer;
-    }
-    & > button:hover{
-        filter: brightness(130%);
+    &> div:nth-child(3) {
+        display: flex;
+        gap: 15px;
+        & > button:first-child {
+            width: 110px;
+            height: 35px;
+            font-size: 18px;
+            margin-top: 30px;
+            background-color: #275FBC;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+        }
+        & > .redirect {
+            width: 110px;
+            height: 35px;
+            font-size: 18px;
+            margin-top: 30px;
+            background-color: #666666;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+        }
+        & > button:hover{
+            filter: brightness(150%);
+        }
+
     }
 `;
 
@@ -155,7 +172,8 @@ const SearchDetail = () => {
     console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
 
     // 사용할 변수 준비
-    const [bookDetailVo, setBookDetailVo] = useState([]);
+    const [vo, setVo] = useState([]);
+    const [borrowVo, setBorrowVo] = useState([]);
 
     useEffect( () => {
         const loadBookDetailVo = () => {
@@ -168,7 +186,8 @@ const SearchDetail = () => {
             .then( resp => resp.json() )
             .then( (data) => {
                 console.log('data:::', data);
-                setBookDetailVo(data);
+                setVo(data.vo);
+                setBorrowVo(data.borrowVo);
             })
             ;
         }
@@ -178,12 +197,10 @@ const SearchDetail = () => {
     // 모달창을 위한 준비
     const [modal, setModal] = useState(false);
 
-    const openModal = () => {
-        setModal(true);
-    };
-
-    const closeModal = () => {
-        setModal(false);
+    // 목록버튼 클릭시 돌아가기
+    const navigate = useNavigate();
+    const redirect = () => {
+        navigate("/search/list");
     };
     
     return (
@@ -193,13 +210,13 @@ const SearchDetail = () => {
                 <div><h1>상세정보</h1></div>
                 <div>
                     <div>
-                        <img src={bookDetailVo.bookImg} alt={bookDetailVo.title} />
+                        <img src={vo.bookImg} alt={vo.title} />
                     </div>
                     <div>
-                        <div className='title'><strong>{bookDetailVo.title}</strong></div>
-                        <div><strong>작가: </strong> {bookDetailVo.author}</div>
-                        <div><strong>출판사: </strong> {bookDetailVo.company}</div>
-                        <div><strong>출판일: </strong> {bookDetailVo.publisherYear}</div>
+                        <div className='title'><strong>{vo.title}</strong></div>
+                        <div><strong>작가: </strong> {vo.author}</div>
+                        <div><strong>출판사: </strong> {vo.company}</div>
+                        <div><strong>출판일: </strong> {vo.publisherYear}</div>
                     </div>
                 </div>
                 <StyledTableDiv>
@@ -211,32 +228,41 @@ const SearchDetail = () => {
                                 <th>소장위치</th>
                                 <th>도서상태</th>
                                 <th>반납예정일</th>
-                            </tr>
+                            </tr> 
                         </thead>
-                        <tbody>
+                        <tbody> 
                             <tr>
-                                <td>{bookDetailVo.bookNo}</td>
-                                <td>{bookDetailVo.roomName}</td>
-                                <td>{bookDetailVo.bookState}</td>
-                                <td>{bookDetailVo.dueDate}</td>
+                                <td>{vo.bookNo}</td>
+                                <td>{vo.roomName}</td>
+                                <td>{vo.bookState}</td>
+                                {
+                                    borrowVo === undefined
+                                    ?
+                                    <td>대출가능</td>
+                                    :
+                                    <td>{borrowVo.dueDate}</td>
+                                }
                             </tr>
                         </tbody>
                     </table>
-                    <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
-                    {modal === true 
-                        ? 
-                        <StyledModalDiv>
-                            <div><h1>알림</h1></div>
-                            <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                            <input type="password" placeholder='password'/>
-                            <div>
-                                <button>완료</button>
-                                <button onClick={ () => {setModal(modal)} }>취소</button>
-                            </div>
-                        </StyledModalDiv> 
-                        : 
-                        null
-                    }
+                    <div>
+                        <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
+                        {modal === true 
+                            ? 
+                            <StyledModalDiv>
+                                <div><h1>알림</h1></div>
+                                <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
+                                <input type="password" placeholder='password'/>
+                                <div>
+                                    <button>완료</button>
+                                    <button onClick={ () => {setModal(false)} }>취소</button>
+                                </div>
+                            </StyledModalDiv> 
+                            : 
+                            null
+                        }
+                        <button className='redirect' onClick={redirect}><FontAwesomeIcon icon={faList} /> 목록으로</button>
+                    </div>
                 </StyledTableDiv>
                 <div>4</div>
             </StyledDetailContentDiv>
