@@ -61,10 +61,6 @@ public class MemberController {
 		System.out.println(vo);
 		MemberVo loginMember = service.login(vo);
 		
-//		if(loginMember == null) {
-//			throw new Exception("로그인 실패");
-//		}
-		
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("alerMsg", "로그인 성공!");
 		Map<String , String> map = new HashMap<>();

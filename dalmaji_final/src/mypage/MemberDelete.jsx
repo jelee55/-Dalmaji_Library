@@ -193,33 +193,15 @@ const MemberDelete = () => {
 
                     <form>
                         <div className='delete_box'>
-                            <div className='delete_title'>탈퇴 회원정보</div>
+                            <div className='delete_title'>회원 탈퇴정보</div>
                             <div className='delete_content'>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>성명</th>
-                                            <th>아이디</th>
-                                            <th>탈퇴가능 여부</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                            memberVoList.length === 0
-                                            ?
-                                            (<tr>
-                                                <td colSpan="3">로딩중...</td>
-                                            </tr>)
-                                            :
-                                            memberVoList.map( vo => <tr key={vo.no}>
-                                                    <td>{vo.name}</td>
-                                                    <td>{vo.id}</td>
-                                                    <td>{vo.oNo}</td>
-                                                </tr>
-                                                )
-                                        }
-                                    </tbody>
-                                </table>
+                            {memberVoList.map((vo) => (
+                                <ul key={vo.no}>
+                                    <li>성명 : {vo.name}</li>
+                                    <li>아이디 : {vo.id}</li>
+                                    <li>탈퇴가능 여부 : {vo.oNo}</li>
+                                </ul>
+                                ))}
                             </div>
                         </div>
                         <div className="update">
