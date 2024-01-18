@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dalmaji.app.book.vo.BookVo;
+import com.dalmaji.app.bookDetail.vo.BookDetailVo;
+import com.dalmaji.app.borrow.vo.BorrowVo;
 import com.dalmaji.app.notice.service.AdminNoticeService;
 import com.dalmaji.app.notice.service.NoticeService;
 import com.dalmaji.app.notice.vo.AdminNoticeVo;
@@ -59,16 +63,6 @@ public class AdminNoticeController {
 		return map;
 	}
 	
-	//공지사항 목록조회 (data+view)
-//	@GetMapping("list")
-//	public String list(Model model) {
-//		
-//		List<AdminNoticeVo> voList = service.list();
-//		model.addAttribute("AdminNoticeVoList" , voList);
-//		
-//		return "admin/notice/list";
-//	}
-	
 	//공지사항 목록조회 (data)
 	@GetMapping("list")
 	public List<AdminNoticeVo> restList(){
@@ -78,30 +72,40 @@ public class AdminNoticeController {
 	
 	//공지사항 상세조회 (번호)
 	@GetMapping("detail")
-	public String detail(AdminNoticeVo vo, Model model) {
-		AdminNoticeVo adminNoticeVo = service.detail(vo);
-		model.addAttribute("adminNoticeVo", adminNoticeVo);
-		return "admin/notice/detail";
-	}
-	
-	//공지사항 삭제 (번호)
-	@GetMapping("delete")
-	public String delete(AdminNoticeVo vo) throws Exception {
-		int result = service.delete(vo);
-		if(result != 1) {
-			throw new Exception();
+	public Map<String, Object> detail(@RequestParam String no)throws Exception {
+		
+		AdminNoticeVo vo = service.detail(no);
+		
+		if(vo == null) {
+			throw new Exception("noticeNo 못찾음...");
 		}
-		return "admin/notice/list";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("vo", vo);
+		
+		System.out.println("vo 호출 ::: " + vo);
+		System.out.println("noticeNo 호출 ::: " + no);
+		
+		return map;
 	}
 	
-	//공지사항 수정 (제목, 내용)
+	//공지사항 수정(제목,저자,이미지)
 	@PostMapping("edit")
 	public String edit(AdminNoticeVo vo) throws Exception {
 		int result = service.edit(vo);
-		if(result != 1) {
+		if (result != 1) {
 			throw new Exception();
 		}
 		return "redirect:/admin/notice/detail?no=" + vo.getNo();
 	}
 
+	//공지사항 삭제(관리자만)
+	@GetMapping("delete")
+	public String delete(AdminNoticeVo vo) throws Exception {
+		int result = service.delete(vo);
+		if (result != 1) {
+			throw new Exception();
+		}
+		return "redirect:/admin/notice/list";
+	}
 }
