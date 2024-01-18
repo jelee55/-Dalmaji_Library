@@ -4,56 +4,46 @@ import styled from 'styled-components';
 
 
 const StyledDetailListDiv = styled.div`
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows:1fr 0.5fr 0.5fr 5fr;
-  place-items: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   /* background-color: #8c00ff; */
   padding: 0%;
   /* border: 1px solid black; */
-
+  
   & > .header1 {
+      font: bold;
       width: 70%;
-      height: 25%;
-      margin: none;
+      height: 20%;
       /* background-color: #9af097; */
       display: flex;
-      flex-direction: column;
+      /* flex-direction: column; */
       align-items: right;
       justify-content: center;
+      margin-bottom: 0%;
       border-bottom: 5px solid #2f2f49;
-      padding: 0%;
-      margin-top: 10%;
-      margin-bottom: 35px;
-   
-    h1 {
+      /* padding: 0%; */
+      /* margin-top: 0%; */
+      h1 {
+        font: 55px;
         width: 100%;
-        margin: 0;
-        padding: 0;
-        font: bold;
+        margin-top: 5%;
+        margin-bottom: 0%;
+        margin-left: 0%;
+        padding: 5%;
+        color: #2f2f49;
     }
   
 }
-& > .search_book {
-      background-color: red;
-    }
-& > .header2 {
-    width: 70%;
-    height: 40px;
-    margin: none;
-    display: flex;
-    /* justify-content: ; */
-    margin-top: 10px;  /* .header2 위 간격 조절 */
-    border: 1px solid black;
-    background-color: #636394;
-    font-size: 20px;
-    .btn {
-      display: flex;
-      justify-content: space-between;
-      /* color: #8c00ff; */
-    }
-  }
+& > div {
+  display: flex;
+  align-items: center center;
+}
+
 & > a {
   font-size: 25px;
 }
@@ -108,13 +98,7 @@ const StyledDetailListDiv = styled.div`
        
     }
   }
- /* & > .form {
-  background-color: red;
-  width: 70%;
-  height: 800px;
-  margin-top: 5%;
-  border: 1px solid black;
- }  */
+
     `;
 
 const SearchDetailList = () => {
@@ -179,22 +163,9 @@ const SearchDetailList = () => {
   return (
     <StyledDetailListDiv>
       <div className="header1">
-        <div className='search_book'>
           <h1>도서검색</h1>
-        </div>
       </div>
-      <div className='header2'>
-        <div className="btn">
-          <Link to="/search/list" className='link_box'>
-            전체보기
-          </Link>
-        </div>
-        <div className="btn">
-          <Link to="/search/detaillist"className='link_box'>
-            검색
-          </Link>
-        </div>
-      </div>
+    
       {/* <div className='form'> */}
       <form onSubmit={handleSearch}>
         <div className='search_input'>

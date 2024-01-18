@@ -40,15 +40,20 @@ const SearchAdminEdit = () => {
   
     return (
        <StyledAdminEditDiv>
-        <div><h1>정보수정</h1></div>
-
-
-            <div className='bnt'>
-                <button>수정</button>
-                <button>삭제</button>
-                <button>목록으로</button>
-
-            </div>
+                <div className='header'>
+                    <h1>정보수정</h1>
+                </div>
+                {/* <div>
+                    <div>
+                        <img src={vo.bookImg} alt={vo.title} />
+                    </div>
+                    <div>
+                        <div className='title'><strong>{vo.title}</strong></div>
+                        <div><strong>작가: </strong> {vo.author}</div>
+                        <div><strong>출판사: </strong> {vo.company}</div>
+                        <div><strong>출판일: </strong> {vo.publisherYear}</div>
+                    </div>
+                </div> */}
 
        </StyledAdminEditDiv>
     );

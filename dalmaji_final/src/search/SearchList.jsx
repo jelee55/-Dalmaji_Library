@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 
 const StyledSearchListDiv = styled.div`
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 100%;
     height: 100%;
     display: flex;
@@ -18,8 +19,9 @@ const StyledSearchListDiv = styled.div`
     grid-template-rows: 1fr 5fr 3fr 2fr 3fr;
     padding: 10%; */
     & > table {
-        width: 80%;
-        height: 80%;
+        width: 70%;
+        height: 90%;
+        margin-top: 2.5%;
         padding-bottom: 3%
         /* border-collapse: collapse; */
     }
@@ -32,15 +34,23 @@ const StyledSearchListDiv = styled.div`
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-    & > .header h1 {
-        width: 100%;
-        
+    & > .header {
+        width: 70%;
+        margin-bottom: 2%;
+        h1{
+            margin-bottom: 2%;
+            margin-left: 2%;
+            color: #2f2f49;
+            font-size: 45px;
+            font: bold;
+        }
         
     }
     & > .header > .border {
-        border-bottom: 3px solid black;
-        background-color: red;
-
+        border-bottom: 6px solid #2f2f49;
+        flex-direction: column;
+        align-items: right;
+        /* padding-bottom: 0%; */
     }   
         
     & >  table th,
@@ -50,20 +60,36 @@ const StyledSearchListDiv = styled.div`
             text-align: center;
 
          }
-
-    & > table td {
-        background-color: #F8F4EC;
-        
+         
+         & > table td {
+             background-color: #F8F4EC;
+             
+            }
+            & > .ul{
+                width: 70%;
+                height: 5%;
+                background-color: #9e9ead;
+                border: 1px solid #9e9ead;
+                color: white;
+                font: bold;
+                border-radius: 8px;
+                display: flex;
+                justify-items: center;
+                margin-top: 0%;
+                margin-bottom: 3%;
+                font: bold;
+                ul {
+                    padding: 0%;
+                    width: 100%;
+                    height: 10%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    list-style: none;
+            /* background-color: aqua; */
+            
+            }
     }
-    & > .ul > ul {
-        width: 100%;
-        height: 10%;
-        display: flex;
-        justify-content: space-evenly;
-        list-style: none;
-        /* background-color: aqua; */
-        
-        }
+
   
     & > .bnt{
         border-top-left-radius: 10px;
@@ -132,18 +158,14 @@ const SearchList = () => {
     return (
         <StyledSearchListDiv>
         <div className='header'>
-            <div className='border'><h1>도서검색</h1></div>
-            <Link to="/search/list"><button>전체보기</button></Link>
-            <Link to="/search/detaillist"><button>검색</button></Link>
-        {/* <ul>
-            <li><a>전체보기</a></li>
-            <li><a>검색</a></li>
-        </ul> */}
+            <div className='border'>
+                <h1>도서검색</h1>
+            </div>
         </div>
 
                 <div className='ul'>
                     <ul>
-                        <li><a>전체</a></li>
+                        <li><a>전체</a></li>  
                         <li><a>소설</a></li>
                         <li><a>인문</a></li>
                         <li><a>경제/경영</a></li>
@@ -162,7 +184,6 @@ const SearchList = () => {
                     <th> 발행처</th>
                     <th> 발행년도</th>
                     <th> 조회수</th>
-                    {/* <th> 도서상태</th> */}
                     <th> 상세조회</th>
                 </tr>
             </thead>
@@ -179,7 +200,6 @@ const SearchList = () => {
                     <td>{vo.company}</td>
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
-                    {/* <td>{vo.bookState}</td> */}
                     <td><Link to={`/search/detail/${vo.bookNo}`}><button >상세조회</button></Link></td>
                 </tr>
                         )
