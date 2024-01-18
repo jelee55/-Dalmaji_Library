@@ -14,7 +14,8 @@ public class BorrowVo {
 	private String borrowDate;
 	private String dueDate;
 	private String overdueCnt;
-	private String statusNow;
 	private String restriction;
+	private String bookState;
+	private String statusNo;
 	
 }

@@ -18,8 +18,9 @@ const Navi = () => {
     return (
         <StyledNaviDiv>
             <div><Link to="/notice/list">공지사항</Link></div>
-            <div><Link to="/search/*">자료검색</Link></div>
-            <div><Link to="/mypage/*">마이페이지</Link></div>
+            <div><Link to="/search/list">도서목록</Link></div>
+            <div><Link to="/search/detaillist">도서검색</Link></div>
+            <div><Link to="/admin/mypage">마이페이지</Link></div>
         </StyledNaviDiv>
     );
 };
