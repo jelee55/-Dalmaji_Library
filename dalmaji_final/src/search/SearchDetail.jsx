@@ -238,14 +238,18 @@ const SearchDetail = () => {
                                 {
                                     borrowVo === undefined
                                     ?
-                                    <td>대출가능</td>
+                                    <td></td>
                                     :
                                     <td>{borrowVo.dueDate}</td>
+                                    
                                 }
                             </tr>
                         </tbody>
                     </table>
                     <div>
+                        {/* { if(){
+                            }
+                        } */}
                         <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
                         {modal === true 
                             ? 

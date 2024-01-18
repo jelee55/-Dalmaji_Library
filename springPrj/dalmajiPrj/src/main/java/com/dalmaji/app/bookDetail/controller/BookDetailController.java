@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dalmaji.app.bookDetail.service.BookDetailService;
 import com.dalmaji.app.bookDetail.vo.BookDetailVo;
 import com.dalmaji.app.borrow.vo.BorrowVo;
+import com.dalmaji.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,6 +47,9 @@ public class BookDetailController {
 		// 반납일자가 있는 경우 반영되도록
 		BorrowVo borrowVo = service.dueDate(bookNo);
 		
+		// 로그인한 회원 정보 확인 (대출비번 확인용 + 대출버튼 노출용)
+		//MemberVo memberVo = service.check(bookNo); 
+		
 		// 결과를 MAP에 담아 반환
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("vo", vo);
@@ -55,7 +60,6 @@ public class BookDetailController {
 		
 		return map;
 	}
-	
 	
 
 }//class

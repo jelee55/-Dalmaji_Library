@@ -15,4 +15,5 @@ public class MemberVo {
 	private String overdueCount;
 	private String joinDate;
 	private String delYn;
+	private String bookNo;
 }
