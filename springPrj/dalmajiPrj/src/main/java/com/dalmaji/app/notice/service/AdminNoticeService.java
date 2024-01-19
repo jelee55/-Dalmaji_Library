@@ -19,7 +19,7 @@ public class AdminNoticeService {
 	private final AdminNoticeDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//공지사항 작성
+		//공지사항 작성
 		public int insert(AdminNoticeVo vo) {
 			return dao.insert(sst, vo);
 		}
