@@ -47,9 +47,6 @@ public class BookDetailController {
 		// 반납일자가 있는 경우 반영되도록
 		BorrowVo borrowVo = service.dueDate(bookNo);
 		
-		// 로그인한 회원 정보 확인 (대출비번 확인용 + 대출버튼 노출용)
-		//MemberVo memberVo = service.check(bookNo); 
-		
 		// 결과를 MAP에 담아 반환
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("vo", vo);
@@ -57,8 +54,20 @@ public class BookDetailController {
 		
 		System.out.println("vo 호출 ::: " + vo);
 		System.out.println("bookNo 호출 ::: " + bookNo);
+		System.out.println("borrowVo 호출 ::: " + borrowVo);
 		
 		return map;
+	}
+	
+	// 대출 비밀번호 일치여부 확인 & 대출완료
+	@PostMapping("check")
+	public void check (@RequestBody Map<String, String> userData){
+		
+		String id = userData.get("id");
+		String borrowPwd = userData.get("borrowPwd");
+		
+		boolean passwordMatch = service.check(id, borrowPwd);
+		
 	}
 	
 

@@ -19,7 +19,7 @@ const StyledTopMenu = styled.div`
     display: grid;
     grid-template-columns: 1.5fr 2fr 4fr 2fr 1.5fr;
     place-items: center center;
-
+    
     & > a {
         width: 100%;
         height: 100%;
@@ -66,6 +66,10 @@ const StyledTopMenu = styled.div`
         justify-content: right;
         align-items: center;
         gap: 20px;
+        & > a {
+            text-decoration: none;
+            color: black;
+        }
     }
 `;
 
