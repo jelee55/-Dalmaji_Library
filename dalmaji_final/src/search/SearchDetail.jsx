@@ -7,6 +7,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
+
 const StyledSearchDetailDiv = styled.div`
     width: 100%;
     height: 100%;
@@ -20,9 +21,14 @@ const StyledDetailContentDiv = styled.div`
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 5fr 3fr 1fr;
+    & > div:first-child {
+        border-bottom: 3px solid black;
+    }
     & > div:first-child > h1 {
             margin-top: 50px;
-            border-bottom: 3px solid black;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            font-size: 40px;
         }
     & > div:nth-child(2){
         width: 100%;
@@ -118,15 +124,18 @@ const StyledModalDiv = styled.div`
     z-index: 100;
     width: 500px;
     height: 400px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     background-color: white;
     box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
     border-radius: 20px;
-    position: fixed;
     display: grid;
     grid-template-rows: 1.5fr 1fr 1fr 1fr;
     place-items: center center;
-    top: 25vh;
-    left: 35vw;
     & > div:first-child {
         width: 100%;
         height: 100%;
@@ -145,15 +154,19 @@ const StyledModalDiv = styled.div`
         font-size: 25px;
         padding-left: 7px;
     }
+    & > input:focus {
+        background-color: #7b7b7b;
+        color: white;
+    }
     & > div:nth-child(4) {
         display: flex;
-        gap: 10px;
+        gap: 5px;
         & > button {
             width: 50px;
             height: 30px;
             border: none;
             border-radius: 7px;
-            background-color: #666666;
+            background-color: #275FBC;
             color: white;
             cursor: pointer;
         }
@@ -234,7 +247,7 @@ const SearchDetail = () => {
                             <tr>
                                 <td>{vo.bookNo}</td>
                                 <td>{vo.roomName}</td>
-                                <td>{vo.bookState}</td>
+                                <td>{borrowVo.bookState}</td>
                                 {
                                     borrowVo === undefined
                                     ?

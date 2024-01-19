@@ -11,6 +11,10 @@ const StyledNaviDiv = styled.div`
     place-items: center center;
     background-color: #2f2f49;
     color: white;
+    & > div > a{
+        text-decoration: none;
+        color: white;
+    }
     
 `;
 
