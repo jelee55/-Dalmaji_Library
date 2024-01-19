@@ -54,6 +54,11 @@ public class BookService {
 	public int delete(BookVo vo) {
 		return dao.delete(sst, vo);
 	}
+	
+	//도서 작성
+	public int insert(BookVo vo) {
+		return dao.insert(sst, vo);
+	}
 
 	
 

@@ -34,9 +34,23 @@ public class BookDao {
 		return Integer.parseInt(sst.selectOne("BookMapper.count"));
 	}
 	
+	// 검색에 대한 총 게시글 수 조회
+	public int getSearchTotalCount(SqlSessionTemplate sst, String title, String author, String company) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("title", title);
+	    map.put("author", author);
+	    map.put("company", company);
+	    return sst.selectOne("BookMapper.getSearchTotalCount", map);
+	}
+
 	//검색(목록 상세 조히)
 	public List<BookVo> detail(SqlSessionTemplate sst, BookVo vo) {
 	    return sst.selectList("BookMapper.detail", vo);
+	}
+
+	//도서 작성
+	public int insert(SqlSessionTemplate sst, BookVo vo) {
+		return sst.insert("BookMapper.insert", vo);
 	}
 	
 	// 수정
@@ -51,14 +65,7 @@ public class BookDao {
 	}
 
 	
-	// 검색에 대한 총 게시글 수 조회
-	public int getSearchTotalCount(SqlSessionTemplate sst, String title, String author, String company) {
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("title", title);
-	    map.put("author", author);
-	    map.put("company", company);
-	    return sst.selectOne("BookMapper.getSearchTotalCount", map);
-	}
+
 
 	// 검색 결과 목록 조회
 	public List<BookVo> searchList(SqlSessionTemplate sst, PageVo pvo, String title, String author, String company) {
@@ -70,6 +77,7 @@ public class BookDao {
 	    map.put("listLimit", pvo.getListLimit());
 	    return sst.selectList("BookMapper.searchList", map);
 	}
+
 
 
 }

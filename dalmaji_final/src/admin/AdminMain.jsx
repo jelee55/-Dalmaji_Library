@@ -7,6 +7,7 @@ import AdminNoticeWrite from './AdminNoticeWrite';
 import AdminNoticeEdit from './AdminNoticeEdit';
 import AdminNoticeDetail from './AdminNoticeDetail';
 import AdminLogin from './AdminLogin';
+import SearchAdminWrite from './SearchAdminWrite';
 
 const AdminMain = () => {
     return (
@@ -14,6 +15,7 @@ const AdminMain = () => {
             <Route path='/mypage/*' element={<AdminMyPage />}></Route>
             <Route path='/login/*' element={<AdminLogin />}></Route>
             <Route path='/edit/*' element={<SearchAdminEdit />}></Route>
+            <Route path='/write/*' element={<SearchAdminWrite />}></Route>
             <Route path='/notice/list/*' element={<AdminNoticeList />}></Route>
             <Route path='/notice/write/*' element={<AdminNoticeWrite />}></Route>
             <Route path='/notice/edit/*' element={<AdminNoticeEdit />}></Route>

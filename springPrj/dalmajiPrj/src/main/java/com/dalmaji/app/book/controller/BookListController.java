@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,7 +67,21 @@ public class BookListController {
 	    return bookVoList;
 	}
 	
-	
+	// 도서 작성
+	@PostMapping("write")
+	public Map<String, String> write(@RequestBody BookVo vo, HttpSession session) {
+		Map<String, String> map = new HashMap<String, String>();
+		int result = service.insert(vo);
+		
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
+		}
+		
+		return map;
+	}
+
 	
 
 	// 게시글 수정(제목,저자,이미지)

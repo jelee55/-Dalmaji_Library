@@ -24,6 +24,24 @@
 		FROM BOOK_LIST 
 		
 	</select>
+	
+	<insert id="insert">
+		INSERT INTO BOOK_LIST
+		(
+		    BOOK_NO
+		    ,TITLE
+		    ,AUTHOR
+		    ,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
+		)
+		VALUES
+		(
+		    SEQ_BOARD_NO.NEXTVAL
+		    , #{title}
+		    , #{author}
+		    , #{publisherYear}
+		)
+	</insert>
+	
 
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
