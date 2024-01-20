@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.dalmaji.app.bookDetail.dao.BookDetailDao;
 import com.dalmaji.app.bookDetail.vo.BookDetailVo;
 import com.dalmaji.app.borrow.vo.BorrowVo;
+import com.dalmaji.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,11 @@ public class BookDetailService {
 	// 반납일자가 있는 경우 반영되도록
 	public BorrowVo dueDate(String bookNo) {
 		return dao.dueDate(sst, bookNo);
+	}
+
+	// 대출 비밀번호 일치여부 확인 & 대출완료
+	public MemberVo check(MemberVo vo) {
+		return dao.check(sst, vo);
 	}
 	
 }
