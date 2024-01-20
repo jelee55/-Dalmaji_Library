@@ -46,6 +46,10 @@ const StyledNoticeListDiv = styled.div`
             padding: 0;
             background-color: #F8F4EC;
             border: 2px solid white;
+
+            & > title {
+                color: black;
+            }
         }
     }
     & > .pagination {
