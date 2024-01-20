@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.bookDetail.vo.BookDetailVo;
 import com.dalmaji.app.borrow.vo.BorrowVo;
+import com.dalmaji.app.member.vo.MemberVo;
 
 @Repository
 public class BookDetailDao {
@@ -17,6 +18,11 @@ public class BookDetailDao {
 	// 반납일자가 있는 경우 반영되도록
 	public BorrowVo dueDate(SqlSessionTemplate sst, String bookNo) {
 		return sst.selectOne("BookDetailMapper.dueDate", bookNo);
+	}
+
+	// 대출 비밀번호 일치여부 확인 & 대출완료
+	public MemberVo check(SqlSessionTemplate sst, MemberVo vo) {
+		return sst.selectOne("BookDetailMapper.check", vo);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,12 +63,22 @@ public class BookDetailController {
 	
 	// 대출 비밀번호 일치여부 확인 & 대출완료
 	@PostMapping("check")
-	public void check (@RequestBody Map<String, String> userData){
+	public Map<String, Object> check (@RequestBody MemberVo vo) throws Exception{
 		
-		String id = userData.get("id");
-		String borrowPwd = userData.get("borrowPwd");
+		MemberVo loginMember = service.check(vo);
+		System.out.println("loginMember:::" + loginMember);
+		System.out.println("vo:::" + vo);
 		
-		boolean passwordMatch = service.check(id, borrowPwd);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", "good");
+		map.put("loginMemberVo", loginMember);
+		
+		if(loginMember == null) {
+			map.put("msg", "bad");
+			throw new Exception("loginMember값이 null");
+		}
+		
+		return map;
 		
 	}
 	

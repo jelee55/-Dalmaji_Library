@@ -36,4 +36,15 @@
 		WHERE L.BOOK_NO = #{bookNo}
 	</select>
 	
+	<select id="check" resultType="com.dalmaji.app.member.vo.MemberVo">
+		SELECT 
+		    MEMBER_NO
+		    , O_NO
+		    , BORROW_PWD
+		    , OVERDUE_COUNT
+		FROM MEMBER
+		WHERE MEMBER_NO = #{no}
+		AND BORROW_PWD = #{borrowPwd}
+	</select>
+	
 </mapper>
