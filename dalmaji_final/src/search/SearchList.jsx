@@ -13,11 +13,8 @@ const StyledSearchListDiv = styled.div`
     align-items: center;
     flex-direction: column;
     padding: 3%;
-    /* width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 5fr 3fr 2fr 3fr;
-    padding: 10%; */
+   
+
     & > table {
         width: 70%;
         height: 90%;
@@ -34,7 +31,7 @@ const StyledSearchListDiv = styled.div`
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-    & > .header {
+    & > .h11 {
         width: 70%;
         margin-bottom: 2%;
         h1{
@@ -46,11 +43,10 @@ const StyledSearchListDiv = styled.div`
         }
         
     }
-    & > .header > .border {
+    & > .h11 > .h12 {
         border-bottom: 6px solid #2f2f49;
         flex-direction: column;
         align-items: right;
-        /* padding-bottom: 0%; */
     }   
         
     & >  table th,
@@ -63,6 +59,13 @@ const StyledSearchListDiv = styled.div`
          
          & > table td {
              background-color: #F8F4EC;
+             .detail_button {
+                /* border: none; */
+                border-radius: 10%;
+                color: #2f2f49;
+                /* border-color: #9e9ead; */
+                /* background-color: #5f5f9b; */
+             }
              
             }
             & > .ul{
@@ -85,13 +88,10 @@ const StyledSearchListDiv = styled.div`
                     display: flex;
                     justify-content: space-evenly;
                     list-style: none;
-            /* background-color: aqua; */
             
             }
     }
-
-  
-    & > .bnt{
+    & > .bnt {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
@@ -157,8 +157,8 @@ const SearchList = () => {
         
     return (
         <StyledSearchListDiv>
-        <div className='header'>
-            <div className='border'>
+        <div className='h11'>
+            <div className='h12'>
                 <h1>도서검색</h1>
             </div>
         </div>
@@ -200,7 +200,7 @@ const SearchList = () => {
                     <td>{vo.company}</td>
                     <td>{vo.publisherYear}</td>
                     <td>{vo.cont}</td>
-                    <td><Link to={`/search/detail/${vo.bookNo}`}><button >상세조회</button></Link></td>
+                    <td><Link to={`/search/detail/${vo.bookNo}`}><button className='detail_button'>상세조회</button></Link></td>
                 </tr>
                         )
                 }
