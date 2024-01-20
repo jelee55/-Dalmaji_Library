@@ -52,6 +52,16 @@ public class AdminNoticeController {
 	@PostMapping("write")
 	public Map<String, String> write(@RequestBody AdminNoticeVo vo, HttpSession session) {
 		Map<String, String> map = new HashMap<String, String>();
+		
+		//로그인되어 있는지 확인
+	    Object adminLogin = session.getAttribute("loggedInUser");
+
+	    if (adminLogin == null) {
+	        //로그인되어 있지 않으면 에러 메시지 반환
+	        map.put("msg", "login_required");
+	        return map;
+	    }
+		
 		int result = service.insert(vo);
 		
 		if(result == 1) {
