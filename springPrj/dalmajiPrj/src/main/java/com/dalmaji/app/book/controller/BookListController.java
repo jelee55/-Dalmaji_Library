@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dalmaji.app.book.service.BookService;
 import com.dalmaji.app.book.vo.BookVo;
@@ -58,6 +59,8 @@ public class BookListController {
 	    return map;
 	}
 
+	//조히수 증가
+	
 
 	// 검색(게시글 목록 조회)
 	@GetMapping("detaillist")
@@ -67,20 +70,27 @@ public class BookListController {
 	    return bookVoList;
 	}
 	
-	// 도서 작성
-	@PostMapping("write")
-	public Map<String, String> write(@RequestBody BookVo vo, HttpSession session) {
-		Map<String, String> map = new HashMap<String, String>();
-		int result = service.insert(vo);
-		
-		if(result == 1) {
-			map.put("msg", "good");
-		}else {
-			map.put("msg", "bad");
-		}
-		
-		return map;
-	}
+	
+	
+//	//작성하기(이미지 첨부)
+//		@PostMapping
+//		public Map<String, String> write(BookVo vo, MultipartFile f) throws Exception {
+//			
+//			System.out.println("vo : " + vo);
+//			System.out.println("f : " + f.getOriginalFilename());
+//			
+//			String fullPath = saveFile(f);
+//			vo.setFullPath(fullPath);
+//			
+//			int result = service.write(vo);
+//			
+//			Map<String, String> map = new HashMap<String, String>();
+//			map.put("msg", "good");
+//			if(result != 1) {
+//				map.put("msg", "bad");
+//			}
+//			return map;
+//		}
 
 	
 

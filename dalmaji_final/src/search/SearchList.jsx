@@ -71,15 +71,18 @@ const StyledSearchListDiv = styled.div`
             & > .ul{
                 width: 70%;
                 height: 5%;
-                background-color: #9e9ead;
-                border: 1px solid #9e9ead;
-                color: white;
-                font: bold;
+                background-color: #F8F4EC; // ul 베이지 
+                /* background-color: #9e9ead;// ul 그레이 */
+                /* border: 1px solid #9e9ead; */
+                color: #2f2f49;
+                /* color: white; */
+                font: bold;//적용ㄴㄴ?
                 border-radius: 8px;
                 display: flex;
                 justify-items: center;
                 margin-top: 0%;
                 margin-bottom: 3%;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                 font: bold;
                 ul {
                     padding: 0%;
