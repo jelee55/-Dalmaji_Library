@@ -24,5 +24,10 @@ public class BookDetailDao {
 	public MemberVo check(SqlSessionTemplate sst, MemberVo vo) {
 		return sst.selectOne("BookDetailMapper.check", vo);
 	}
+	
+	// 대출완료
+	public int borrowOk(SqlSessionTemplate sst, MemberVo vo) {
+		return 0;
+	}
 
 }

@@ -78,6 +78,9 @@ public class BookDetailController {
 			throw new Exception("loginMember값이 null");
 		}
 		
+		// 대출완료
+		int result = service.borrowOk();
+		
 		return map;
 		
 	}
