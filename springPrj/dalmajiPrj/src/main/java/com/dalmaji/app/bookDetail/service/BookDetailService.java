@@ -32,4 +32,9 @@ public class BookDetailService {
 		return dao.check(sst, vo);
 	}
 	
+	// 대출완료
+	public int borrowOk(MemberVo vo) {
+		return dao.borrowOk(sst, vo);
+	}
+	
 }

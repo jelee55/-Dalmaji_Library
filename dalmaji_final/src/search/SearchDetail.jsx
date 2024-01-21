@@ -215,6 +215,10 @@ const SearchDetail = () => {
     const redirect = () => {
         navigate("/search/list");
     };
+
+    //모달창 대출비번 확인용
+    const [loginMember, setLoginMember] = useState([]);
+    console.log(loginMember);
     
     return (
         <StyledSearchDetailDiv>
@@ -271,7 +275,9 @@ const SearchDetail = () => {
                                 <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
                                 <input type="password" placeholder='password'/>
                                 <div>
-                                    <button>완료</button>
+                                    <button onClick={() => {
+                                        loginMember
+                                    }}>완료</button>
                                     <button onClick={ () => {setModal(false)} }>취소</button>
                                 </div>
                             </StyledModalDiv> 
