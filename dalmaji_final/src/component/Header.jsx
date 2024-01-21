@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Navi from './Navi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { DalmajiContext } from '../context/DalmajiContext';
 
 const StyledHeaderDiv = styled.div`
     width: 100%;
@@ -75,6 +76,27 @@ const StyledTopMenu = styled.div`
 
 const Header = () => {
 
+    const {loginMember, setLoginMember} = useContext(DalmajiContext);
+ 
+    const navigate = useNavigate();
+
+      // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
+      const [loginInfo, setLoginInfo] = useState(() => {
+        const loginInfoStr = sessionStorage.getItem('loginMemberVo');
+        return JSON.parse(loginInfoStr) || null;
+    });
+
+    console.log("헤더");
+    console.log("로그인", loginInfo);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("loginMemberVo");
+        setLoginInfo(null);
+        setLoginMember(null);
+        navigate("/")
+    };
+
+
     return (
         <StyledHeaderDiv>
             <StyledTopMenu>
@@ -88,13 +110,29 @@ const Header = () => {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </div>
-                <div>
-                    <Link to='http:/localhost:3000/member/login'>
+                <div className='login_join'>
+                    {loginMember === null
+                        ? 
+                        <>
+                    <Link className='login' to='/member/login'>
                     <div>로그인</div>
                     </Link>
-                    <Link to='http:/localhost:3000/member/join' >
+                    <Link className='login' to='/member/join' >
                     <div>회원가입</div>
                     </Link>
+                        </>
+                         : 
+                         <>
+                        <div className='nick'>
+                            <Link to="/">
+                                <h4>user01</h4>
+                            </Link>
+                        </div>
+                        <div className='out'>
+                            <button className='btn' onClick={handleLogout}>로그아웃</button>
+                        </div>
+                        </>
+                         }
                 </div>
                 <div></div>
             </StyledTopMenu>

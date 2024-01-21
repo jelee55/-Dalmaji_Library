@@ -140,7 +140,7 @@ const StyledLoginMainDiv = styled.div`
 
 const MypageLogin = () => {
     
-    const { loginMember, setLoginMember } = useContext(DalmajiContext);
+    const {loginMember, setLoginMember} = useContext(DalmajiContext);
 
     const navigate = useNavigate();
 
@@ -159,7 +159,7 @@ const MypageLogin = () => {
 
         setVo({
             ...vo,
-            [name] : value
+            [name] : value,
         });
     }
 
@@ -173,24 +173,24 @@ const MypageLogin = () => {
       },
       body: JSON.stringify(vo),
     })
-      .then((resp) => resp.json())
-      .then((data) => {
+        .then((resp) => resp.json())
+        .then((data) => {
         if (data.msg === "good") {
-          alert("로그인 성공.");
-          setLoginMember(data.loginMemberVo);
-          sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
-          navigate('/');
+            alert("로그인 성공.");
+            setLoginMember(data.loginMemberVo);
+            sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
+            navigate('/');
         } else {
-          alert("로그인 실패");
+            alert("로그인 실패");
         }
-      })
-      .catch((e) => {
+        })
+        .catch((e) => {
         console.log(e);
-      })
-      .finally(() => {
+        })
+        .finally(() => {
         console.log("로그인 fetch 끝");
-      });
-  };
+        });
+    };
 
 
     //     //작업을 해도되나 안해도되나 검사하는 작업
@@ -236,7 +236,7 @@ const MypageLogin = () => {
 
     return (
         <StyledLoginMainDiv>
-            <form onSubmit={ handleLoginSubmit }>
+            <form onSubmit={handleLoginSubmit}>
                 <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
                 <div><h1>로그인</h1></div>
                 <div>아이디</div>
