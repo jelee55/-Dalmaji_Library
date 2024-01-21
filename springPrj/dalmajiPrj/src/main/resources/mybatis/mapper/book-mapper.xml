@@ -19,11 +19,14 @@
 		
 	</select>
 
-	<select id="count" resultType="String">
-		SELECT COUNT(*) AS LISTCOUNT
-		FROM BOOK_LIST 
+	
+	<update id="increaseHit">
+		UPDATE BOOK_LIST
+		SET
+			CONT = CONT+1
+		WHERE BOOK_NO = #{bookNo}
 		
-	</select>
+	</update>
 	
 	<insert id="insert">
 		INSERT INTO BOOK_LIST
@@ -32,6 +35,7 @@
 		    ,TITLE
 		    ,AUTHOR
 		    ,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
+		    ,BOOK_IMG
 		)
 		VALUES
 		(
@@ -39,6 +43,7 @@
 		    , #{title}
 		    , #{author}
 		    , #{publisherYear}
+		    , #{bookImg}
 		)
 	</insert>
 	

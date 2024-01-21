@@ -42,16 +42,22 @@ public class BookDao {
 	    map.put("company", company);
 	    return sst.selectOne("BookMapper.getSearchTotalCount", map);
 	}
-
+//
+//	//조회수 증가(상세조회를 했을 시에만 증가)
+//	public int increaseHit(SqlSessionTemplate sst, String no) {
+//		return sst.update("bookMapper.increaseHit", no);
+//	}
+//	
 	//검색(목록 상세 조히)
 	public List<BookVo> detail(SqlSessionTemplate sst, BookVo vo) {
 	    return sst.selectList("BookMapper.detail", vo);
 	}
 
 	//도서 작성
-	public int insert(SqlSessionTemplate sst, BookVo vo) {
-		return sst.insert("BookMapper.insert", vo);
-	}
+	//작성하기(이미지 첨부)
+		public int write(SqlSessionTemplate sst, BookVo vo) {
+			return sst.insert("BookMapper.write", vo);
+		}
 	
 	// 수정
 	public int edit(SqlSessionTemplate sst, BookVo vo) {
