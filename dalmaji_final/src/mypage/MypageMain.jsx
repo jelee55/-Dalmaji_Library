@@ -6,6 +6,7 @@ import MemberEdit from './MemberEdit';
 import ErrorPageNotFound from '../error/ErrorPageNotFound';
 import MemberDelete from './MemberDelete';
 import MypageLogout from './MypageLogout';
+import MemberBorrowList from './MemberBorrowList';
 
 const MypageMain = () => {
     return (
@@ -16,6 +17,7 @@ const MypageMain = () => {
                 <Route path='edit' element={<MemberEdit />}/>
                 <Route path='delete' element={<MemberDelete />}/>
                 <Route path='*' element={<ErrorPageNotFound />}/>
+                <Route path='borrowList' element={<MemberBorrowList />} />
             </Routes>
     );
 };

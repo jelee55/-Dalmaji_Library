@@ -47,4 +47,31 @@
 		AND BORROW_PWD = #{borrowPwd}
 	</select>
 	
+	<update id="borrowOk">
+		UPDATE BOOK_LIST 
+		    SET STATUS_NO = '2'
+		WHERE BOOK_NO = #{bookNo}
+	</update>
+	
+	<insert id="borrow">
+		INSERT INTO BORROW 
+			(
+				BORROW_NO
+				, BOOK_NO
+				, MEMBER_NO
+				, BORROW_DATE
+				, DUE_DATE
+				, RENEW
+			)
+		VALUES 
+			(
+				SEQ_BORROW_NO.NEXTVAL
+				, #{bookNo}
+				, #{memberNo}
+				, SYSDATE
+				, SYSDATE+20
+				, ''
+			);
+	</insert>
+	
 </mapper>

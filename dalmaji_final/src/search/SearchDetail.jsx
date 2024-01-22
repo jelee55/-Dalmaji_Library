@@ -217,8 +217,37 @@ const SearchDetail = () => {
     };
 
     //모달창 대출비번 확인용
-    const [loginMember, setLoginMember] = useState([]);
-    console.log(loginMember);
+    const [borrowPwd, setBorrowPwd] = useState([]);
+    console.log('borrowPwd', borrowPwd);
+
+    // 대출 비밀번호 입력 핸들러
+    const handlePasswordInput = (e) => {
+        setBorrowPwd(e.target.value);
+    }
+    
+    // 대출완료 버튼 클릭 핸들러
+    const handleBorrowComplete = () => {
+        fetch(`http://127.0.0.1:8888/app/search/book/check?bookNo=${selectedBookNo.bookNo}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                bookNo: selectedBookNo.bookNo,
+                borrowPwd: borrowPwd,
+            }),
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            if(data.msg === "success"){
+                //대출 성공시 추가적인 로직
+                console.log("대출 성공!!!");
+            } else {
+                console.log("대출 실패...");
+            }
+            setModal(false);
+        })
+    }
     
     return (
         <StyledSearchDetailDiv>
@@ -264,20 +293,15 @@ const SearchDetail = () => {
                         </tbody>
                     </table>
                     <div>
-                        {/* { if(){
-                            }
-                        } */}
                         <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
                         {modal === true 
                             ? 
                             <StyledModalDiv>
                                 <div><h1>알림</h1></div>
                                 <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                                <input type="password" placeholder='password'/>
+                                <input type="password" placeholder='password' value={borrowPwd} onChange={handlePasswordInput}/>
                                 <div>
-                                    <button onClick={() => {
-                                        loginMember
-                                    }}>완료</button>
+                                    <button onChange={handleBorrowComplete}>완료</button>
                                     <button onClick={ () => {setModal(false)} }>취소</button>
                                 </div>
                             </StyledModalDiv> 
