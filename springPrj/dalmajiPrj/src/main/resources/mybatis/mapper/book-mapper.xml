@@ -14,39 +14,40 @@
 		,AUTHOR
 		,COMPANY
 		,CONT
-		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
-		FROM BOOK_LIST 
-		
+		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS
+		PUBLISHER_YEAR
+		FROM BOOK_LIST
+
 	</select>
 
-	
-	<update id="increaseHit">
+
+
+	<update id="increaseHit" >
 		UPDATE BOOK_LIST
-		SET
-			CONT = CONT+1
+		SET CONT = CONT+1
 		WHERE BOOK_NO = #{bookNo}
-		
 	</update>
-	
+
+
 	<insert id="insert">
 		INSERT INTO BOOK_LIST
 		(
-		    BOOK_NO
-		    ,TITLE
-		    ,AUTHOR
-		    ,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
-		    ,BOOK_IMG
+		BOOK_NO
+		,TITLE
+		,AUTHOR
+		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
+		,BOOK_IMG
 		)
 		VALUES
 		(
-		    SEQ_BOARD_NO.NEXTVAL
-		    , #{title}
-		    , #{author}
-		    , #{publisherYear}
-		    , #{bookImg}
+		SEQ_BOARD_NO.NEXTVAL
+		, #{title}
+		, #{author}
+		, #{publisherYear}
+		, #{bookImg}
 		)
 	</insert>
-	
+
 
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
@@ -58,21 +59,21 @@
 		,CONT
 		,PUBLISHER_YEAR
 		,BOOK_IMG
-		FROM
-		BOOK_LIST
-		WHERE 
-        TITLE LIKE '%' || #{title} || '%' OR
-        AUTHOR LIKE '%' || #{author} || '%' OR
-        COMPANY LIKE '%' || #{company} || '%'
+		FROM BOOK_LIST
+		WHERE
+		TITLE LIKE '%' || #{title} || '%' OR
+		AUTHOR LIKE '%' || #{author} || '%' OR
+		COMPANY LIKE '%' || #{company} || '%'
 	</select>
 
-	<update id="edit">
+
+	<!-- <update id="edit">
 		UPDATE BOOK_LIST
 		SET TITLE= #{title}
 		, AUTHOR = #{author}
 		, COMPANY = #{company}
 		WHERE BOOK_NO = #{bookNo}
-	</update>
+	</update> -->
 
 
 
