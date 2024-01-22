@@ -23,17 +23,17 @@ const StyledWriteContentDiv = styled.div`
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 5fr 3fr 1fr;
-    background-color: #aaee9d;//지워
+    /* background-color: #aaee9d;//지워 */
     & > div:first-child {
         border-bottom: 5px solid #2f2f49;
-        background-color: #52624e;//지워
+        /* background-color: #52624e;//지워 */
     }
     & > div:first-child > h1 {
             margin-top: 50px;
             margin-left: 10px;
             margin-bottom: 10px;
             font-size: 40px;
-            background-color: #8787bc; //지워
+            /* background-color: #8787bc; //지워 */
         }
     & > div:nth-child(2){
         width: 100%;
@@ -42,7 +42,7 @@ const StyledWriteContentDiv = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #8787bc;
+        /* background-color: #8787bc; //지워 */
         & > div {
             width: 100%;
             height: 100%;
@@ -52,21 +52,43 @@ const StyledWriteContentDiv = styled.div`
             & > .title{
                 /* background-color: #dd9999; */
                 font-size: 33px;
-            }
+            }   
             & > div {
-                margin-top: 15px;
+                margin-right: 30%;
+                margin-top: 10%;
                 font-size: 24px;
+                & > input{
+                    border-radius: 5px;
+                    border: 1px solid black;
+                }
+            
             }
+            
         }
+        
+
         & > div > img{
             width: 350px;
             height: 500px;
+            margin-right: 20%;
             margin-bottom: 10px;
-            background-color: #fea8a8;//지워
+            background-color: #bbbbbb;
+            
         }
         
     }
-  
+& > div > div > .inptContentDiv {
+                margin-left: 4%;
+                /* background-color: red; */
+            }    
+  & > div > div > .btnImg1{
+    margin-top: 5%;
+    border-radius: 10px;
+    margin-right: 20%;
+    background-color: #2f2f49;
+    border: none;
+    color: white;
+  }
 `;
 
 const StyledTableDiv = styled.div`
@@ -238,14 +260,14 @@ const SearchDetail = () => {
                 <div>
                     <div>
                         <img src={vo.bookImg} alt={vo.title} />
-                        <button className='btnImg'>이미지</button>
+                        <button className='btnImg1'>이미지</button>
                     </div>
                     <div className='inputContent'>
-                        <div><strong>제목: </strong><input type="text" /></div>
-                        <div><strong>작가: </strong><input type="text" /></div>
+                        <div className='inptContentDiv'><strong>제목: </strong><input type="text" /></div>
+                        <div className='inptContentDiv'><strong>작가: </strong><input type="text" /></div>
                         <div><strong>출판사: </strong><input type="text" /></div>
                         <div><strong>출판일: </strong><input type="text" /></div>
-                        <button>완료</button>
+                        <button className='btnImg1'>완료</button>
                     </div>
                 </div>
                 <StyledTableDiv>
