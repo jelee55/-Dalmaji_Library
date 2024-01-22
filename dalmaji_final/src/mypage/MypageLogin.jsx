@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { DalmajiContext } from '../context/DalmajiContext';
 
-
 const StyledLoginMainDiv = styled.div`
     width: 100%;
     height: 100%;
@@ -115,6 +114,11 @@ const StyledLoginMainDiv = styled.div`
         font-size: 16px;
        }
 
+       & > .ul {
+        /* background-color: red; */
+
+       }
+
        & > .ul > ul {
         width: 100%;
         height: 10%;
@@ -122,11 +126,6 @@ const StyledLoginMainDiv = styled.div`
         justify-content: space-evenly;
         list-style: none;
         /* background-color: aqua; */
-
-        & > ul {
-            text-decoration: none;
-
-        }
     }
 
     & > .ul > ul > li > a:hover {
@@ -139,104 +138,65 @@ const StyledLoginMainDiv = styled.div`
 
 
 const MypageLogin = () => {
-    
-    const {loginMember, setLoginMember} = useContext(DalmajiContext);
 
+    const {loginMember, setLoginMember} = useContext(DalmajiContext);
+    const {adminLoginMember, setAdminLoginMember} = useContext(DalmajiContext);
     const navigate = useNavigate();
 
     const jsonStr = sessionStorage.getItem("loginMemberVo");
     const sessionLoginMemberVo = JSON.parse(jsonStr);
-  
 
-    // let isFetching = false;
-    const [vo, setVo] =  useState({
-        // id : "",
-        // pwd : "",
-    });
+    const [vo, setVo] = useState({});
 
     const handleInputChange = (event) => {
         const {name , value} = event.target;
 
         setVo({
             ...vo,
-            [name] : value,
+            [name] : value
         });
     }
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
 
+        //작업을 해도되나 안해도되나 검사하는 작업
+        // if(isFetching){
+        //     return;
+        // }
+
+        // //작업시작
+        // isFetching = true;
+
         fetch("http://127.0.0.1:8888/app/member/login" , {
         method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(vo),
-    })
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(vo)
+        })
         .then((resp) => resp.json())
-        .then((data) => {
+      .then((data) => {
         if (data.msg === "good") {
-            alert("로그인 성공.");
-            setLoginMember(data.loginMemberVo);
-            sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
-            navigate('/');
+          alert("로그인 성공.");
+          setLoginMember(data.loginMemberVo);
+          sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
+          navigate('/');
         } else {
-            alert("로그인 실패");
+          alert("로그인 실패");
         }
-        })
-        .catch((e) => {
+      })
+      .catch((e) => {
         console.log(e);
-        })
-        .finally(() => {
+      })
+      .finally(() => {
         console.log("로그인 fetch 끝");
-        });
-    };
-
-
-    //     //작업을 해도되나 안해도되나 검사하는 작업
-    //     if(isFetching){
-    //         return;
-    //     }
-
-    //     //작업시작
-    //     isFetching = true;
-
-    //     fetch("http://127.0.0.1:8888/app/member/login" , {
-    //     method: "post",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(vo)
-    //     })
-    //     .then( resp => {
-    //         if(!resp.ok){
-    //             throw new Error("로그인 fetch 실패..");
-    //         }
-    //         return resp.json();
-    //     } )
-    //     .then( data => {
-    //         if( data.msg === "good" ){
-    //             alert("로그인 성공 !");
-    //             navigate("/");
-    //         }else{
-    //             alert("로그인 실패 ...");
-    //             navigate("/");
-    //         }
-            
-    //     } )
-    //     .catch( (e) => {
-    //         console.log(e);
-    //         alert("로그인 실패");
-    //     } )
-    //     .finally( () => {
-    //         isFetching = false;
-    //     } )
-    //     ;
-    // }
+      });
+  };
 
     return (
         <StyledLoginMainDiv>
-            <form onSubmit={handleLoginSubmit}>
+            <form onSubmit={ handleLoginSubmit }>
                 <div className='img'><img src="/images/header/logo.png" alt="로고" /></div>
                 <div><h1>로그인</h1></div>
                 <div>아이디</div>
@@ -249,8 +209,8 @@ const MypageLogin = () => {
                 <div className='ul'>
                     <ul>
                         <li><Link to="/member/join">회원가입</Link></li>
-                        <li><Link to="/">아이디 찾기</Link></li>
-                        <li><Link to="/">비밀번호 찾기</Link></li>
+                        <li><a>아이디 찾기</a></li>
+                        <li><a>비밀번호 찾기</a></li>
                     </ul>
                 </div>
             </form>

@@ -28,78 +28,38 @@ const StyledLoginMainDiv = styled.div`
         border: 2px solid black;
         background-color: beige;
 
-            & > .name {
-                height: 5%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: 'Pretendard';
-                font-weight: 700;
-                font-size: 20px;
-                background-color: yellow;
-            }
-
-            & > .nameinput {
-                height: 3%;
-                display: flex;
-                justify-content: center;
-                background-color: yellowgreen;
-            }
-
-            & > .id {
-                height: 5%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: 'Pretendard';
-                font-weight: 700;
-                font-size: 20px;
-                background-color: yellow;
-            }
+        & > .pwd_box {
+            height: 40%;
+            margin-top: 20%;
+            /* background-color: red; */
 
             & > .pwd {
-                height: 5%;
+                height: 15%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-family: 'Pretendard';
                 font-weight: 700;
                 font-size: 20px;
-                background-color: yellow;
+                /* background-color: yellow; */
             }
 
-            & > .phone {
-                height: 5%;
+            & > .pwdinput {
+                height: 18%;
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                font-family: 'Pretendard';
-                font-weight: 700;
-                font-size: 20px;
-                background-color: yellow;
+                /* background-color: aqua; */
+
+                & > input {
+                    width: 40%;
+                }
             }
 
-            & > .sms {
-                height: 5%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: 'Pretendard';
-                font-weight: 700;
-                font-size: 20px;
-                background-color: yellow;
-            }
+            & > button
+        }
 
-            & > .state {
-                height: 5%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: 'Pretendard';
-                font-weight: 700;
-                font-size: 20px;
-                background-color: yellow;
-            }
+
+
     }
 `;
 
@@ -107,22 +67,15 @@ const StyledLoginMainDiv = styled.div`
 const MemberEdit = () => {
     return (
         <StyledLoginMainDiv>
-            <div className='edittitle'>내 정보관리</div>
+            <div className='edittitle'>비밀번호 변경</div>
             <form>
-                <div className='name'>이름</div>
-                <div className='nameinput'><input type="text" name='name' /></div>
-                <div className='id'>아아디</div>
-                <div className='idinput'><input type="text" name='id' /></div>
-                <div className='pwd'>비밀번호 변경</div>
+                <div className='pwd_box'>
+                <div className='pwd'>기존 비밀번호</div>
                 <div className='pwdinput'><input type="password" name='pwd' /></div>
-                <div className='phone'>휴대폰번호</div>
-                <div className='phoneinput'><input type="text" name='phone' /></div>
-                <div className='sms'>문자수신 여부</div>
-                <div className='smsinput'><input type="radio" name='ysms' />예
-                    <input type="radio" name='nsms' />아니오</div>
-                <div className='state'>이용자 상태</div>
-                <div className='stateinput'><input type="text" name='userstate' /></div> 
-                <div className='button'><button>저장</button></div>       
+                <div className='pwd'>새 비밀번호</div>
+                <div className='pwdinput'><input type="password" name='pwd' /></div>
+                </div>
+                <div className='button'><inpu type='submit' value='저장' /></div>       
             </form>
         </StyledLoginMainDiv>
     );
