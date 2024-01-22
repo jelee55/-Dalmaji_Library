@@ -28,13 +28,13 @@ public class BookDetailService {
 	}
 
 	// 대출 비밀번호 일치여부 확인 & 대출완료
-	public MemberVo check(MemberVo vo) {
-		return dao.check(sst, vo);
+	public MemberVo check(String borrowPwd) {
+		return dao.check(sst, borrowPwd);
 	}
 	
-	// 대출완료
-	public int borrowOk(MemberVo vo) {
-		return dao.borrowOk(sst, vo);
+	// 대출완료(책 상태변경)
+	public int borrowOk(String bookNo) {
+		return dao.borrowOk(sst, bookNo);
 	}
 	
 }
