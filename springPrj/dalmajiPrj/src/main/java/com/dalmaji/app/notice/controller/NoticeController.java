@@ -27,16 +27,7 @@ public class NoticeController {
 	
 	private final NoticeService service;
 	
-//	//공지사항 목록조회 (data+view)
-//	@GetMapping("list")
-//	public String list(Model model) {
-//		
-//		List<NoticeVo> voList = service.list();
-//		model.addAttribute("noticeVoList" , voList);
-//		
-//		return "notice/list";
-//	}
-	
+
 	//공지사항 목록조회 (data)
 	@GetMapping("list")
 	@ResponseBody

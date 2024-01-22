@@ -76,14 +76,14 @@ const StyledTopMenu = styled.div`
 
 const Header = () => {
 
-    const {loginMember, setLoginMember} = useContext(DalmajiContext);
- 
+    const { setLoginMember } = useContext(DalmajiContext);    
+    
     const navigate = useNavigate();
-
-      // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
-      const [loginInfo, setLoginInfo] = useState(() => {
-        const loginInfoStr = sessionStorage.getItem('loginMemberVo');
-        return JSON.parse(loginInfoStr) || null;
+    
+    // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
+    const [loginInfo, setLoginInfo] = useState(() => {
+    const loginInfoStr = sessionStorage.getItem('loginMemberVo');
+    return JSON.parse(loginInfoStr) || null;
     });
 
     console.log("헤더");
@@ -96,8 +96,7 @@ const Header = () => {
         navigate("/")
     };
 
-
-    return (
+        return (
         <StyledHeaderDiv>
             <StyledTopMenu>
                 <div></div>
@@ -111,7 +110,7 @@ const Header = () => {
                     </button>
                 </div>
                 <div className='login_join'>
-                    {loginMember === null
+                    {loginInfo === null
                         ? 
                         <>
                     <Link className='login' to='/member/login'>

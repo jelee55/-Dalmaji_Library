@@ -21,8 +21,8 @@ public class AdminNoticeDao {
 	}
 
 	//공지사항 상세조회
-	public AdminNoticeVo detail(SqlSessionTemplate sst, String no) {
-		return sst.selectOne("AdminNoticeMapper.detail", no);
+	public AdminNoticeVo detail(SqlSessionTemplate sst, AdminNoticeVo vo) {
+		return sst.selectOne("AdminNoticeMapper.detail", vo);
 	}
 
 	//공지사항 삭제
