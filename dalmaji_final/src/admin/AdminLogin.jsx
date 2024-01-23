@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDalmajiContext } from '../context/DalmajiContext';
+
 
 const StyledLoginMainDiv = styled.div`
     width: 100%;
@@ -119,18 +121,18 @@ const StyledLoginMainDiv = styled.div`
 
 const AdminLogin = () => {
 
+    const {loginMember, AdminLoginMember, setLoginMember, setAdminLoginMember} = useDalmajiContext();
     const navigate = useNavigate();
 
-    let isFetching = false;
-    const [vo, setVo] =  useState({
-        id : "",
-        pwd : "",
-    });
+    const jsonStr = sessionStorage.getItem("AdminLoginMemberVo");
+    const sessionLoginMemberVo = JSON.parse(jsonStr);
+
+    const [vo, setVo] = useState({});
 
     const handleInputChange = (event) => {
         const {name , value} = event.target;
 
-        setVo({ 
+        setVo({
             ...vo,
             [name] : value
         });
@@ -139,13 +141,6 @@ const AdminLogin = () => {
     const handleLoginSubmit = (event) => {
         event.preventDefault();
 
-        //작업을 해도되나 안해도되나 검사하는 작업
-        if(isFetching){
-            return;
-        }
-
-        //작업시작
-        isFetching = true;
 
         fetch("http://127.0.0.1:8888/app/admin/login" , {
         method: "POST",
@@ -154,31 +149,24 @@ const AdminLogin = () => {
             },
             body: JSON.stringify(vo)
         })
-        .then( resp => {
-            if(!resp.ok){
-                throw new Error("로그인 fetch 실패..");
-            }
-            return resp.json();
-        } )
-        .then( data => {
-            if( data.msg === "good" ){
-                alert("로그인 성공 !");
-                navigate("admin/mypage");
-            }else{
-                alert("로그인 실패 ...");
-                navigate("/failpage~~");
-            }
-            
-        } )
-        .catch( (e) => {
-            console.log(e);
-            alert("로그인 실패");
-        } )
-        .finally( () => {
-            isFetching = false;
-        } )
-        ;
-    }
+        .then((resp) => resp.json())
+        .then((data) => {
+        if (data.msg === "good") {
+          alert("로그인 성공.");
+          setAdminLoginMember(data.AdminLoginMemberVo);
+          sessionStorage.setItem("AdminLoginMemberVo", JSON.stringify(data.AdminLoginMemberVo));
+          navigate('/');
+        } else {
+          alert("로그인 실패");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {
+        console.log("로그인 fetch 끝");
+      });
+  };
 
     return (
         <StyledLoginMainDiv>

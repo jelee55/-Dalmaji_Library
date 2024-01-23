@@ -75,7 +75,7 @@ public class AdminNoticeController {
 	@GetMapping("detail")
 	public String detail(AdminNoticeVo vo, Model model) {
 		AdminNoticeVo adminNoticeVo = service.detail(vo);
-		model.addAttribute("noticeVo", adminNoticeVo);
+		model.addAttribute("AdminNoticeVo", adminNoticeVo);
 		return "admin/notice/detail";
 	}
 	

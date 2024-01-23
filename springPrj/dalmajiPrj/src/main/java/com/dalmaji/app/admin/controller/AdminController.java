@@ -30,14 +30,15 @@ public class AdminController {
 	
 	//로그인
 	@PostMapping("login")
-	public Map<String, String> login(@RequestBody AdminVo vo, HttpSession session) throws Exception {
+	public Map<String, Object> login(@RequestBody AdminVo vo, HttpSession session) throws Exception {
 		System.out.println(vo);
 		AdminVo loginAdmin = service.login(vo);
 		
 		session.setAttribute("loginAdmin", loginAdmin);
 		session.setAttribute("alerMsg", "로그인 성공!");
-		Map<String , String> map = new HashMap<>();
+		Map<String , Object> map = new HashMap<>();
 		map.put("msg", "good");
+		map.put("loginAdminVo", loginAdmin);
 		if(loginAdmin == null) {
 			map.put("msg", "bad");
 		}
