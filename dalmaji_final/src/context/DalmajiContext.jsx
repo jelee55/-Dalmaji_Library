@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const DalmajiContext = createContext();
 // export default DalmajiContext;
@@ -18,7 +18,7 @@ const DalmajiContextProvider = ({children}) => {
 
     if(loginMember === null){
         const jsonStr = sessionStorage.getItem("loginMemberVo");
-        console.log("jsonStr" , jsonStr);
+        console.log("loginMember jsonStr" , jsonStr);
         if(jsonStr !== null){
             const vo = JSON.parse(jsonStr);
             setLoginMember(vo);
@@ -28,7 +28,7 @@ const DalmajiContextProvider = ({children}) => {
     // console.log();
     if(AdminLoginMember === null){
         const jsonStr = sessionStorage.getItem("AdminLoginMemberVo");
-        console.log("jsonStr" , jsonStr);
+        console.log("AdminLoginMember jsonStr" , jsonStr);
         if(jsonStr !== null){
             const vo = JSON.parse(jsonStr);
             setAdminLoginMember(vo);
@@ -40,4 +40,8 @@ const DalmajiContextProvider = ({children}) => {
   </DalmajiContext.Provider>
 }
 
-export {DalmajiContext , DalmajiContextProvider};
+const useDalmajiContext = () => {
+    return useContext(DalmajiContext);
+}
+
+export {DalmajiContextProvider, useDalmajiContext};

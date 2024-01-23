@@ -38,9 +38,12 @@ public class NoticeController {
 		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
 		List<NoticeVo> voList = service.list(pvo);
 		
+		//vo값 잘 담겨서 출력되는지 확인 작업
 		for( NoticeVo vo : voList) {
 			System.out.println(vo);
 		}
+		
+		//결과를 Map에 담아 반환
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("voList", voList);
 		map.put("pvo", pvo);
