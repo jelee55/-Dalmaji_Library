@@ -162,7 +162,7 @@ const SearchList = () => {
         <StyledSearchListDiv>
         <div className='h11'>
             <div className='h12'>
-                <h1>도서검색</h1>
+                <h1><strong>도서목록</strong></h1>
             </div>
         </div>
 

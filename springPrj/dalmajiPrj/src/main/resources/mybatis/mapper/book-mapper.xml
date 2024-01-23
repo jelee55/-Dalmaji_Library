@@ -49,6 +49,13 @@
 	</insert>
 
 
+	<select id="count" resultType="String">
+		SELECT COUNT(*) AS LISTCOUNT
+		FROM BOOK_LIST 
+		
+	</select>
+	
+	
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
 		BOOK_NO
