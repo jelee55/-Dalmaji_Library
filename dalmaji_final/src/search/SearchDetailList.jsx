@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -11,29 +11,23 @@ const StyledDetailListDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* background-color: #8c00ff; */
   padding: 0%;
-  /* border: 1px solid black; */
   
   & > .header1 {
       font: bold;
-      width: 70%;
+      width: 65%;
       height: 20%;
-      /* background-color: #9af097; */
       display: flex;
-      /* flex-direction: column; */
       align-items: right;
       justify-content: center;
-      margin-bottom: 0%;
-      border-bottom: 5px solid #2f2f49;
-      /* padding: 0%; */
-      /* margin-top: 0%; */
+      margin-bottom: 3%;
+      border-bottom: 6px solid #2f2f49;
       h1 {
         font: 55px;
         width: 100%;
-        margin-top: 5%;
+        margin-top: 7%;
         margin-bottom: 0%;
-        margin-left: 0%;
+        margin-right: 15%;
         padding: 5%;
         color: #2f2f49;
     }
@@ -43,6 +37,8 @@ const StyledDetailListDiv = styled.div`
   display: flex;
   align-items: center center;
 }
+
+
 
 & > a {
   font-size: 25px;
@@ -61,6 +57,7 @@ const StyledDetailListDiv = styled.div`
         height: 25%;
         margin-top: none;
         padding: 0%;
+        
         .title,
         .author,
         .company {
@@ -69,11 +66,11 @@ const StyledDetailListDiv = styled.div`
           font-size: 20px;
           /* font: bold; */
           color: red;
-       
+          
         }
-
+        
         input {
-
+          
             width: 100%;
             height: 50px;
             border-radius: 10px;
@@ -85,6 +82,7 @@ const StyledDetailListDiv = styled.div`
         align-items: center;
         justify-content: center center;
         margin-top: 10px;
+        margin-left: 30%;
         
         input[type="submit"],
         input[type="reset"] {
@@ -163,7 +161,7 @@ const SearchDetailList = () => {
   return (
     <StyledDetailListDiv>
       <div className="header1">
-          <h1>도서검색</h1>
+          <h1><strong>도서검색</strong></h1>
       </div>
     
       {/* <div className='form'> */}

@@ -37,8 +37,6 @@ public class BookService {
 	public List<BookVo> searchList(PageVo pvo, String title, String author, String company) {
 	    return dao.searchList(sst, pvo, title, author, company);
 	}
-	
-	
 
 	
 	//검색(목록)
@@ -57,18 +55,11 @@ public class BookService {
 		return dao.delete(sst, vo);
 	}
 	
-//	//작성하기(이미지 첨부)
-//		public int write(BookVo vo) {
-//			
-//			String str = vo.getFullPath().replace("D:\\dev\\springRepo\\springPrj99\\src\\main\\webapp", "http://127.0.0.1:8888/app");
-//			vo.setFullPath(str);
-//			
-//			if(vo.getTitle().length() < 1) {
-//				throw new IllegalStateException();
-//			}
-//			
-//			return dao.write(sst, vo);
-//	
-//
-//		}
+	//도서 작성
+	public int insert(BookVo vo) {
+		return dao.insert(sst, vo);
+	}
+
+	
+
 }

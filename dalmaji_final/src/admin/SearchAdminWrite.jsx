@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-modal";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBook } from "@fortawesome/free-solid-svg-icons";
+// import { faLock } from "@fortawesome/free-solid-svg-icons";
+// import { faList } from "@fortawesome/free-solid-svg-icons";
+// import Modal from "react-modal";
 
 
 const StyledAdminWriteDiv = styled.div`
@@ -213,112 +213,82 @@ const StyledModalDiv = styled.div`
 `;
 
 const SearchDetail = () => {
-    console.log("SearchDetail render!!!");
+    const str = sessionStorage.getItem("loginMemberVo");
+    const vo = JSON.parse(str);
+    const writerNo = vo.no;
 
-    //url에서 bookNo 추출
-    const selectedBookNo = useParams();
-    console.log("selectedBookNo ::: ", selectedBookNo);
-    console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
 
-    // 사용할 변수 준비
-    const [vo, setVo] = useState([]);
-    const [borrowVo, setBorrowVo] = useState([]);
+    const [inputBookVo , setInputBookVo] = useState({
+        "writerNo": writerNo,
+    });
+    const navigate = useNavigate();
 
-    useEffect( () => {
-        const loadBookDetailVo = () => {
-            fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${selectedBookNo.bookNo}`,{
-                    method: "GET",
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+            fetch(`http://127.0.0.1:8888/app/admin/write`,{
+                    method: "POST",
                         headers: {
                             "Content-Type" : "application/json",
                         },
+                        body : JSON.stringify(inputBookVo) ,
                 })
             .then( resp => resp.json() )
             .then( (data) => {
-                console.log('data:::', data);
-                setVo(data.vo);
-                setBorrowVo(data.borrowVo);
+                if(data.msg === "good"){
+                    alert("게시글 작성 성공 !");
+                    navigate("/search/list");
+                }else{
+                    alert("게시글 작성 실패 ...");
+                }
             })
             ;
         }
-        loadBookDetailVo();
-    }, [selectedBookNo.bookNo] )
-
-    // 모달창을 위한 준비
-    const [modal, setModal] = useState(false);
-
-    // 목록버튼 클릭시 돌아가기
-    const navigate = useNavigate();
-    const redirect = () => {
-        navigate("/search/list");
-    };
+   
+        const handleChangeInput = (event) => {
+            const {name, value} = event.target;
+    
+            setInputBookVo({
+                ...inputBookVo ,
+                [name]:value,
+            });
+            
+            
+        }
     
     return (
         <StyledAdminWriteDiv>
             <div></div>
             <StyledWriteContentDiv>
                 <div><h1>상세정보</h1></div>
-                <div>
+                <form onSubmit={handleSubmit}>
                     <div>
-                        <img src={vo.bookImg} alt={vo.title} />
-                        <button className='btnImg1'>이미지</button>
+                        <div>
+                            <img src={vo.bookImg} alt={vo.title} />
+                            <button className='btnImg1'>이미지</button>
+                        </div>
+                        <div className='inputContent'>
+                            <div className='inptContentDiv'>
+                                <strong>제목: </strong>
+                                <input type="text" name='title' onChange={handleChangeInput}/>
+                            </div>
+                            <div className='inptContentDiv'>
+                                <strong>작가: </strong>
+                                <input type="text" name='author' onChange={handleChangeInput} />
+                            </div>
+                            <div>
+                                <strong>출판사: </strong>
+                                <input type="text" name='company' onChange={handleChangeInput}/>
+                            </div>
+                            <div>
+                                <strong>출판일: </strong>
+                                <input type="text" name="publisherYear" onChange={handleChangeInput}/>
+                            </div>
+                            <button type="submit" className='btnImg1'>완료</button>
+                        </div>
                     </div>
-                    <div className='inputContent'>
-                        <div className='inptContentDiv'><strong>제목: </strong><input type="text" /></div>
-                        <div className='inptContentDiv'><strong>작가: </strong><input type="text" /></div>
-                        <div><strong>출판사: </strong><input type="text" /></div>
-                        <div><strong>출판일: </strong><input type="text" /></div>
-                        <button className='btnImg1'>완료</button>
-                    </div>
-                </div>
-                <StyledTableDiv>
-                    <div>소장정보</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>NO.</th>
-                                <th>소장위치</th>
-                                <th>도서상태</th>
-                                <th>반납예정일</th>
-                            </tr> 
-                        </thead>
-                        <tbody> 
-                            <tr>
-                                <td>{vo.bookNo}</td>
-                                <td>{vo.roomName}</td>
-                                <td>{borrowVo.bookState}</td>
-                                {
-                                    borrowVo === undefined
-                                    ?
-                                    <td></td>
-                                    :
-                                    <td>{borrowVo.dueDate}</td>
-                                    
-                                }
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div>
-                        {/* { if(){
-                            }
-                        } */}
-                        <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
-                        {modal === true 
-                            ? 
-                            <StyledModalDiv>
-                                <div><h1>알림</h1></div>
-                                <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                                <input type="password" placeholder='password'/>
-                                <div>
-                                    <button>완료</button>
-                                    <button onClick={ () => {setModal(false)} }>취소</button>
-                                </div>
-                            </StyledModalDiv> 
-                            : 
-                            null
-                        }
-                        <button className='redirect' onClick={redirect}><FontAwesomeIcon icon={faList} /> 목록으로</button>
-                    </div>
-                </StyledTableDiv>
+                </form>
+         
                 <div>4</div>
             </StyledWriteContentDiv>
             <div></div>

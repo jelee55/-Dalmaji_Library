@@ -31,8 +31,7 @@ public class BookDao {
 	// 총 게시글 수 가져오는 메소드
 	public int getTotalCount(SqlSessionTemplate sst) {
 		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!!
-		return sst.selectOne("BookMapper.increaseHit");
-	
+		return Integer.parseInt(sst.selectOne("BookMapper.count"));
 	}
 	
 	// 검색에 대한 총 게시글 수 조회
@@ -44,21 +43,15 @@ public class BookDao {
 	    return sst.selectOne("BookMapper.getSearchTotalCount", map);
 	}
 
-	//조회수 증가(상세조회를 했을 시에만 증가)
-	public int increaseHit(SqlSessionTemplate sst, String no) {
-		return sst.update("bookMapper.increaseHit", no);
-	}
-	
 	//검색(목록 상세 조히)
 	public List<BookVo> detail(SqlSessionTemplate sst, BookVo vo) {
 	    return sst.selectList("BookMapper.detail", vo);
 	}
 
 	//도서 작성
-	//작성하기(이미지 첨부)
-		public int write(SqlSessionTemplate sst, BookVo vo) {
-			return sst.insert("BookMapper.write", vo);
-		}
+	public int insert(SqlSessionTemplate sst, BookVo vo) {
+		return sst.insert("BookMapper.insert", vo);
+	}
 	
 	// 수정
 	public int edit(SqlSessionTemplate sst, BookVo vo) {
