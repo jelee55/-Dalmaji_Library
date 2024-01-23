@@ -57,14 +57,15 @@ public class MemberController {
 	
 	//로그인
 	@PostMapping("login")
-	public Map<String, String> login(@RequestBody MemberVo vo, HttpSession session) throws Exception {
+	public Map<String, Object> login(@RequestBody MemberVo vo, HttpSession session) throws Exception {
 		System.out.println(vo);
 		MemberVo loginMember = service.login(vo);
 		
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("alerMsg", "로그인 성공!");
-		Map<String , String> map = new HashMap<>();
+		Map<String , Object> map = new HashMap<>();
 		map.put("msg", "good");
+		map.put("loginMemberVo", loginMember);
 		if(loginMember == null) {
 			map.put("msg", "bad");
 		}

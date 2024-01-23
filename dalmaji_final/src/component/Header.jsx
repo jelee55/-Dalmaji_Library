@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Navi from './Navi';
 import { Link, useNavigate } from 'react-router-dom';
-import { DalmajiContext } from '../context/DalmajiContext';
+import { useDalmajiContext } from '../context/DalmajiContext';
 
 const StyledHeaderDiv = styled.div`
     width: 100%;
@@ -76,7 +76,7 @@ const StyledTopMenu = styled.div`
 
 const Header = () => {
 
-    const { setLoginMember } = useContext(DalmajiContext);    
+    const {loginMember, AdminLoginMember, setLoginMember, setAdminLoginMember} = useDalmajiContext();    
     
     const navigate = useNavigate();
     
@@ -110,7 +110,7 @@ const Header = () => {
                     </button>
                 </div>
                 <div className='login_join'>
-                    {loginInfo === null
+                    {loginMember === null
                         ? 
                         <>
                     <Link className='login' to='/member/login'>
@@ -124,7 +124,7 @@ const Header = () => {
                          <>
                         <div className='nick'>
                             <Link to="/">
-                                <h4>user01</h4>
+                                <h4>{loginMember.name}</h4>
                             </Link>
                         </div>
                         <div className='out'>

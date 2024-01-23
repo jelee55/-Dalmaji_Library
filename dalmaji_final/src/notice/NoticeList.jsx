@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect , useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -71,7 +70,7 @@ const StyledNoticeListDiv = styled.div`
 const NoticeList = () => {
 
     console.log("AdminNoticeList 컴포넌트 렌더링");
-        const [noticeListVoList, setnoticeListVoList] = useState([]);
+        const [noticeVoList, setnoticeVoList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
         const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
 
@@ -98,10 +97,10 @@ const NoticeList = () => {
         .then( resp => resp.json() )
         .then( (data) => {
             console.log('voList' , data.voList);
-            setnoticeListVoList(data.voList); //데이터 저장
+            setnoticeVoList(data.voList); //데이터 저장
             setTotalPages(data.pvo.maxPage); //총 페이지 수 저장
             console.log('data' , data);
-        })
+        } )
         ;
     }
 
@@ -116,8 +115,8 @@ const NoticeList = () => {
     }, [currentPage] );
     
     useEffect( () => {
-        console.log(noticeListVoList);
-    }, [noticeListVoList] );
+        console.log("noticeVoList", noticeVoList);
+    }, [noticeVoList] );
     
 
     
@@ -140,13 +139,13 @@ const NoticeList = () => {
                     </thead>
                     <tbody>
                     {
-                            noticeListVoList.length === 0
+                            noticeVoList.length === 0
                             ?
                             (<tr>
                                 <td colSpan="4">로딩중...</td>
                             </tr>)
                             :
-                            noticeListVoList.map( vo => <tr key={vo.no}>
+                            noticeVoList.map( vo => <tr key={vo.no}>
                                     <td>{vo.no}</td>
                                     <td><Link to={`/notice/detail/${vo.no}`}>{vo.title}</Link></td>
                                     <td>{vo.enrollDate}</td>

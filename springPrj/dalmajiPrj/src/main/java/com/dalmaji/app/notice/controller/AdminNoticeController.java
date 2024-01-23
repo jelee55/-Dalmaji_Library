@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import com.dalmaji.app.notice.service.AdminNoticeService;
 import com.dalmaji.app.notice.service.NoticeService;
 import com.dalmaji.app.notice.vo.AdminNoticeVo;
 import com.dalmaji.app.notice.vo.NoticeVo;
+import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,9 +51,24 @@ public class AdminNoticeController {
 	
 	//공지사항 목록조회 (data)
 	@GetMapping("list")
-	public List<AdminNoticeVo> restList(){
-		return service.list();
+	@ResponseBody
+	public Map<String, Object> list (@RequestParam(defaultValue = "1") int currentPage) {
+		int listCount = service.getTotalCount();
+		int pageLimit = 5;
+		int listLimit = 8;
+		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+		List<AdminNoticeVo> voList = service.list(pvo);
 		
+		//vo값 잘 담겨서 출력되는지 확인 작업
+		for( AdminNoticeVo vo : voList) {
+			System.out.println(vo);
+		}
+		
+		//결과를 Map에 담아 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("voList", voList);
+		map.put("pvo", pvo);
+		return map;
 	}
 	
 	//공지사항 상세조회

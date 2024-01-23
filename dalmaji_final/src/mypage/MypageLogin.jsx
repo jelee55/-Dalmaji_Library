@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { DalmajiContext } from '../context/DalmajiContext';
+import { useDalmajiContext } from '../context/DalmajiContext';
 
 const StyledLoginMainDiv = styled.div`
     width: 100%;
@@ -138,9 +138,7 @@ const StyledLoginMainDiv = styled.div`
 
 
 const MypageLogin = () => {
-
-    const {loginMember, setLoginMember} = useContext(DalmajiContext);
-    const {adminLoginMember, setAdminLoginMember} = useContext(DalmajiContext);
+    const {loginMember, AdminLoginMember, setLoginMember, setAdminLoginMember} = useDalmajiContext();
     const navigate = useNavigate();
 
     const jsonStr = sessionStorage.getItem("loginMemberVo");

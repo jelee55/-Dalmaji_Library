@@ -93,11 +93,11 @@ const StyledNoticeListDiv = styled.div`
 const NoticeList = () => {
 
     console.log("AdminNoticeList 컴포넌트 렌더링");
-        const [noticeListVoList, setnoticeListVoList] = useState([]);
+        const [noticeVoList, setnoticeListVoList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
         const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
 
-        const [noticeListVo, setnoticeListVo] = useState([]);
+        // const [noticeListVo, setnoticeListVo] = useState([]);
 
         const navigate = useNavigate();
     
@@ -139,8 +139,8 @@ const NoticeList = () => {
     }, [currentPage] );
     
     useEffect( () => {
-        console.log(noticeListVoList);
-    }, [noticeListVoList] );
+        console.log(noticeVoList);
+    }, [noticeVoList] );
     
 
     
@@ -163,13 +163,13 @@ const NoticeList = () => {
                     </thead>
                     <tbody>
                     {
-                            noticeListVoList.length === 0
+                            noticeVoList.length === 0
                             ?
                             (<tr>
                                 <td colSpan="4">로딩중...</td>
                             </tr>)
                             :
-                            noticeListVoList.map( vo => <tr key={vo.no}>
+                            noticeVoList.map( vo => <tr key={vo.no}>
                                     <td>{vo.no}</td>
                                     <td><Link to={`/admin/notice/detail/${vo.no}`}>{vo.title}</Link></td>
                                     <td>{vo.enrollDate}</td>
