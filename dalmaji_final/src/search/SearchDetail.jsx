@@ -227,7 +227,7 @@ const SearchDetail = () => {
     
     // 대출완료 버튼 클릭 핸들러
     const handleBorrowComplete = () => {
-        fetch(`http://127.0.0.1:8888/app/search/book/check?bookNo=${selectedBookNo.bookNo}`,{
+        fetch(`http://127.0.0.1:8888/app/search/book/check?MemberNo=${selectedBookNo.bookNo}`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -239,6 +239,7 @@ const SearchDetail = () => {
         })
         .then((resp) => resp.json())
         .then((data) => {
+            console.log('modalData',data);
             if(data.msg === "success"){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");

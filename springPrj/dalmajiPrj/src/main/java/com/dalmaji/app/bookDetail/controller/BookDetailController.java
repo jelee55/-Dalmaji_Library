@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -71,11 +72,12 @@ public class BookDetailController {
 	 * @throws Exception
 	 */
 	@PostMapping("check")
-	public Map<String, Object> check (@RequestBody Map<String, String> requestData) throws Exception{
+	public Map<String, Object> check (HttpServletRequest req, @RequestBody Map<String, Object> requestData) throws Exception{
 		
 		// 클라이언트에서 전달받은 책 번호와 대출 비밀번호 추출
-		String bookNo = requestData.get("bookNo");
-		String borrowPwd = requestData.get("borrowPwd");
+		String bookNo = (String) requestData.get("bookNo");
+		String borrowPwd = (String) req.getSession().getAttribute("borrowPwd");
+		log.info("bookNo" + bookNo);
 		
 		// 대출 비밀번호 확인을 위해 서비스 계층에서 해당 멤버 정보를 조회
 		MemberVo loginMember = service.check(borrowPwd);
@@ -86,7 +88,7 @@ public class BookDetailController {
 		Map<String, Object> map = new HashMap<>();
 		
 		// 조회된 유저의 대출 비밀번호와 클라이언트에서 전달받은 대출 비밀번호 비교
-		if(loginMember.getBorrowPwd().equals(requestData.get("borrowPwd"))) {
+		if(loginMember != null && loginMember.getBorrowPwd().equals(requestData.get(borrowPwd))) {
 			int result = service.borrowOk(bookNo);
 			log.info("bookNo:::" + bookNo);
 			log.info("result:::" + result);
