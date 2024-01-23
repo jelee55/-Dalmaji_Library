@@ -156,71 +156,79 @@ const StyledTableDiv = styled.div`
     }
 `;
 
-const StyledModalDiv = styled.div`
-    z-index: 100;
-    width: 500px;
-    height: 400px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: white;
-    box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
-    border-radius: 20px;
-    display: grid;
-    grid-template-rows: 1.5fr 1fr 1fr 1fr;
-    place-items: center center;
-    & > div:first-child {
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        background-color: #EFEFF1;
-        padding-top: 40px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-    }
-    & > div:nth-child(2) {
-        font-size: 25px;
-    }
-    & > input {
-        width: 200px;
-        height: 40px;
-        font-size: 25px;
-        padding-left: 7px;
-    }
-    & > input:focus {
-        background-color: #7b7b7b;
-        color: white;
-    }
-    & > div:nth-child(4) {
-        display: flex;
-        gap: 5px;
-        & > button {
-            width: 50px;
-            height: 30px;
-            border: none;
-            border-radius: 7px;
-            background-color: #275FBC;
-            color: white;
-            cursor: pointer;
-        }
-        & > button:hover {
-            background-color: #E72900;
-        }
-    }
-`;
+
+
+// const StyledModalDiv = styled.div`
+//     z-index: 100;
+//     width: 500px;
+//     height: 400px;
+//     position: fixed;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     margin: auto;
+//     background-color: white;
+//     box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
+//     border-radius: 20px;
+//     display: grid;
+//     grid-template-rows: 1.5fr 1fr 1fr 1fr;
+//     place-items: center center;
+//     & > div:first-child {
+//         width: 100%;
+//         height: 100%;
+//         text-align: center;
+//         background-color: #EFEFF1;
+//         padding-top: 40px;
+//         border-top-left-radius: 20px;
+//         border-top-right-radius: 20px;
+//     }
+//     & > div:nth-child(2) {
+//         font-size: 25px;
+//     }
+//     & > input {
+//         width: 200px;
+//         height: 40px;
+//         font-size: 25px;
+//         padding-left: 7px;
+//     }
+//     & > input:focus {
+//         background-color: #7b7b7b;
+//         color: white;
+//     }
+//     & > div:nth-child(4) {
+//         display: flex;
+//         gap: 5px;
+//         & > button {
+//             width: 50px;
+//             height: 30px;
+//             border: none;
+//             border-radius: 7px;
+//             background-color: #275FBC;
+//             color: white;
+//             cursor: pointer;
+//         }
+//         & > button:hover {
+//             background-color: #E72900;
+//         }
+//     }
+// `;
 
 const SearchDetail = () => {
-    const str = sessionStorage.getItem("loginMemberVo");
-    const vo = JSON.parse(str);
-    const writerNo = vo.no;
+    const str = sessionStorage.getItem("BookVo");
+    const vo = str ? JSON.parse(str) : {}; // 만약 str이 null이면 빈 객체를 할당
+    
+    const bookNo = vo.no;
 
 
-    const [inputBookVo , setInputBookVo] = useState({
-        "writerNo": writerNo,
-    });
+    const [inputBookVo, setInputBookVo] = useState({
+        bookNo: bookNo,
+        title: "",
+        author: "",
+        company: "",
+        publisherYear: "",
+      });
+
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -260,9 +268,9 @@ const SearchDetail = () => {
         <StyledAdminWriteDiv>
             <div></div>
             <StyledWriteContentDiv>
-                <div><h1>상세정보</h1></div>
+                <div><h1>작성하기</h1></div>
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div >
                         <div>
                             <img src={vo.bookImg} alt={vo.title} />
                             <button className='btnImg1'>이미지</button>
@@ -284,11 +292,38 @@ const SearchDetail = () => {
                                 <strong>출판일: </strong>
                                 <input type="text" name="publisherYear" onChange={handleChangeInput}/>
                             </div>
-                            <button type="submit" className='btnImg1'>완료</button>
+                            <input type="submit" value="완료" className='btnImg1' />
                         </div>
                     </div>
                 </form>
-         
+                <StyledTableDiv>
+                    <div>소장정보</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NO.</th>
+                                <th>소장위치</th>
+                                <th>도서상태</th>
+                                <th>반납예정일</th>
+                            </tr> 
+                        </thead>
+                        <tbody> 
+                            {/* <tr>
+                                <td>{vo.bookNo}</td>
+                                <td>{vo.roomName}</td>
+                                <td>{borrowVo.bookState}</td>
+                                {
+                                    borrowVo === undefined
+                                    ?
+                                    <td></td>
+                                    :
+                                    <td>{borrowVo.dueDate}</td>
+                                    
+                                }
+                            </tr> */}
+                        </tbody>
+                    </table>
+                </StyledTableDiv>
                 <div>4</div>
             </StyledWriteContentDiv>
             <div></div>
