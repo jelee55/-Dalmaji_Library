@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const userBorrowListDiv = styled.div`
+const StyledUserBorrowListDiv = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
+    grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr;
     place-items: center center;
     & > div {
         width: 100%;
@@ -13,33 +12,16 @@ const userBorrowListDiv = styled.div`
         display: grid;
         place-items: center center;
     }
-    & > div > h1 {
-        color: #217DFF;
-    }
+    
 `;
 
 const MemberBorrowList = () => {
 
     console.log("MemberBorrowMypage render ~~~~");
-    const [borrowList, setBorrowList] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
-    const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
-
-    // 페이지 처리
-    fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?currentPage=${page}`,{
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-    .then(resp => resp.json())
-    .then((data) => {
-        console.log('voList', data.voList);
-    })
 
     return (
-        <userBorrowListDiv>
-            <div></div>
+        <StyledUserBorrowListDiv>
+            <div>1</div>
             <div><h1>내서재</h1></div>
             <div>
                 <table>
@@ -57,68 +39,25 @@ const MemberBorrowList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            adminBorrowVoList && adminBorrowVoList.length === 0
-                            ?
-                            (<tr>
-                                <td colSpan="8">로딩중...</td>
-                            </tr>)
-                            :
-                            adminBorrowVoList && adminBorrowVoList.map( adminBorrowVo => <tr key={adminBorrowVoList.overdueNo}>
-                                <td>{adminBorrowVo.bookNo}</td>
-                                <td>{adminBorrowVo.title}</td>
-                                <td>{adminBorrowVo.author}</td>
-                                <td>{adminBorrowVo.company}</td>
-                                <td>{adminBorrowVo.borrowDate}</td>
-                                <td>{adminBorrowVo.dueDate}</td>
-                                <td>{adminBorrowVo.overdueCount}</td>
-                                <td>{adminBorrowVo.bookState}</td>
-                                <td className='restriction'>
-                                    <select onChange={(e) => {
-                                        updateRestriction(adminBorrowVo.memberNo, e.target.value);
-                                    }}>
-                                        {
-                                            optionList && optionList.length === 0
-                                            ?
-                                            <option value="로딩중">로딩중...</option>
-                                            :
-                                            optionList && optionList.map(optionVo => {
-                                                console.log('adminBorrowVo',adminBorrowVo.oNo);
-                                                console.log('optionVo.oNo',optionVo.oNo);
-                                                if(adminBorrowVo.oNo === optionVo.oNo){
-                                                    return <option selected key={optionVo.oNo} value={optionVo.oNo}>{optionVo.bOption}</option>                                                
-                                                }else{
-                                                    return <option key={optionVo.oNo} value={optionVo.oNo}>{optionVo.bOption}</option>
-                                                }
-                                            })
-                                        }
-                                    </select>
-                                </td>
-                            </tr>
-                            )
-                        }
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <div className='pagination'>
-                {totalPages 
-                ? 
-                (
-                    Array.from({length: totalPages}, (_, i) =>
-                        <button
-                            key={`page_button_${i}`}
-                            onClick={() => handlerClickPageNum(i + 1)}
-                            disabled={currentPage === i+1}
-                        >
-                            {i + 1}
-                        </button>
-                    )) 
-                : 
-                null
-                }
+                페이징 처리
             </div>
-            <div>빈칸</div>
-        </userBorrowListDiv>
+            <div>5</div>
+        </StyledUserBorrowListDiv>
     );
 };
 
