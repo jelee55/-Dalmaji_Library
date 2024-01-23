@@ -63,7 +63,13 @@ public class BookDetailController {
 		return map;
 	}
 	
-	// 대출 비밀번호 일치여부 확인 & 대출완료
+	/**
+	 * 대출 비밀번호 일치여부 확인 & 대출완료
+	 * 
+	 * @param requestData
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("check")
 	public Map<String, Object> check (@RequestBody Map<String, String> requestData) throws Exception{
 		
