@@ -57,5 +57,7 @@ public class NoticeController {
 		model.addAttribute("noticeVo", noticeVo);
 		return "notice/detail";
 	}
+	
+	
 
 }
