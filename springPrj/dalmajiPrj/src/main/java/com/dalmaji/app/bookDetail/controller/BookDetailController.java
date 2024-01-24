@@ -72,30 +72,32 @@ public class BookDetailController {
 	 * @throws Exception
 	 */
 	@PostMapping("check")
-	public Map<String, Object> check (HttpServletRequest req, @RequestBody Map<String, Object> requestData) throws Exception{
+	public Map<String, Object> check (@RequestBody MemberVo vo) throws Exception{
 		
-		// 클라이언트에서 전달받은 책 번호와 대출 비밀번호 추출
-		String bookNo = (String) requestData.get("bookNo");
-		String borrowPwd = (String) req.getSession().getAttribute("borrowPwd");
-		log.info("bookNo" + bookNo);
-		
-		// 대출 비밀번호 확인을 위해 서비스 계층에서 해당 멤버 정보를 조회
-		MemberVo loginMember = service.check(borrowPwd);
-		log.info("borrowPwd" + borrowPwd);
-		log.info("loginMember" + loginMember);
+		// 대출 비밀번호 일치여부 확인
+		MemberVo loginMember = service.check(vo);
+		log.info("loginMember:::" + loginMember);
 		
 		// 응답을 위한 Map 객체 생성
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		// 조회된 유저의 대출 비밀번호와 클라이언트에서 전달받은 대출 비밀번호 비교
-		if(loginMember != null && loginMember.getBorrowPwd().equals(requestData.get(borrowPwd))) {
-			int result = service.borrowOk(bookNo);
-			log.info("bookNo:::" + bookNo);
-			log.info("result:::" + result);
-			map.put("msg", "success");
-		}else {
-			map.put("msg", "fail");
+		map.put("msg", "대출비번 일치!!!");
+		map.put("loginMember", loginMember);
+		
+		if(loginMember == null) {
+			map.put("msg", "대출비번실패....");
 		}
+		
+		
+//		// 조회된 유저의 대출 비밀번호와 클라이언트에서 전달받은 대출 비밀번호 비교
+//		if (sessionBorrowPwd.equals(userEnteredBorrowPwd)) {
+//			int result = service.borrowOk(bookNo);
+//			log.info("bookNo:::" + bookNo);
+//			log.info("result:::" + result);
+//			map.put("msg", "success");
+//		}else {
+//			map.put("msg", "fail");
+//		}
 		
 		return map;
 		

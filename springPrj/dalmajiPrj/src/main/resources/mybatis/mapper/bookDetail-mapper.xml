@@ -43,7 +43,7 @@
 		    , BORROW_PWD
 		    , OVERDUE_COUNT
 		FROM MEMBER
-		WHERE MEMBER_NO = #{no}
+		WHERE MEMBER_NO = #{memberNo}
 		AND BORROW_PWD = #{borrowPwd}
 	</select>
 	

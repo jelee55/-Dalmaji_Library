@@ -217,29 +217,59 @@ const SearchDetail = () => {
     };
 
     //모달창 대출비번 확인용
-    const [borrowPwd, setBorrowPwd] = useState([]);
-    console.log('borrowPwd', borrowPwd);
+    const [inputBorrowPwd, setInputBorrowPwd] = useState([]);
+    console.log('inputBorrowPwd', inputBorrowPwd);
 
     // 대출 비밀번호 입력 핸들러
     const handlePasswordInput = (e) => {
-        setBorrowPwd(e.target.value);
+        setInputBorrowPwd(e.target.value);
     }
     
     // 대출완료 버튼 클릭 핸들러
     const handleBorrowComplete = () => {
-        fetch(`http://127.0.0.1:8888/app/search/book/check?MemberNo=${selectedBookNo.bookNo}`,{
+
+        console.log('handleBorrowComplete render~~~');
+        
+        //세션에 담김 loginMemberVo를 가져와서 borrowPwd 값 추출
+        const loginMemberVo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
+        const memberNo = loginMemberVo.memberNo;
+        const sessionBorrowPwd = loginMemberVo.borrowPwd;
+
+        console.log('loginMemberVo::::',loginMemberVo);
+        console.log('memberNo::::',memberNo);
+        console.log('sessionBorrowPwd::::',sessionBorrowPwd);
+
+        //클라이언트에서 입력받은 대출비번
+        const userEnteredBorrowPwd = inputBorrowPwd;
+
+        // 입력된 대출비번값이 세션에 담긴 대출비번과 일치하는지 확인
+        if(sessionBorrowPwd === userEnteredBorrowPwd){
+            //대출중으로 상태 변경
+            setModal(false);
+            handleBorrowApiCall(memberNo, userEnteredBorrowPwd);
+        }else{
+            setModal(false);
+            console.log("대출실패: 대출비번 불일치!!!");
+        }
+    }
+
+    //api 호출 담당
+    const handleBorrowApiCall = (memberNo, borrowPwd) => {
+
+        // 서버에 대출완료를 요청하는 api 호출
+        fetch(`http://127.0.0.1:8888/app/search/book/check`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 bookNo: selectedBookNo.bookNo,
-                borrowPwd: borrowPwd,
+                loginMemberVo: {memberNo, borrowPwd},
             }),
         })
         .then((resp) => resp.json())
         .then((data) => {
-            console.log('modalData',data);
+            console.log('api응답data',data);
             if(data.msg === "success"){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");
@@ -249,6 +279,8 @@ const SearchDetail = () => {
             setModal(false);
         })
     }
+
+
     
     return (
         <StyledSearchDetailDiv>
@@ -300,9 +332,9 @@ const SearchDetail = () => {
                             <StyledModalDiv>
                                 <div><h1>알림</h1></div>
                                 <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                                <input type="password" placeholder='password' value={borrowPwd} onChange={handlePasswordInput}/>
+                                <input type="password" placeholder='password' value={inputBorrowPwd} onChange={handlePasswordInput}/>
                                 <div>
-                                    <button onChange={handleBorrowComplete}>완료</button>
+                                    <button onClick={handleBorrowComplete}>완료</button>
                                     <button onClick={ () => {setModal(false)} }>취소</button>
                                 </div>
                             </StyledModalDiv> 
