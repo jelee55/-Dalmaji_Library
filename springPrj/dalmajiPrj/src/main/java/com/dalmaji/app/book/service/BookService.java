@@ -23,6 +23,11 @@ public class BookService {
 	public List<BookVo> list(PageVo pvo) {
 		return dao.list(sst, pvo);
 	}
+	
+	 public List<BookVo> getBookListByBookCate(int bookCateNo) {
+	        return dao.getBookListByBookCate(bookCateNo, sst);
+	    }
+	
     // 총 게시글 수 가져오는 메소드
     public int getTotalCount() {
         return dao.getTotalCount(sst);

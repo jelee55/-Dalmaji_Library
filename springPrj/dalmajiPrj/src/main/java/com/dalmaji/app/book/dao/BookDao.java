@@ -28,6 +28,9 @@ public class BookDao {
 		return sst.selectList("BookMapper.list", null, rb);
 	}
 
+	
+	
+	
 	// 총 게시글 수 가져오는 메소드
 	public int getTotalCount(SqlSessionTemplate sst) {
 		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!!
@@ -78,6 +81,10 @@ public class BookDao {
 	    return sst.selectList("BookMapper.searchList", map);
 	}
 
+	  // 카테고리별 도서 목록 가져오기
+    public List<BookVo> getBookListByBookCate(int bookCateNo, SqlSessionTemplate sst) {
+        return sst.selectList("BookMapper.listByBookCate", bookCateNo);
+    }
 
 
 }
