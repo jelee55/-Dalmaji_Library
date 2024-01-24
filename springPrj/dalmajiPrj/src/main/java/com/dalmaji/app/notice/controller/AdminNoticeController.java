@@ -73,10 +73,14 @@ public class AdminNoticeController {
 	
 	//공지사항 상세조회
 	@GetMapping("detail")
-	public String detail(AdminNoticeVo vo, Model model) {
-		AdminNoticeVo adminNoticeVo = service.detail(vo);
-		model.addAttribute("AdminNoticeVo", adminNoticeVo);
-		return "admin/notice/detail";
+	public AdminNoticeVo detail(AdminNoticeVo vo) {
+		System.out.println(vo);
+//		AdminNoticeVo adminNoticeVo = service.detail(vo);
+//		model.addAttribute("AdminNoticeVo", adminNoticeVo);
+//		return "admin/notice/detail";
+		AdminNoticeVo voList = service.detail(vo);
+		System.out.println(voList);
+		return voList;
 	}
 	
 	//공지사항 삭제 (번호)

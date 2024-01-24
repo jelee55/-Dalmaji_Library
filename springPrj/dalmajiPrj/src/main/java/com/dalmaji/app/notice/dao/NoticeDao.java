@@ -32,10 +32,17 @@ public class NoticeDao {
 	public NoticeVo detail(SqlSessionTemplate sst, NoticeVo vo) {
 		return sst.selectOne("NoticeMapper.detail", vo);
 	}
+	
+	//공지사항 상세조회
+//	public NoticeVo detail(SqlSessionTemplate sst, NoticeVo vo) {
+//		System.out.println("dao 호출");
+//		return sst.selectOne("NoticeMapper.detail", vo);
+//	}
 
 	//총 게시글 수 가져오는 메소드
 	public int getTotalCount(SqlSessionTemplate sst) {
-		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!!
+		
+		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!
 		System.out.println("1111111111");
 		int result = sst.selectOne("NoticeMapper.count");
 		System.out.println("result : " + result);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeDetailDiv = styled.div`
@@ -22,51 +22,73 @@ const StyledNoticeDetailDiv = styled.div`
             /* background-color:antiquewhite; */
 
             & > .notice {
-                width: 1000px;
+                width: 50%;
                 height: 10%;
                 display: flex;
                 align-items: center;
-                margin-top: 2%;
-                margin-left: 20%;
-                justify-content: flex-start;
-                border-bottom: 2px solid black;
-                font-size:24px;
+                margin: auto;
+                margin-top: 3%;
+                margin-bottom: 2%;
+                justify-content: center;
+                font-size:30px;
                 font-weight: bolder;
+                /* border-bottom: 1px solid black; */
                 /* background-color: greenyellow; */
             }
 
             & > form {
-                width: 1000px;
+                width: 50%;
                 height: 80%;
-                margin-left: 20%;
+                display: inline;
+                margin: auto;
+                margin-bottom: 50%;
                 /* border: 2px solid black; */
                 /* background-color: beige; */
 
+                & > .input_btn {
+                    width: 10%;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-left: 87%;
+                    margin-bottom: 2%;
+                    /* background-color: brown; */
+
+                    & > input {
+                        border: none;
+                        background-color: white;
+                    }
+
+                    & > input:hover {
+                        color: lightblue;
+                    }
+                }
+
                     & > .dropdown_head {    
-                        width: 100%;
-                        height: 14%;
-                        margin-bottom: 50px;
+                        width: 90%;
+                        height: 10%;
+                        display: flex;
+                        margin-bottom: 30px;
+                        margin-left: 70px;
+                        border: 1px solid black;
                         /* background-color: greenyellow; */
 
-                        &> .date {
-                            width: 50%;
-                            height: 45%;
+                        & > .date {
+                            width: 25%;
+                            height: 100%;
                             display: flex;
-                            justify-content: flex-start;
                             align-items: center;
-                            margin-top: 20px;
-                            margin-left: 10%;
+                            /* margin-left: 10%; */
                             font-size: 15px;
-                            /* background-color: azure; */
+                            background-color: lightgray;
                             }
             
                         & > .notice_title{
-                            width: 50%;
-                            height: 45%;
+                            width: 75%;
+                            height: 100%;
                             display: flex;
-                            justify-content: flex-start;
                             align-items: center;
-                            margin-left: 10%;
+                            /* margin-left: 10%; */
+                            /* margin-top: 20px; */
                             /* background-color: aqua; */
                             }
                     }
@@ -99,18 +121,24 @@ const StyledNoticeDetailDiv = styled.div`
                         align-items: center;
                         margin-top: 30px;
                         /* background-color: yellowgreen; */
+
+                        & >  a {
+                            height: 65%;
+                            width: 10%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            border : 1px solid lightgray;
+                            border-radius: 10px;
+                        }
+
+                        & > a:hover {
+                                color: skyblue;
+                            }
                     }
 
-                    & > .list > a {
-                        height: 65%;
-                        width: 10%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        text-align: center;
-                        border : 1px solid lightgray;
-                        border-radius: 10px;
-                    }
+
                     
                 }       
 
@@ -125,6 +153,7 @@ const AdminNoticeDetail = () => {
 
     // url에서 noticeNo 추출
     const { no } = useParams(); // 수정된 부분
+    const navigate = useNavigate();
 
     // 사용할 변수 준비
     const [vo, setVo] = useState([]);
@@ -140,21 +169,49 @@ const AdminNoticeDetail = () => {
                 .then((resp) => resp.json())
                 .then((data) => {
                     console.log('data:::', data);
-                    setVo(data.vo);
+                    setVo(data);
                 });
         };
+
         loadNoticeDetailVo();
-    }, [no]);
+    }, []);
+
+    // 삭제 버튼 클릭 시 이벤트 핸들러
+    const handleDeleteClick = () => {
+        // 삭제 로직 구현
+        fetch(`http://127.0.0.1:8888/app/admin/notice/delete?no=${no}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            // 서버로부터의 응답에 따른 처리
+            console.log('Delete response:', data);
+
+            // 삭제 후 목록 페이지로 이동
+            navigate('/admin/notice/list');
+        })
+        .catch((error) => {
+            console.error('Delete error:', error);
+            // 에러 처리 로직을 여기에 추가할 수 있습니다.
+        });
+    };
 
 
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
             <div className='notice'>공지사항</div>
-                <form >
+                <form>
+                    <div className='input_btn'>
+                        <input type="button" value='수정'/>
+                        <input type="button" value='삭제'onClick={handleDeleteClick} />
+                    </div>
                     <div className="dropdown_head">
-                        <div className="date">날짜 : {vo.enrollDate}</div>
-                        <div className="notice_title">제목 : {vo.title}</div>
+                        <div className="date">Date : {vo.enrollDate}</div>
+                        <div className="notice_title">Title : {vo.title}</div>
                     </div>
                     <div className='none'></div>
                     <div className='dropdown_content'>
