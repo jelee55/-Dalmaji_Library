@@ -21,8 +21,8 @@ public class BookDetailDao {
 	}
 
 	// 대출 비밀번호 일치여부 확인 & 대출완료
-	public MemberVo check(SqlSessionTemplate sst, String borrowPwd) {
-		return sst.selectOne("BookDetailMapper.check", borrowPwd);
+	public MemberVo check(SqlSessionTemplate sst, MemberVo vo) {
+		return sst.selectOne("BookDetailMapper.check", vo);
 	}
 	
 	// 대출완료(책 상태변경)
