@@ -10,6 +10,24 @@ const StyledNoticeListDiv = styled.div`
     grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
     place-items: center center;
     padding: 3%;
+
+    & > .notice_title {
+        width: 50%;
+        margin-bottom: 50px;
+        font-size:30px;
+        font-weight: bolder;
+       
+        & > h1 {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-size: 40px;
+        }
+    }
+
+    & > .search {
+        margin-bottom: 50px;
+    }
+
     & > div {
         width: 100%;
         height: 100%;
@@ -93,11 +111,11 @@ const StyledNoticeListDiv = styled.div`
 const NoticeList = () => {
 
     console.log("AdminNoticeList 컴포넌트 렌더링");
-        const [noticeVoList, setnoticeListVoList] = useState([]);
+        const [noticeListVoList, setnoticeListVoList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
         const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
 
-        // const [noticeListVo, setnoticeListVo] = useState([]);
+        const [noticeListVo, setnoticeListVo] = useState([]);
 
         const navigate = useNavigate();
     
@@ -139,10 +157,10 @@ const NoticeList = () => {
     }, [currentPage] );
     
     useEffect( () => {
-        console.log(noticeVoList);
-    }, [noticeVoList] );
-    
+        console.log("noticeListVoList" , noticeListVoList);
+    }, [noticeListVoList] );
 
+    
     
 
 
@@ -163,13 +181,13 @@ const NoticeList = () => {
                     </thead>
                     <tbody>
                     {
-                            noticeVoList.length === 0
+                            noticeListVoList.length === 0
                             ?
                             (<tr>
                                 <td colSpan="4">로딩중...</td>
                             </tr>)
                             :
-                            noticeVoList.map( vo => <tr key={vo.no}>
+                            noticeListVoList.map( vo => <tr key={vo.no}>
                                     <td>{vo.no}</td>
                                     <td><Link to={`/admin/notice/detail/${vo.no}`}>{vo.title}</Link></td>
                                     <td>{vo.enrollDate}</td>

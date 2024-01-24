@@ -28,20 +28,23 @@ const StyledNoticeWriteDiv = styled.div`
                 align-items: center;
                 margin: auto;
                 margin-top: 3%;
+                margin-bottom: 2%;
                 justify-content: center;
-                /* border-bottom: 2px solid black; */
                 font-size:24px;
                 font-weight: bolder;
+                /* border-bottom: 2px solid black; */
                 /* background-color: greenyellow; */
+
+                & > h1 {
+                    font-family: 'Pretendard';
+                    font-weight: 700;
+                    font-size: 150%;
+                }
             }
 
-            & > .none1 {
-                height: 3%;
-                /* background-color: yellow; */
-            }
 
             & > form {
-                width: 65%;
+                width: 60%;
                 height: 88%;
                 margin: auto;
                 margin-bottom: 80px;
@@ -189,7 +192,7 @@ const AdminNoticeWrite = () => {
     return (
         <StyledNoticeWriteDiv>
             <div className='notice_wrap'>
-                <div className='notice'><h2>공지사항</h2></div>
+                <div className='notice'><h1>공지사항</h1></div>
                 <div className='none1'></div>
                 <form onSubmit={handleSubmit}>
                     <div className="title">

@@ -10,6 +10,23 @@ const StyledNoticeListDiv = styled.div`
     grid-template-rows: 0.3fr 1.5fr 1fr 8fr 2fr 1.5fr;
     place-items: center center;
     padding: 3%;
+
+    & > .notice_title {
+        width: 50%;
+        margin-bottom: 50px;
+        font-size:30px;
+        font-weight: bolder;
+       
+        & > h1 {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-size: 40px;
+        }
+    }
+
+    & > .search {
+        margin-bottom: 50px;
+    }
     & > div {
         width: 100%;
         height: 100%;
