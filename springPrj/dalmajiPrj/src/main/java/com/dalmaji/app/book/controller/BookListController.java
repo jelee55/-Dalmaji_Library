@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,14 @@ public class BookListController {
 	}
 
 
+    // 카테고리별 도서 목록 가져오기
+    @GetMapping("listByBookCate/{bookCateNo}")
+    public List<BookVo> getBookListByBookCate(@PathVariable int bookCateNo) {
+        return service.getBookListByBookCate(bookCateNo);
+    }
+	
+    
+    
 	// 검색(게시글 목록 조회)
 	@GetMapping("detaillist")
 	public List<BookVo> detail(BookVo vo, Model model) {

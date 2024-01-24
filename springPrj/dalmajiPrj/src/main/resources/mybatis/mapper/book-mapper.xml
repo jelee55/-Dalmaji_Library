@@ -17,15 +17,29 @@
 		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS
 		PUBLISHER_YEAR
 		FROM BOOK_LIST
-
+	</select>
+	
+	<select id="listSelect" resultType="com.dalmaji.app.book.vo.BookVo">
+		SELECT
+		BOOK_NO
+		,BOOK_CATE_NO
+		,TITLE
+		,AUTHOR
+		,COMPANY
+		,CONT
+		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS
+		PUBLISHER_YEAR
+		FROM BOOK_LIST
+		WHERE BOOK_CATE_NO = #{bookCateNo}
 	</select>
 
 
 
-	<update id="increaseHit" >
+	<update id="increaseHit">
 		UPDATE BOOK_LIST
 		SET CONT = CONT+1
-		WHERE BOOK_NO = #{bookNo}
+		WHERE
+		BOOK_NO = #{bookNo}
 	</update>
 
 
@@ -44,18 +58,20 @@
 		, #{title}
 		, #{author}
 		, #{publisherYear}
-		, #{bookImg}
+		,
+		#{bookImg}
 		)
 	</insert>
 
 
 	<select id="count" resultType="String">
 		SELECT COUNT(*) AS LISTCOUNT
-		FROM BOOK_LIST 
-		
+		FROM
+		BOOK_LIST
+
 	</select>
-	
-	
+
+
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
 		BOOK_NO
@@ -68,19 +84,15 @@
 		,BOOK_IMG
 		FROM BOOK_LIST
 		WHERE
-		TITLE LIKE '%' || #{title} || '%' OR
+		TITLE
+		LIKE '%' || #{title} || '%' OR
 		AUTHOR LIKE '%' || #{author} || '%' OR
 		COMPANY LIKE '%' || #{company} || '%'
 	</select>
 
 
-	<!-- <update id="edit">
-		UPDATE BOOK_LIST
-		SET TITLE= #{title}
-		, AUTHOR = #{author}
-		, COMPANY = #{company}
-		WHERE BOOK_NO = #{bookNo}
-	</update> -->
+	<!-- <update id="edit"> UPDATE BOOK_LIST SET TITLE= #{title} , AUTHOR = 
+		#{author} , COMPANY = #{company} WHERE BOOK_NO = #{bookNo} </update> -->
 
 
 
