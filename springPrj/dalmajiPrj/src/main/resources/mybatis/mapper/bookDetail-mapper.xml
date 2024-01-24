@@ -47,13 +47,13 @@
 		AND BORROW_PWD = #{borrowPwd}
 	</select>
 	
-	<update id="borrowOk">
+	<update id="updateBookState">
 		UPDATE BOOK_LIST 
 		    SET STATUS_NO = '2'
 		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
-	<insert id="borrow">
+	<insert id="insertBorrow">
 		INSERT INTO BORROW 
 			(
 				BORROW_NO

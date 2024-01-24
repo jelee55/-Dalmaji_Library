@@ -21,13 +21,18 @@ public class BookDetailDao {
 	}
 
 	// 대출 비밀번호 일치여부 확인 & 대출완료
-	public MemberVo check(SqlSessionTemplate sst, MemberVo vo) {
-		return sst.selectOne("BookDetailMapper.check", vo);
+	public MemberVo check(SqlSessionTemplate sst, MemberVo mvo) {
+		return sst.selectOne("BookDetailMapper.check", mvo);
 	}
 	
-	// 대출완료(책 상태변경)
-	public int borrowOk(SqlSessionTemplate sst, String bookNo) {
-		return sst.update("BookDetailMapper.borrowOk", bookNo);
+	// 대출중 상태로 책 상태 변경하기(update)
+	public int updateBookState(SqlSessionTemplate sst, String bookNo) {
+		return sst.update("BookDetailMapper.updateBookState", bookNo);
+	}
+
+	// 대출완료처리 (borrow table에 insert)
+	public int insertBorrow(SqlSessionTemplate sst, String bookNo) {
+		return sst.insert("BookDetailMapper.insertBorrow", bookNo);
 	}
 
 }
