@@ -91,9 +91,15 @@ const Header = () => {
 
     const handleLogout = () => {
         sessionStorage.removeItem("loginMemberVo");
+        sessionStorage.removeItem("AdminLoginMemberVo");
+
         setLoginInfo(null);
         setLoginMember(null);
+        setAdminLoginMember(null);
         navigate("/")
+
+        // 로그아웃 완료 후 알람 창 띄우기
+        window.alert("로그아웃 되었습니다.");
     };
 
         return (
@@ -110,29 +116,43 @@ const Header = () => {
                     </button>
                 </div>
                 <div className='login_join'>
-                    {loginMember === null
+                    {loginMember === null 
+                    ?
+                        (AdminLoginMember === null
                         ? 
                         <>
-                    <Link className='login' to='/member/login'>
-                    <div>로그인</div>
-                    </Link>
-                    <Link className='login' to='/member/join' >
-                    <div>회원가입</div>
-                    </Link>
+                            <Link className='login' to='/member/login'>
+                            <div>로그인</div>
+                            </Link>
+                            <Link className='login' to='/member/join' >
+                            <div>회원가입</div>
+                            </Link>
                         </>
-                         : 
-                         <>
+                        : 
+                        <>
+                            <div className='nick'>
+                                <Link to="/">
+                                    <h4>{AdminLoginMember.name} 님</h4>
+                                </Link>
+                            </div>
+                            <div className='out'>
+                                <button className='btn' onClick={handleLogout}>로그아웃</button>
+                            </div>
+                        </>
+                        ) 
+                    :
+                    <>
                         <div className='nick'>
                             <Link to="/">
-                                <h4>{loginMember.name}</h4>
+                                <h4>{loginMember.name} 님</h4>
                             </Link>
                         </div>
                         <div className='out'>
-                            <button className='btn' onClick={handleLogout}>로그아웃</button>
+                        <button className='btn' onClick={handleLogout}>로그아웃</button>
                         </div>
-                        </>
-                         }
-                </div>
+                    </>
+                    }   
+                    </div>
                 <div></div>
             </StyledTopMenu>
             <Navi />

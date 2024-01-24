@@ -47,6 +47,7 @@
 	<select id="detail" resultType="com.dalmaji.app.notice.vo.NoticeVo">
 		SELECT 
 		    NO
+		    , ADMIN_NO
 		    ,TITLE
 		    ,CONTENT
 		    ,ENROLL_DATE
