@@ -35,7 +35,7 @@ const StyledWriteContentDiv = styled.div`
             font-size: 40px;
             /* background-color: #8787bc; //지워 */
         }
-    & > div:nth-child(2){
+    & > form > div{
         width: 100%;
         height: 100%;
         margin: 50px;
@@ -77,18 +77,18 @@ const StyledWriteContentDiv = styled.div`
         }
         
     }
-& > div > div > .inptContentDiv {
-                margin-left: 4%;
-                /* background-color: red; */
-            }    
-  & > div > div > .btnImg1{
-    margin-top: 5%;
-    border-radius: 10px;
-    margin-right: 20%;
-    background-color: #2f2f49;
-    border: none;
-    color: white;
-  }
+    & > form > div > div > .inptContentDiv {
+        margin-left: 4%;
+        /* background-color: red; */
+    }    
+    & > form > div > div > .btnImg1{
+        margin-top: 5%;
+        border-radius: 10px;
+        margin-right: 20%;
+        background-color: #2f2f49;
+        border: none;
+        color: white;
+    }
 `;
 
 const StyledTableDiv = styled.div`
