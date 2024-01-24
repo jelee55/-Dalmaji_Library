@@ -270,6 +270,7 @@ const SearchAdminEdit = () => {
                         <div><strong>출판사: </strong><input type="text" /></div>
                         <div><strong>출판일: </strong><input type="text" /></div>
                         <button className='btnImg1'>완료</button>
+                        <button className='btnImg1'>삭제</button>
                     </div>
                 </div>
             </form>
@@ -327,5 +328,7 @@ const SearchAdminEdit = () => {
         </StyledAdminEditDiv>
     );
 };
+}
+
 
 export default SearchAdminEdit;

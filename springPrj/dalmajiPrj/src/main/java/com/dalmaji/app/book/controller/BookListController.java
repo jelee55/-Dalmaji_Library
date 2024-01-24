@@ -83,7 +83,6 @@ public class BookListController {
 	}
 
 	
-
 	// 게시글 수정(제목,저자,이미지)
 	@PostMapping("admin/edit")
 	public String edit(BookVo vo) throws Exception {
