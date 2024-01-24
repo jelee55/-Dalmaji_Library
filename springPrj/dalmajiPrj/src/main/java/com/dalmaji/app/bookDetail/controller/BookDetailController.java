@@ -67,41 +67,73 @@ public class BookDetailController {
 	/**
 	 * 대출 비밀번호 일치여부 확인 & 대출완료
 	 * 
-	 * @param requestData
+	 * @param mvo
 	 * @return
 	 * @throws Exception
 	 */
 	@PostMapping("check")
-	public Map<String, Object> check (@RequestBody MemberVo vo) throws Exception{
+	public Map<String, Object> check (@RequestBody MemberVo mvo) throws Exception{
+		log.info("들어온 mvo :::{}",mvo);
+		
+		
+		String bookNo = (mvo.getBookNo());
+		
+		
+		Map<String,Object> resultMap = new HashMap();
+		try {
+		log.info("mvo::: " + mvo);
+		
 		
 		// 대출 비밀번호 일치여부 확인
-		MemberVo loginMember = service.check(vo);
-		log.info("loginMember:::" + loginMember);
-		
-		// 응답을 위한 Map 객체 생성
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("msg", "대출비번 일치!!!");
-		map.put("loginMember", loginMember);
-		
-		if(loginMember == null) {
-			map.put("msg", "대출비번실패....");
+		resultMap = service.check(mvo, bookNo);
+		}catch(Exception e) {
+			resultMap.put("msg",e.getMessage());
 		}
-		
-		
-//		// 조회된 유저의 대출 비밀번호와 클라이언트에서 전달받은 대출 비밀번호 비교
-//		if (sessionBorrowPwd.equals(userEnteredBorrowPwd)) {
-//			int result = service.borrowOk(bookNo);
-//			log.info("bookNo:::" + bookNo);
-//			log.info("result:::" + result);
-//			map.put("msg", "success");
-//		}else {
-//			map.put("msg", "fail");
-//		}
-		
-		return map;
-		
+	
+		return resultMap;
 	}
 	
+//	// 대출중 상태로 책 상태 변경하기(update)
+//	@PostMapping("update")
+//	public Map<String, String> updateBookState (@RequestBody MemberVo mvo, @RequestParam String bookNo){
+//		
+//		// bookNo 정보는 세션에서 가져온 데이터로 채움
+//		mvo.setBookNo(bookNo);
+//		
+//		Map<String, String> map = new HashMap<String, String>();
+//		
+//		// 대출중 상태로 책 상태 변경하기(update)
+//		int updateResult = service.updateBookState(bookNo);
+//		log.info("bookNo대출상태 변경용::: " + bookNo);
+//		log.info("updateResult::: " + updateResult);
+//		
+//		if(updateResult == 1) {
+//			map.put("msg", "good");
+//		}else {
+//			map.put("msg", "bad");
+//		}
+//		
+//		return map;
+//	}
+//	
+//	// 대출완료처리 (borrow table에 insert)
+//	@PostMapping("insert")
+//	public Map<String, String> insertBorrow (@RequestBody MemberVo mvo, @RequestParam String bookNo){
+//		
+//		// bookNo 정보는 세션에서 가져온 데이터로 채움
+//		mvo.setBookNo(bookNo);
+//		
+//		Map<String, String> map = new HashMap<String, String>();
+//		
+//		int insertResult = service.insertBorrow(bookNo);
+//		log.info("insertResult::: " + insertResult);
+//		
+//		if(insertResult == 1) {
+//			map.put("msg", "good");
+//		}else {
+//			map.put("msg", "bad");
+//		}
+//		return map;
+//	}
 
 }//class

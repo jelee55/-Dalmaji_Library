@@ -188,6 +188,7 @@ const SearchDetail = () => {
     const [vo, setVo] = useState([]);
     const [borrowVo, setBorrowVo] = useState([]);
 
+    // bookNo 가져와서 상세정보 가져오기
     useEffect( () => {
         const loadBookDetailVo = () => {
             fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${selectedBookNo.bookNo}`,{
@@ -215,70 +216,63 @@ const SearchDetail = () => {
     const redirect = () => {
         navigate("/search/list");
     };
-
-    //모달창 대출비번 확인용
-    const [inputBorrowPwd, setInputBorrowPwd] = useState([]);
-    console.log('inputBorrowPwd', inputBorrowPwd);
-
-    // 대출 비밀번호 입력 핸들러
-    const handlePasswordInput = (e) => {
-        setInputBorrowPwd(e.target.value);
-    }
     
-    // 대출완료 버튼 클릭 핸들러
-    const handleBorrowComplete = () => {
+    //모달창 대출비번 확인용
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
 
-        console.log('handleBorrowComplete render~~~');
-        
-        //세션에 담김 loginMemberVo를 가져와서 borrowPwd 값 추출
-        const loginMemberVo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
-        const memberNo = loginMemberVo.memberNo;
-        const sessionBorrowPwd = loginMemberVo.borrowPwd;
-
-        console.log('loginMemberVo::::',loginMemberVo);
-        console.log('memberNo::::',memberNo);
-        console.log('sessionBorrowPwd::::',sessionBorrowPwd);
-
-        //클라이언트에서 입력받은 대출비번
-        const userEnteredBorrowPwd = inputBorrowPwd;
-
-        // 입력된 대출비번값이 세션에 담긴 대출비번과 일치하는지 확인
-        if(sessionBorrowPwd === userEnteredBorrowPwd){
-            //대출중으로 상태 변경
-            setModal(false);
-            handleBorrowApiCall(memberNo, userEnteredBorrowPwd);
-        }else{
-            setModal(false);
-            console.log("대출실패: 대출비번 불일치!!!");
-        }
+        setMvo({
+            ...mvo,
+            [name]: value,
+        });
     }
 
-    //api 호출 담당
-    const handleBorrowApiCall = (memberNo, borrowPwd) => {
+    //세션에 담긴 유저값 가져오기
+    const jsonStr = sessionStorage.getItem("loginMemberVo");
+    const sessionLoginMemberVo = JSON.parse(jsonStr);
+    //const [loginMemberVo, setLoginMemberVo] = useState(sessionLoginMemberVo);
 
+    console.log('sessionLoginMemberVo1번::',sessionLoginMemberVo);
+    // console.log('loginMemberVo1번::',loginMemberVo);
+
+    const [mvo, setMvo] = useState();
+
+    // 대출완료 버튼 클릭 핸들러
+    const handleClickBorrow = (e) => {
+
+        e.preventDefault();
+
+        console.log('handleClickBorrow render~~~');
+        console.log('mvo:::', mvo);
+   
         // 서버에 대출완료를 요청하는 api 호출
         fetch(`http://127.0.0.1:8888/app/search/book/check`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                bookNo: selectedBookNo.bookNo,
-                loginMemberVo: {memberNo, borrowPwd},
-            }),
+            body: JSON.stringify({...mvo,
+                bookNo : selectedBookNo.bookNo}), 
+           
         })
         .then((resp) => resp.json())
         .then((data) => {
             console.log('api응답data',data);
-            if(data.msg === "success"){
+            console.log('mvo.borrowPwd:: ' + mvo.borrowPwd);
+            console.log('sessionLoginMemberVo.borrowPwd:: ' + sessionLoginMemberVo.borrowPwd);
+            if(mvo.borrowPwd === sessionLoginMemberVo.borrowPwd){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");
+                // sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
+                // setLogiMemberVo(data.loginMemberVo);
             } else {
                 console.log("대출 실패...");
+                alert("대출비밀번호가 일치하지 않습니다.")
             }
             setModal(false);
         })
-    }
+    }   
+   
 
 
     
@@ -332,9 +326,9 @@ const SearchDetail = () => {
                             <StyledModalDiv>
                                 <div><h1>알림</h1></div>
                                 <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                                <input type="password" placeholder='password' value={inputBorrowPwd} onChange={handlePasswordInput}/>
+                                <input type="password" placeholder='password' name='borrowPwd' onChange={handleInputChange}/>
                                 <div>
-                                    <button onClick={handleBorrowComplete}>완료</button>
+                                    <button onClick={handleClickBorrow}>완료</button>
                                     <button onClick={ () => {setModal(false)} }>취소</button>
                                 </div>
                             </StyledModalDiv> 
