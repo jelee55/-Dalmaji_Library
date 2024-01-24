@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-modal";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBook } from "@fortawesome/free-solid-svg-icons";
+// import { faLock } from "@fortawesome/free-solid-svg-icons";
+// import { faList } from "@fortawesome/free-solid-svg-icons";
+// import Modal from "react-modal";
 
 
 const StyledAdminEditDiv = styled.div`
@@ -35,7 +35,7 @@ const StyledEditContentDiv = styled.div`
             font-size: 40px;
             /* background-color: #8787bc; //지워 */
         }
-    & > div:nth-child(2){
+    & > form > div {
         width: 100%;
         height: 100%;
         margin: 50px;
@@ -156,65 +156,65 @@ const StyledTableDiv = styled.div`
     }
 `;
 
-const StyledModalDiv = styled.div`
-    z-index: 100;
-    width: 500px;
-    height: 400px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: white;
-    box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
-    border-radius: 20px;
-    display: grid;
-    grid-template-rows: 1.5fr 1fr 1fr 1fr;
-    place-items: center center;
-    & > div:first-child {
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        background-color: #EFEFF1;
-        padding-top: 40px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-    }
-    & > div:nth-child(2) {
-        font-size: 25px;
-    }
-    & > input {
-        width: 200px;
-        height: 40px;
-        font-size: 25px;
-        padding-left: 7px;
-    }
-    & > input:focus {
-        background-color: #7b7b7b;
-        color: white;
-    }
-    & > div:nth-child(4) {
-        display: flex;
-        gap: 5px;
-        & > button {
-            width: 50px;
-            height: 30px;
-            border: none;
-            border-radius: 7px;
-            background-color: #275FBC;
-            color: white;
-            cursor: pointer;
-        }
-        & > button:hover {
-            background-color: #E72900;
-        }
-    }
-`;
+// const StyledModalDiv = styled.div`
+//     z-index: 100;
+//     width: 500px;
+//     height: 400px;
+//     position: fixed;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     margin: auto;
+//     background-color: white;
+//     box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
+//     border-radius: 20px;
+//     display: grid;
+//     grid-template-rows: 1.5fr 1fr 1fr 1fr;
+//     place-items: center center;
+//     & > div:first-child {
+//         width: 100%;
+//         height: 100%;
+//         text-align: center;
+//         background-color: #EFEFF1;
+//         padding-top: 40px;
+//         border-top-left-radius: 20px;
+//         border-top-right-radius: 20px;
+//     }
+//     & > div:nth-child(2) {
+//         font-size: 25px;
+//     }
+//     & > input {
+//         width: 200px;
+//         height: 40px;
+//         font-size: 25px;
+//         padding-left: 7px;
+//     }
+//     & > input:focus {
+//         background-color: #7b7b7b;
+//         color: white;
+//     }
+//     & > div:nth-child(4) {
+//         display: flex;
+//         gap: 5px;
+//         & > button {
+//             width: 50px;
+//             height: 30px;
+//             border: none;
+//             border-radius: 7px;
+//             background-color: #275FBC;
+//             color: white;
+//             cursor: pointer;
+//         }
+//         & > button:hover {
+//             background-color: #E72900;
+//         }
+//     }
+// `;
 
 
-const SearchDetail = () => {
-    console.log("SearchDetail render!!!");
+const SearchAdminEdit = () => {
+    console.log("SearchAdminEdit render!!!");
 
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
@@ -244,20 +244,21 @@ const SearchDetail = () => {
         loadBookDetailVo();
     }, [selectedBookNo.bookNo] )
 
-    // 모달창을 위한 준비
-    const [modal, setModal] = useState(false);
+    // // 모달창을 위한 준비
+    // const [modal, setModal] = useState(false);
 
     // 목록버튼 클릭시 돌아가기
     const navigate = useNavigate();
-    const redirect = () => {
-        navigate("/search/list");
-    };
-    
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
     return (
         <StyledAdminEditDiv>
             <div></div>
             <StyledEditContentDiv>
             <div><h1>수정하기</h1></div>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <div>
                         <img src={vo.bookImg} alt={vo.title} />
@@ -271,6 +272,8 @@ const SearchDetail = () => {
                         <button className='btnImg1'>완료</button>
                     </div>
                 </div>
+            </form>
+               
                 <StyledTableDiv>
                     <div>소장정보</div>
                     <table>
@@ -298,10 +301,8 @@ const SearchDetail = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        {/* { if(){
-                            }
-                        } */}
+                    {/* <div>
+                       
                         <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
                         {modal === true 
                             ? 
@@ -318,7 +319,7 @@ const SearchDetail = () => {
                             null
                         }
                         <button className='redirect' onClick={redirect}><FontAwesomeIcon icon={faList} /> 목록으로</button>
-                    </div>
+                    </div> */}
                 </StyledTableDiv>
                 <div>4</div>
             </StyledEditContentDiv>
@@ -327,4 +328,4 @@ const SearchDetail = () => {
     );
 };
 
-export default SearchDetail;
+export default SearchAdminEdit;

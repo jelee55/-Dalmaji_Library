@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("search")
-@CrossOrigin("*")
+@CrossOrigin(origins ="*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class BookListController {
 
@@ -68,7 +68,7 @@ public class BookListController {
 	}
 	
 	// 도서 작성
-	@PostMapping("write")
+	@PostMapping("admin/write")
 	public Map<String, String> write(@RequestBody BookVo vo, HttpSession session) {
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.insert(vo);
