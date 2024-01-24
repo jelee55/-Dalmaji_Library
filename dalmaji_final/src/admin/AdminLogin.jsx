@@ -153,9 +153,10 @@ const AdminLogin = () => {
         .then((data) => {
         if (data.msg === "good") {
           alert("로그인 성공.");
-          setAdminLoginMember(data.AdminLoginMemberVo);
-          sessionStorage.setItem("AdminLoginMemberVo", JSON.stringify(data.AdminLoginMemberVo));
-          navigate('/');
+          setAdminLoginMember(data.loginAdminVo);
+          console.log(data.loginAdminVo);
+          sessionStorage.setItem("AdminLoginMemberVo", JSON.stringify(data.loginAdminVo));
+          navigate('/admin/mypage');
         } else {
           alert("로그인 실패");
         }

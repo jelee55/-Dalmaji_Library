@@ -160,7 +160,7 @@ const AdminNoticeDetail = () => {
                     <div className='dropdown_content'>
                         <div className="content">{vo.content}</div>
                     </div>
-                    <div className='list'><a href='/admin/notice/list'>목록보기</a></div>
+                    <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
                 </form>
             </div>
         </StyledNoticeDetailDiv>

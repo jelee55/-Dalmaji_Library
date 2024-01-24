@@ -5,6 +5,8 @@ const DalmajiContext = createContext();
 
 const DalmajiContextProvider = ({children}) => {
 
+    // sessionStorage.clear();
+
     const [loginMember, setLoginMember] = useState(null);
     const [AdminLoginMember, setAdminLoginMember] = useState(null);
 
@@ -16,7 +18,7 @@ const DalmajiContextProvider = ({children}) => {
     };
 
 
-    if(loginMember === null){
+    if(!loginMember){
         const jsonStr = sessionStorage.getItem("loginMemberVo");
         console.log("loginMember jsonStr" , jsonStr);
         if(jsonStr !== null){
@@ -26,7 +28,7 @@ const DalmajiContextProvider = ({children}) => {
     }
 
     // console.log();
-    if(AdminLoginMember === null){
+    if(!AdminLoginMember){
         const jsonStr = sessionStorage.getItem("AdminLoginMemberVo");
         console.log("AdminLoginMember jsonStr" , jsonStr);
         if(jsonStr !== null){
