@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,7 @@ public class BookDetailController {
 		
 		return map;
 	}
-	
+
 	/**
 	 * 대출 비밀번호 일치여부 확인 & 대출완료
 	 * 
@@ -75,65 +76,22 @@ public class BookDetailController {
 	public Map<String, Object> check (@RequestBody MemberVo mvo) throws Exception{
 		log.info("들어온 mvo :::{}",mvo);
 		
-		
-		String bookNo = (mvo.getBookNo());
-		
+		// MemberVo내의 자체값이 아닌 스프링이 key-value로 bookNo값을 넣어준다.
+		String bookNo = mvo.getBookNo();
 		
 		Map<String,Object> resultMap = new HashMap();
 		try {
 		log.info("mvo::: " + mvo);
 		
-		
 		// 대출 비밀번호 일치여부 확인
 		resultMap = service.check(mvo, bookNo);
-		}catch(Exception e) {
+		}catch(IllegalAccessException e) {
 			resultMap.put("msg",e.getMessage());
+			e.printStackTrace();
 		}
 	
 		return resultMap;
 	}
 	
-//	// 대출중 상태로 책 상태 변경하기(update)
-//	@PostMapping("update")
-//	public Map<String, String> updateBookState (@RequestBody MemberVo mvo, @RequestParam String bookNo){
-//		
-//		// bookNo 정보는 세션에서 가져온 데이터로 채움
-//		mvo.setBookNo(bookNo);
-//		
-//		Map<String, String> map = new HashMap<String, String>();
-//		
-//		// 대출중 상태로 책 상태 변경하기(update)
-//		int updateResult = service.updateBookState(bookNo);
-//		log.info("bookNo대출상태 변경용::: " + bookNo);
-//		log.info("updateResult::: " + updateResult);
-//		
-//		if(updateResult == 1) {
-//			map.put("msg", "good");
-//		}else {
-//			map.put("msg", "bad");
-//		}
-//		
-//		return map;
-//	}
-//	
-//	// 대출완료처리 (borrow table에 insert)
-//	@PostMapping("insert")
-//	public Map<String, String> insertBorrow (@RequestBody MemberVo mvo, @RequestParam String bookNo){
-//		
-//		// bookNo 정보는 세션에서 가져온 데이터로 채움
-//		mvo.setBookNo(bookNo);
-//		
-//		Map<String, String> map = new HashMap<String, String>();
-//		
-//		int insertResult = service.insertBorrow(bookNo);
-//		log.info("insertResult::: " + insertResult);
-//		
-//		if(insertResult == 1) {
-//			map.put("msg", "good");
-//		}else {
-//			map.put("msg", "bad");
-//		}
-//		return map;
-//	}
 
 }//class

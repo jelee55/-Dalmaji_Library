@@ -13,10 +13,12 @@ import com.dalmaji.app.borrow.vo.BorrowVo;
 import com.dalmaji.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class BookDetailService {
 
 	private final SqlSessionTemplate sst;
@@ -44,16 +46,19 @@ public class BookDetailService {
 			resultMap.put("msg","잘못된 비밀번호 입니다");
 			return resultMap;
 		}
-		
+		log.info("들어온 북넘버  :::{}",bookNo);
 		int result = dao.updateBookState(sst, bookNo);
+		log.info("북상태 업데이트  :::{}",result);
 		
-		if(result!=1) {
+		if(result !=1) {
 			return resultMap; 
 		}
-		result = dao.insertBorrow(sst, bookNo);
+		int result2 = dao.insertBorrow(sst, mvo);
 		
-		if(result!=1) {
-			throw new Exception("실패");
+		log.info("북상태 인서트  :::{}",result);
+		
+		if(result2 !=1) {
+			throw new IllegalAccessException("실패");
 		}
 		
 		resultMap.put("status", "good");

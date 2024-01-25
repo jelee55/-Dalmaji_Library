@@ -187,6 +187,15 @@ const SearchDetail = () => {
     // 사용할 변수 준비
     const [vo, setVo] = useState([]);
     const [borrowVo, setBorrowVo] = useState([]);
+    const [change, setChange] = useState('');
+
+    //세션에 담긴 유저값 가져오기
+    const jsonStr = sessionStorage.getItem("loginMemberVo");
+    const sessionLoginMemberVo = JSON.parse(jsonStr);
+
+    console.log('sessionLoginMemberVo1번::',sessionLoginMemberVo);
+
+    const [mvo, setMvo] = useState([]);
 
     // bookNo 가져와서 상세정보 가져오기
     useEffect( () => {
@@ -201,12 +210,15 @@ const SearchDetail = () => {
             .then( (data) => {
                 console.log('data:::', data);
                 setVo(data.vo);
+                if(sessionLoginMemberVo != null && sessionLoginMemberVo.borrowPwd == mvo.borrowPwd){
+                    setChange(change+'a');
+                }
                 setBorrowVo(data.borrowVo);
             })
             ;
         }
         loadBookDetailVo();
-    }, [selectedBookNo.bookNo] )
+    }, [selectedBookNo.bookNo, change])
 
     // 모달창을 위한 준비
     const [modal, setModal] = useState(false);
@@ -227,21 +239,11 @@ const SearchDetail = () => {
         });
     }
 
-    //세션에 담긴 유저값 가져오기
-    const jsonStr = sessionStorage.getItem("loginMemberVo");
-    const sessionLoginMemberVo = JSON.parse(jsonStr);
-    //const [loginMemberVo, setLoginMemberVo] = useState(sessionLoginMemberVo);
-
-    console.log('sessionLoginMemberVo1번::',sessionLoginMemberVo);
-    // console.log('loginMemberVo1번::',loginMemberVo);
-
-    const [mvo, setMvo] = useState();
-
     // 대출완료 버튼 클릭 핸들러
     const handleClickBorrow = (e) => {
-
         e.preventDefault();
-
+        
+        console.log('bookNo',selectedBookNo.bookNo)
         console.log('handleClickBorrow render~~~');
         console.log('mvo:::', mvo);
    
@@ -251,28 +253,28 @@ const SearchDetail = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({...mvo,
-                bookNo : selectedBookNo.bookNo}), 
-           
+            body: JSON.stringify({
+                ...mvo,
+                bookNo : selectedBookNo.bookNo,
+                memberNo : sessionLoginMemberVo.memberNo,
+            }), 
         })
         .then((resp) => resp.json())
         .then((data) => {
             console.log('api응답data',data);
             console.log('mvo.borrowPwd:: ' + mvo.borrowPwd);
             console.log('sessionLoginMemberVo.borrowPwd:: ' + sessionLoginMemberVo.borrowPwd);
-            if(mvo.borrowPwd === sessionLoginMemberVo.borrowPwd){
+            if(data.status === "good"){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");
-                // sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
-                // setLogiMemberVo(data.loginMemberVo);
+                alert("대출 완료!");
             } else {
                 console.log("대출 실패...");
                 alert("대출비밀번호가 일치하지 않습니다.")
             }
             setModal(false);
-        })
+        });
     }   
-   
 
 
     

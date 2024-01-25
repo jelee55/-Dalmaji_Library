@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledUserBorrowListDiv = styled.div`
@@ -12,12 +13,89 @@ const StyledUserBorrowListDiv = styled.div`
         display: grid;
         place-items: center center;
     }
+    & > div > h1 {
+        color: #217DFF;
+    }
+    & > div > table {
+        text-align: center;
+        width: 85%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-collapse: collapse;
+        & > thead > tr {
+            width: 100%;
+            height: 50px;
+        }
+        & > thead > tr > th {
+            margin: 0;
+            padding: 0;
+            background-color: #20407B;
+            color: white;
+            border: 2px solid white;
+        }
+        & > tbody > tr > td {
+            margin: 0;
+            padding: 0;
+            background-color: #D9F1FF;
+            border: 2px solid white;
+        }
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        & > button {
+            border: none;
+            border-radius: 20px;
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    }
     
 `;
 
 const MemberBorrowList = () => {
 
     console.log("MemberBorrowMypage render ~~~~");
+
+    //사용할 변수 준비
+    const [userBorrowList, setUserBorrowList] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const jsonStr = sessionStorage.getItem("loginMemberVo");
+    const sessionLoginMemberVo = JSON.parse(jsonStr);
+
+    console.log('sessionLoginMemberVo::',sessionLoginMemberVo);
+
+    // 대출 리스트 보여주기
+    const loadUserBorrowList = (page) => {
+
+        fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?currentPage=${page}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then( resp => resp.json() )
+        .then( (data) => {
+            console.log('data::', data);
+            console.log('voList::', data.voList);
+            setUserBorrowList(data.voList);
+            setTotalPages(data.pvo.maxPage);
+        } )
+        ;
+    }
+
+    const handlerClickPageNum = (page) => {
+        setCurrentPage(page);
+    }
+
+    useEffect( () => {
+        loadUserBorrowList(currentPage);
+    }, [currentPage] );
 
     return (
         <StyledUserBorrowListDiv>
@@ -39,22 +117,47 @@ const MemberBorrowList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                        </tr>
+                        {
+                            userBorrowList && userBorrowList.length === 0
+                            ?
+                            (
+                                <tr>
+                                    <td colSpan="9">로딩중...</td>
+                                </tr>
+                            )
+                            :
+                            userBorrowList && userBorrowList.map( userBorrowVo => <tr key={userBorrowList.overdueNo}>
+                                <td>{userBorrowVo.overdueNo}</td>
+                                <td>{userBorrowVo.title}</td>
+                                <td>{userBorrowVo.author}</td>
+                                <td>{userBorrowVo.company}</td>
+                                <td>{userBorrowVo.borrowDate}</td>
+                                <td>{userBorrowVo.dueDate}</td>
+                                <td>{userBorrowVo.overdueCount}</td>
+                                <td>{userBorrowVo.bookState}</td>
+                                <td>{userBorrowVo.bOption}</td>
+                            </tr>)
+                        }
                     </tbody>
                 </table>
             </div>
             <div className='pagination'>
-                페이징 처리
+                {totalPages
+                ?
+                (
+                    Array.from({length: totalPages}, (_, i) => 
+                        <button
+                            key={`page_button_${i}`}
+                            onClick={ () => handlerClickPageNum(i+1) }
+                            disabled={currentPage === i+1}
+                        >
+                            {i+1}
+                        </button>
+                    )
+                )
+                :
+                null
+                }
             </div>
             <div>5</div>
         </StyledUserBorrowListDiv>
