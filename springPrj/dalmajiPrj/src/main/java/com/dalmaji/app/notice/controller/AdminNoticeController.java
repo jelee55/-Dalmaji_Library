@@ -75,22 +75,27 @@ public class AdminNoticeController {
 	@GetMapping("detail")
 	public AdminNoticeVo detail(AdminNoticeVo vo) {
 		System.out.println(vo);
-//		AdminNoticeVo adminNoticeVo = service.detail(vo);
-//		model.addAttribute("AdminNoticeVo", adminNoticeVo);
-//		return "admin/notice/detail";
-		AdminNoticeVo voList = service.detail(vo);
-		System.out.println(voList);
-		return voList;
+//		AdminNoticeVo voList = service.detail(vo);
+//		System.out.println(voList);
+//		return voList;
+		return service.detail(vo);
 	}
 	
 	//공지사항 삭제 (번호)
-	@GetMapping("delete")
-	public String delete(AdminNoticeVo vo) throws Exception {
+	@PostMapping("delete")
+	public Map<String, String> delete(@RequestBody AdminNoticeVo vo) {
+		
+		Map<String,String> map = new HashMap<String ,String>();
+		
 		int result = service.delete(vo);
-		if(result != 1) {
-			throw new Exception();
+		
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
 		}
-		return "redirect:/admin/notice/list";
+		
+		return map;
 	}
 	
 	//공지사항 수정 (제목, 내용)
@@ -109,13 +114,4 @@ public class AdminNoticeController {
 	}
 	
 	
-//	@PostMapping("edit")
-//	public String edit(AdminNoticeVo vo) throws Exception {
-//		int result = service.edit(vo);
-//		if(result != 1) {
-//			throw new Exception();
-//		}
-//		return "redirect:/admin/notice/detail?no=" + vo.getNo();
-//	}
-
 }
