@@ -71,7 +71,7 @@
 				, SYSDATE
 				, SYSDATE+20
 				, ''
-			);
+			)
 	</insert>
 	
 </mapper>

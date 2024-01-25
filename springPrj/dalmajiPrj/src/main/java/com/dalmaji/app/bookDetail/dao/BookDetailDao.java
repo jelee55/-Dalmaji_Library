@@ -31,8 +31,8 @@ public class BookDetailDao {
 	}
 
 	// 대출완료처리 (borrow table에 insert)
-	public int insertBorrow(SqlSessionTemplate sst, String bookNo) {
-		return sst.insert("BookDetailMapper.insertBorrow", bookNo);
+	public int insertBorrow(SqlSessionTemplate sst, MemberVo mvo) {
+		return sst.insert("BookDetailMapper.insertBorrow", mvo);
 	}
 
 }

@@ -37,6 +37,7 @@
 	JOIN BOOK_LIST L ON L.BOOK_NO = B.BOOK_NO
 	JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
 	WHERE M.DEL_YN = 'N'
+	AND M.MEMBER_NO = #{memberNo}
   </select>
   
   
