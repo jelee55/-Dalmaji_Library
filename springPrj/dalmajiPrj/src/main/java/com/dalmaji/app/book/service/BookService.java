@@ -24,6 +24,7 @@ public class BookService {
 		return dao.list(sst, pvo);
 	}
 	
+    // 카테고리별 도서 목록 가져오기
 	 public List<BookVo> getBookListByBookCate(int bookCateNo) {
 	        return dao.getBookListByBookCate(bookCateNo, sst);
 	    }

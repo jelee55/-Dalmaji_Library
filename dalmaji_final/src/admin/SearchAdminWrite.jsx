@@ -233,25 +233,31 @@ const SearchDetail = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-            fetch(`http://127.0.0.1:8888/app/admin/write`,{
-                    method: "POST",
-                        headers: {
-                            "Content-Type" : "application/json",
-                        },
-                        body : JSON.stringify(inputBookVo) ,
-                })
-            .then( resp => resp.json() )
-            .then( (data) => {
-                if(data.msg === "good"){
+    
+        fetch(`http://127.0.0.1:8888/app/admin/write`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: inputBookVo.title,
+                author: inputBookVo.author,
+                company: inputBookVo.company,
+                publisherYear: inputBookVo.publisherYear,
+                bookImg: inputBookVo.bookImg,
+            }),
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                if (data.msg === "good") {
                     alert("게시글 작성 성공 !");
                     navigate("/search/list");
-                }else{
+                } else {
                     alert("게시글 작성 실패 ...");
                 }
-            })
-            ;
-        }
+            });
+    };
+    
    
         const handleChangeInput = (event) => {
             const {name, value} = event.target;
@@ -273,7 +279,7 @@ const SearchDetail = () => {
                     <div >
                         <div>
                             <img src={vo.bookImg} alt={vo.title} />
-                            <button className='btnImg1'>이미지</button>
+                            <button className='btnImg1'>이미지 첨부</button>
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>

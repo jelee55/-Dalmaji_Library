@@ -83,7 +83,7 @@ public class BookDao {
 
 	  // 카테고리별 도서 목록 가져오기
     public List<BookVo> getBookListByBookCate(int bookCateNo, SqlSessionTemplate sst) {
-        return sst.selectList("BookMapper.listByBookCate", bookCateNo);
+        return sst.selectList("BookMapper.listSelect", bookCateNo);
     }
 
 

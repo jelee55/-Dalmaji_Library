@@ -54,12 +54,11 @@
 		)
 		VALUES
 		(
-		SEQ_BOARD_NO.NEXTVAL
+    	SEQ_BOOK_LIST_NO.NEXTVAL,
 		, #{title}
 		, #{author}
 		, #{publisherYear}
-		,
-		#{bookImg}
+		, #{bookImg}
 		)
 	</insert>
 
