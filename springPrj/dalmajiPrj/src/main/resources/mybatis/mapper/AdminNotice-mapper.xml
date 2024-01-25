@@ -35,7 +35,7 @@
 		    NO
 		    , ADMIN_NO
 		    , TITLE
-		    , ENROLL_DATE
+		    , TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
 		    , DEL_YN
 		    , HIT
 		FROM NOTICE
@@ -45,18 +45,18 @@
 	
 	<select id="detail" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
 		SELECT 
-	        NO
-	        ,ADMIN_NO
-	        ,TITLE
-	        ,CONTENT
-	        ,ENROLL_DATE
-	        ,MODIFY_DATE
-	        ,DEL_YN
-	        ,HIT
-	    FROM NOTICE
-	    WHERE NO = #{no}
-	    AND DEL_YN = 'N'
-	    ORDER BY NO DESC
+        NO
+        ,ADMIN_NO
+        ,TITLE
+        ,CONTENT
+        ,TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
+        ,MODIFY_DATE
+        ,DEL_YN
+        ,HIT
+    FROM NOTICE
+    WHERE NO = #{no}
+    AND DEL_YN = 'N'
+    ORDER BY NO DESC
 	</select>
 	
 	<update id="hit" >

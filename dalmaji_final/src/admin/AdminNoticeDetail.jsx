@@ -178,15 +178,25 @@ const AdminNoticeDetail = () => {
 
     // 삭제 버튼 클릭 시 이벤트 핸들러
     const handleDeleteClick = () => {
+
+        console.log('vo:::', vo);
         // 삭제 로직 구현
-        fetch(`http://127.0.0.1:8888/app/admin/notice/delete?no=${no}`, {
-            method: "DELETE",
+        fetch(`http://127.0.0.1:8888/app/admin/notice/delete`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            body : JSON.stringify(vo),
         })
         .then((resp) => resp.json())
         .then((data) => {
+            if(data.msg === "good") {
+                console.log('data:::', data);
+                alert("삭제 완료")
+                navigate("/admin/noitce/list");
+            }else {
+                alert("삭제 실패")
+            }
             // 서버로부터의 응답에 따른 처리
             console.log('Delete response:', data);
 
