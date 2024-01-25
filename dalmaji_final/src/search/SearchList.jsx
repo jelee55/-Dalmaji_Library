@@ -106,6 +106,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
         setCurrentPage(1);
+        loadBookVoListTwo(1);
     };
 
     const isCategoryClickable = (bookCateNo) => {
@@ -140,7 +141,6 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         console.log('useEffect 호출됨');
         loadBookVoList();
     }, []);
-
     const loadBookVoListTwo = (page) => {
         const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
         fetch(`http://127.0.0.1:8888/app/search/list?currentPage=${page}${categoryParam}`, {
@@ -155,7 +155,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
                 setTotalPages(data.pvo.maxPage);
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error('데이터를 가져오는 중 오류 발생:', error);
             });
     };
 
@@ -251,7 +251,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
                 <tbody>
                     {bookVoList.length === 0 ? (
                         <tr>
-                            <td colSpan="7">로딩 중...</td>
+                            <td colSpan="8">로딩 중...</td>
                         </tr>
                     ) : (
                         bookVoList.map((vo) => (
