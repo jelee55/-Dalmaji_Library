@@ -210,10 +210,10 @@ const SearchDetail = () => {
             .then( (data) => {
                 console.log('data:::', data);
                 setVo(data.vo);
-                if(sessionLoginMemberVo != null && sessionLoginMemberVo.borrowPwd == mvo.borrowPwd){
+                setBorrowVo(data.borrowVo);
+                if(sessionLoginMemberVo != null){
                     setChange(change+'a');
                 }
-                setBorrowVo(data.borrowVo);
             })
             ;
         }

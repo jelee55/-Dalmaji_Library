@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledUserBorrowListDiv = styled.div`
@@ -62,40 +63,30 @@ const MemberBorrowList = () => {
     console.log("MemberBorrowMypage render ~~~~");
 
     //사용할 변수 준비
+    const memberNo = useParams();
     const [userBorrowList, setUserBorrowList] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const jsonStr = sessionStorage.getItem("loginMemberVo");
-    const sessionLoginMemberVo = JSON.parse(jsonStr);
-
-    console.log('sessionLoginMemberVo::',sessionLoginMemberVo);
+    console.log("memberNo", memberNo);
 
     // 대출 리스트 보여주기
-    const loadUserBorrowList = (page) => {
-
-        fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?currentPage=${page}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        .then( resp => resp.json() )
-        .then( (data) => {
-            console.log('data::', data);
-            console.log('voList::', data.voList);
-            setUserBorrowList(data.voList);
-            setTotalPages(data.pvo.maxPage);
-        } )
-        ;
-    }
-
-    const handlerClickPageNum = (page) => {
-        setCurrentPage(page);
-    }
-
     useEffect( () => {
-        loadUserBorrowList(currentPage);
-    }, [currentPage] );
+        const loadUserBorrowList = () => {
+    
+            fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?memberNo=${memberNo.memberNo}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then( resp => resp.json() )
+            .then( (data) => {
+                console.log('data::', data);
+                console.log('voList::', data.voList);
+                setUserBorrowList(data.voList);
+            } )
+            ;
+        }
+        loadUserBorrowList();
+    }, [memberNo])
 
     return (
         <StyledUserBorrowListDiv>
@@ -114,6 +105,7 @@ const MemberBorrowList = () => {
                             <th>연체횟수</th>
                             <th>상태</th>
                             <th>제한사항</th>
+                            <th>반납</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,7 +114,7 @@ const MemberBorrowList = () => {
                             ?
                             (
                                 <tr>
-                                    <td colSpan="9">로딩중...</td>
+                                    <td colSpan="10">로딩중...</td>
                                 </tr>
                             )
                             :
@@ -136,28 +128,11 @@ const MemberBorrowList = () => {
                                 <td>{userBorrowVo.overdueCount}</td>
                                 <td>{userBorrowVo.bookState}</td>
                                 <td>{userBorrowVo.bOption}</td>
+                                <td><button>반납하기</button></td>
                             </tr>)
                         }
                     </tbody>
                 </table>
-            </div>
-            <div className='pagination'>
-                {totalPages
-                ?
-                (
-                    Array.from({length: totalPages}, (_, i) => 
-                        <button
-                            key={`page_button_${i}`}
-                            onClick={ () => handlerClickPageNum(i+1) }
-                            disabled={currentPage === i+1}
-                        >
-                            {i+1}
-                        </button>
-                    )
-                )
-                :
-                null
-                }
             </div>
             <div>5</div>
         </StyledUserBorrowListDiv>
