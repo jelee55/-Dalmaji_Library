@@ -79,7 +79,7 @@ public class BookDetailController {
 		// MemberVo내의 자체값이 아닌 스프링이 key-value로 bookNo값을 넣어준다.
 		String bookNo = mvo.getBookNo();
 		
-		Map<String,Object> resultMap = new HashMap();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try {
 		log.info("mvo::: " + mvo);
 		

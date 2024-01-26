@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BorrowVo {
 	
-	private String overdueNo;
+	private String borrowNo;
 	private String bookNo;
 	private String title;
 	private String author;

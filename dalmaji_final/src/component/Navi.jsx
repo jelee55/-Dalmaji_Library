@@ -15,7 +15,9 @@ const StyledNaviDiv = styled.div`
         text-decoration: none;
         color: white;
     }
-    
+    & > div > a:hover{
+        color: #D9F1FF;
+    }
 `;
 
 const Navi = () => {
