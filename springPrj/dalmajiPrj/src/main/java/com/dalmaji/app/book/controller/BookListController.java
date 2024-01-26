@@ -27,7 +27,7 @@ import com.dalmaji.app.page.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("search")
 @CrossOrigin(origins ="*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class BookListController {
@@ -45,7 +45,7 @@ public class BookListController {
 	    int listCount = (title != null || author != null || company != null)
 	                        ? service.getSearchTotalCount(title, author, company)
 	                        : service.getTotalCount();
-	    
+	    System.out.println("Data :::: " + currentPage + title + author + company);
 	    int pageLimit = 5;
 	    int listLimit = 8;
 	    PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
@@ -62,11 +62,13 @@ public class BookListController {
 	}
 
 
-    // 카테고리별 도서 목록 가져오기
-    @GetMapping("listByBookCate/{bookCateNo}")
-    public List<BookVo> getBookListByBookCate(@PathVariable int bookCateNo) {
-        return service.getBookListByBookCate(bookCateNo);
-    }
+	// 카테고리별 도서 목록 가져오기
+	@GetMapping("listByBookCate/{bookCateNo}")
+	public List<BookVo> getBookListByBookCate(@PathVariable int bookCateNo) {
+		List<BookVo> voList = service.getBookListByBookCate(bookCateNo);
+		System.out.println(voList);
+		return voList;
+	}
 	
     
     
@@ -77,50 +79,6 @@ public class BookListController {
 	    model.addAttribute("bookVoList", bookVoList);
 	    return bookVoList;
 	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// 도서 작성
-	@PostMapping("write")
-	public Map<String, String> write( BookVo vo, MultipartFile f) throws Exception {
-		
-		System.out.println("vo : " + vo);
-		System.out.println("f : " + f.getOriginalFilename());   
-		
-		String bookImg = saveFile(f);
-		vo.setBookImg(bookImg);
-		
-		int result = service.write(vo);
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "good");
-		if(result == 1) {
-			map.put("msg", "bad");
-		}
-		
-		return map;
-	}
-	
-	/**
-	 * 파일을 서버에 저장하고, 파일 전체 경로를 리턴함
-	 * @param 파일객체 
-	 * @param 파일경로
-	 * @return 실제파일저장경로(파일경로+파일명)
-	 * @throws Exception
-	 * @throws  
-	 */
-	private String saveFile(MultipartFile f) throws Exception {
-		String path = "C:\\JAVA_LAP\\dev\\dalmaji\\springPrj\\dalmajiPrj\\src\\main\\resources\\bookImg";
-		String originName = f.getOriginalFilename();
-		
-		//원래는 "path + changeName(랜덤값) + 확장자" 로 해야함
-		File target = new File(path + originName);
-		
-		//파일 바이트코드 읽어서 타겟에 저장
-		f.transferTo(target);
-		
-		return path + originName;
-	}
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// 게시글 수정(제목,저자,이미지)
 	@PostMapping("admin/edit")

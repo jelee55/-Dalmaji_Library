@@ -40,11 +40,11 @@ const StyledWriteContentDiv = styled.div`
         height: 100%;
         margin: 50px;
         display: flex;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         align-items: center;
         /* background-color: #8787bc; //지워 */
         & > div {
-            width: 100%;
+            width: 500px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -55,7 +55,7 @@ const StyledWriteContentDiv = styled.div`
                 font-size: 33px;
             }   
             & > div {
-                margin-right: 30%;
+                /* margin-right: 30%; */
                 margin-top: 10%;
                 font-size: 24px;
                 & > input{
@@ -71,8 +71,8 @@ const StyledWriteContentDiv = styled.div`
         & > div:nth-child(1){
             width: 350px;
             height: 500px;
-            margin-right: 20%;
-            margin-bottom: 10px;
+            /* margin-right: 20%; */
+            margin-bottom: 120px;
             background-color: #bbbbbb;
             
         }
@@ -242,10 +242,12 @@ const SearchAdminWrite = () => {
     const fd = new FormData();
     fd.append("title", title);
     fd.append("f", fileObj);
-    fd.append("bookNo", bookNo);
-    fd.append("author", author);
-    fd.append("company", company);
-    fd.append("publisherYear", publisherYear);
+    fd.append("bookNo", inputBookVo.bookNo);
+    fd.append("author", inputBookVo.author);
+    fd.append("company", inputBookVo.company);
+    fd.append("bookCateNo", inputBookVo.bookCateNo);
+    fd.append("bookRoomNo", inputBookVo.bookRoomNo);
+    fd.append("publisherYear", inputBookVo.publisherYear);
     
       
 
@@ -290,7 +292,7 @@ const SearchAdminWrite = () => {
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
                                 <strong>제목: </strong>
-                                <input type="text" name='title'onChange={handleChangeTitle}/>
+                                <input type="text" name='title' onChange={handleChangeTitle}/>
                             </div>
                             <div className='inptContentDiv'>
                                 <strong>작가: </strong>
@@ -299,6 +301,10 @@ const SearchAdminWrite = () => {
                              <div className='cate'>
                                 <strong>카테고리: </strong>
                                 <input type="text" name='bookCateNo' onChange={handleChangeInput} />
+                            </div>
+                            <div>
+                                <strong>자료실: </strong>
+                                <input type="text" name='bookRoomNo' onChange={handleChangeInput} />
                             </div>
                             <div>
                                 <strong>출판사: </strong>
