@@ -17,7 +17,7 @@ const MypageMain = () => {
                 <Route path='edit' element={<MemberEdit />}/>
                 <Route path='delete' element={<MemberDelete />}/>
                 <Route path='*' element={<ErrorPageNotFound />}/>
-                <Route path='borrowList' element={<MemberBorrowList />} />
+                <Route path='borrowList/:memberNo' element={<MemberBorrowList />} />
             </Routes>
     );
 };

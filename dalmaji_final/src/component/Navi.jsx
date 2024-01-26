@@ -19,12 +19,33 @@ const StyledNaviDiv = styled.div`
 `;
 
 const Navi = () => {
+
+    const userJsonStr = sessionStorage.getItem("loginMemberVo");
+    const sessionLoginMemberVo = JSON.parse(userJsonStr);
+    const adminJsonStr = sessionStorage.getItem("AdminLoginMemberVo");
+    const sessionLoginAdminVo = JSON.parse(adminJsonStr);
+
     return (
         <StyledNaviDiv>
             <div><Link to="/notice/list">공지사항</Link></div>
             <div><Link to="/search/list">도서목록</Link></div>
             <div><Link to="/search/detaillist">도서검색</Link></div>
-            <div><Link to="/admin/mypage">마이페이지</Link></div>
+            <div>
+            {
+                sessionLoginAdminVo 
+                ? 
+                (
+                    <Link to="/admin/mypage">마이페이지</Link>
+                ) 
+                : sessionLoginMemberVo 
+                ? 
+                (
+                    <Link to={`/member/borrowList/${sessionLoginMemberVo.memberNo}`}>마이페이지</Link>
+                ) 
+                : 
+                <div>마이페이지</div>
+            }
+            </div>
         </StyledNaviDiv>
     );
 };
