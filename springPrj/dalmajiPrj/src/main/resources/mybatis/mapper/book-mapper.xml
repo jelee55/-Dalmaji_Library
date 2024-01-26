@@ -44,20 +44,22 @@
 
 
 	<insert id="insert">
-		INSERT INTO BOOK_LIST
+			INSERT INTO BOOK_LIST
 		(
 		BOOK_NO
 		,TITLE
 		,AUTHOR
-		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
+		,COMPANY
+		,PUBLISHER_YEAR
 		,BOOK_IMG
 		)
 		VALUES
 		(
-    	SEQ_BOOK_LIST_NO.NEXTVAL,
+    	SEQ_BOOK_LIST_NO.NEXTVAL
 		, #{title}
 		, #{author}
-		, #{publisherYear}
+		, #{company}
+		, TO_TIMESTAMP( #{publisherYear}, 'YYYY-MM-DD')
 		, #{bookImg}
 		)
 	</insert>

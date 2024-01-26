@@ -12,66 +12,69 @@ const StyledAdminEditDiv = styled.div`
 `;
 
 const StyledEditContentDiv = styled.div`
-    width: 90%;
+  width: 90%;
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 5fr 3fr 1fr;
-
+    /* background-color: #aaee9d;//지워 */
     & > div:first-child {
         border-bottom: 5px solid #2f2f49;
+        /* background-color: #52624e;//지워 */
     }
-
     & > div:first-child > h1 {
-        margin-top: 50px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        font-size: 40px;
-    }
-
-    & > form > div {
+            margin-top: 50px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            font-size: 40px;
+            /* background-color: #8787bc; //지워 */
+        }
+    & > form > div{
         width: 100%;
         height: 100%;
         margin: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        /* background-color: #8787bc; //지워 */
         & > div {
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            & > .title {
+            & > .title{
+                /* background-color: #dd9999; */
                 font-size: 33px;
-            }
-
+            }   
             & > div {
                 margin-right: 30%;
                 margin-top: 10%;
                 font-size: 24px;
-
-                & > input {
+                & > input{
                     border-radius: 5px;
                     border: 1px solid black;
                 }
+            
             }
+            
         }
+        
 
-        & > div > img {
+        & > div > img{
             width: 350px;
             height: 500px;
             margin-right: 20%;
             margin-bottom: 10px;
+            background-color: #bbbbbb;
+            
         }
+        
     }
-
-    & > div > div > .inptContentDiv {
+    & > form > div > div > .inptContentDiv {
         margin-left: 4%;
-    }
-
-    & > div > div > .btnImg1 {
+        /* background-color: red; */
+    }    
+    & > form > div > div > .btnImg1{
         margin-top: 5%;
         border-radius: 10px;
         margin-right: 20%;
@@ -80,6 +83,7 @@ const StyledEditContentDiv = styled.div`
         color: white;
     }
 `;
+
 
 const StyledTableDiv = styled.div`
     width: 100%;

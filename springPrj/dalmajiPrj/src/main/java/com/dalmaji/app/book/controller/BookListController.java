@@ -1,5 +1,6 @@
 package com.dalmaji.app.book.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dalmaji.app.book.service.BookService;
 import com.dalmaji.app.book.vo.BookVo;
@@ -25,7 +27,7 @@ import com.dalmaji.app.page.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("search")
+@RequestMapping("admin")
 @CrossOrigin(origins ="*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class BookListController {
@@ -75,22 +77,50 @@ public class BookListController {
 	    model.addAttribute("bookVoList", bookVoList);
 	    return bookVoList;
 	}
-	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 도서 작성
-	@PostMapping("admin/write")
-	public Map<String, String> write(@RequestBody BookVo vo, HttpSession session) {
-		Map<String, String> map = new HashMap<String, String>();
-		int result = service.insert(vo);
+	@PostMapping("write")
+	public Map<String, String> write( BookVo vo, MultipartFile f) throws Exception {
 		
+		System.out.println("vo : " + vo);
+		System.out.println("f : " + f.getOriginalFilename());   
+		
+		String bookImg = saveFile(f);
+		vo.setBookImg(bookImg);
+		
+		int result = service.write(vo);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", "good");
 		if(result == 1) {
-			map.put("msg", "good");
-		}else {
 			map.put("msg", "bad");
 		}
 		
 		return map;
 	}
+	
+	/**
+	 * 파일을 서버에 저장하고, 파일 전체 경로를 리턴함
+	 * @param 파일객체 
+	 * @param 파일경로
+	 * @return 실제파일저장경로(파일경로+파일명)
+	 * @throws Exception
+	 * @throws  
+	 */
+	private String saveFile(MultipartFile f) throws Exception {
+		String path = "C:\\JAVA_LAP\\dev\\dalmaji\\springPrj\\dalmajiPrj\\src\\main\\resources\\bookImg";
+		String originName = f.getOriginalFilename();
+		
+		//원래는 "path + changeName(랜덤값) + 확장자" 로 해야함
+		File target = new File(path + originName);
+		
+		//파일 바이트코드 읽어서 타겟에 저장
+		f.transferTo(target);
+		
+		return path + originName;
+	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// 게시글 수정(제목,저자,이미지)
 	@PostMapping("admin/edit")
