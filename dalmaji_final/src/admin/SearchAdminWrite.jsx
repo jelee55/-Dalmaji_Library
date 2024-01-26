@@ -48,7 +48,8 @@ const StyledWriteContentDiv = styled.div`
             height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            /* align-items: center; */
+            align-items: flex-end;
             & > .title{
                 /* background-color: #dd9999; */
                 font-size: 33px;
@@ -67,7 +68,7 @@ const StyledWriteContentDiv = styled.div`
         }
         
 
-        & > div > img{
+        & > div:nth-child(1){
             width: 350px;
             height: 500px;
             margin-right: 20%;
@@ -79,7 +80,11 @@ const StyledWriteContentDiv = styled.div`
     }
     & > form > div > div > .inptContentDiv {
         margin-left: 4%;
+    }
+    & > form > div > div > .cate {
+        /* margin-left: 0%; */
         /* background-color: red; */
+
     }    
     & > form > div > div > .btnImg1{
         margin-top: 5%;
@@ -214,43 +219,47 @@ const StyledTableDiv = styled.div`
 //     }
 // `;
 
-const SearchDetail = () => {
-    const str = sessionStorage.getItem("BookVo");
-    const vo = str ? JSON.parse(str) : {}; // 만약 str이 null이면 빈 객체를 할당
+const SearchAdminWrite = () => {
+    const [title, setTitle] = useState();
+    const [fileObj,setFileObj] = useState();
+    const [bookNo, setBookNo] = useState();
+    const [author, setAuthor] = useState();
+    const [company, setCompany] = useState();
+    const [publisherYear, setPublisherYear] = useState();
+    const [inputBookVo, setInputBookVo] = useState({});
+   
+
+    const handleChangeTitle = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const handleChangeFile = (e) => {
+        setFileObj(e.target.files[0]);
+    };
     
-    const bookNo = vo.no;
-
-
-    const [inputBookVo, setInputBookVo] = useState({
-        bookNo: bookNo,
-        title: "",
-        author: "",
-        company: "",
-        publisherYear: "",
-      });
-
     const navigate = useNavigate();
+
+    const fd = new FormData();
+    fd.append("title", title);
+    fd.append("f", fileObj);
+    fd.append("bookNo", bookNo);
+    fd.append("author", author);
+    fd.append("company", company);
+    fd.append("publisherYear", publisherYear);
+    
+      
 
     const handleSubmit = (event) => {
         event.preventDefault();
     
         fetch(`http://127.0.0.1:8888/app/admin/write`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title: inputBookVo.title,
-                author: inputBookVo.author,
-                company: inputBookVo.company,
-                publisherYear: inputBookVo.publisherYear,
-                bookImg: inputBookVo.bookImg,
-            }),
-        })
+            body: fd,
+            })
             .then((resp) => resp.json())
             .then((data) => {
                 if (data.msg === "good") {
-                    alert("게시글 작성 성공 !");
+                    alert("도서 목록 작성 성공 !");
                     navigate("/search/list");
                 } else {
                     alert("게시글 작성 실패 ...");
@@ -258,17 +267,15 @@ const SearchDetail = () => {
             });
     };
     
-   
-        const handleChangeInput = (event) => {
-            const {name, value} = event.target;
     
-            setInputBookVo({
-                ...inputBookVo ,
-                [name]:value,
-            });
-            
-            
-        }
+    const handleChangeInput = (event) => {
+        const { name, value } = event.target;
+    
+        setInputBookVo({
+            ...inputBookVo,
+            [name]: value,
+        });
+    };
     
     return (
         <StyledAdminWriteDiv>
@@ -278,17 +285,20 @@ const SearchDetail = () => {
                 <form onSubmit={handleSubmit}>
                     <div >
                         <div>
-                            <img src={vo.bookImg} alt={vo.title} />
-                            <button className='btnImg1'>이미지 첨부</button>
+                            <input type="file" multiple name='f' onChange={handleChangeFile}/>
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
                                 <strong>제목: </strong>
-                                <input type="text" name='title' onChange={handleChangeInput}/>
+                                <input type="text" name='title'onChange={handleChangeTitle}/>
                             </div>
                             <div className='inptContentDiv'>
                                 <strong>작가: </strong>
                                 <input type="text" name='author' onChange={handleChangeInput} />
+                            </div>
+                             <div className='cate'>
+                                <strong>카테고리: </strong>
+                                <input type="text" name='bookCateNo' onChange={handleChangeInput} />
                             </div>
                             <div>
                                 <strong>출판사: </strong>
@@ -302,7 +312,7 @@ const SearchDetail = () => {
                         </div>
                     </div>
                 </form>
-                <StyledTableDiv>
+                {/* <StyledTableDiv>
                     <div>소장정보</div>
                     <table>
                         <thead>
@@ -314,7 +324,7 @@ const SearchDetail = () => {
                             </tr> 
                         </thead>
                         <tbody> 
-                            {/* <tr>
+                            <tr>
                                 <td>{vo.bookNo}</td>
                                 <td>{vo.roomName}</td>
                                 <td>{borrowVo.bookState}</td>
@@ -326,15 +336,15 @@ const SearchDetail = () => {
                                     <td>{borrowVo.dueDate}</td>
                                     
                                 }
-                            </tr> */}
+                            </tr>
                         </tbody>
                     </table>
-                </StyledTableDiv>
-                <div>4</div>
+                </StyledTableDiv> */}
+                <div></div>
             </StyledWriteContentDiv>
             <div></div>
         </StyledAdminWriteDiv>
     );
 };
 
-export default SearchDetail;
+export default SearchAdminWrite;

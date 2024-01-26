@@ -1,5 +1,6 @@
 package com.dalmaji.app.book.service;
 
+import java.nio.channels.IllegalSelectorException;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -62,7 +63,12 @@ public class BookService {
 	}
 	
 	//도서 작성
-	public int insert(BookVo vo) {
+	public int write(BookVo vo) {
+		String str = vo.getBookImg().replace("사진경로적어라!!", "http://127.0.0.1:8888/app");
+		vo.setBookImg(str);
+		if(vo.getTitle().length() < 1) {
+			throw new IllegalSelectorException();
+		}
 		return dao.insert(sst, vo);
 	}
 
