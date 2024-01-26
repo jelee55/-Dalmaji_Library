@@ -25,8 +25,8 @@ const StyledFirstMainDiv = styled.div`
         align-items: center;
         transition: transform 1s ease;
         & > img {
-            width: 1000px;
-            height: 370px;
+            width: 90%;
+            height: 70%;
             display: block;
             margin: auto;
         }

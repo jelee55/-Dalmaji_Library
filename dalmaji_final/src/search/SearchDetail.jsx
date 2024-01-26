@@ -218,7 +218,7 @@ const SearchDetail = () => {
             ;
         }
         loadBookDetailVo();
-    }, [selectedBookNo.bookNo, change])
+    }, [selectedBookNo.bookNo, sessionLoginMemberVo, change])
 
     // 모달창을 위한 준비
     const [modal, setModal] = useState(false);
