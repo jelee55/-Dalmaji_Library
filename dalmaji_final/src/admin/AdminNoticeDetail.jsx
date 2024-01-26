@@ -174,7 +174,12 @@ const AdminNoticeDetail = () => {
         };
 
         loadNoticeDetailVo();
-    }, []);
+    }, [no]);
+
+    // NoticeEdit 컴포넌트로 이동하는 함수
+    const handleEditClick = () => {
+        navigate(`/admin/notice/edit/${vo.no}`); // notice 번호 (no)를 URL에 사용합니다.
+    };
 
     // 삭제 버튼 클릭 시 이벤트 핸들러
     const handleDeleteClick = () => {
@@ -216,7 +221,7 @@ const AdminNoticeDetail = () => {
             <div className='notice'>공지사항</div>
                 <form>
                     <div className='input_btn'>
-                        <input type="button" value='수정'/>
+                        <input type="button" value='수정' onClick={handleEditClick} />
                         <input type="button" value='삭제'onClick={handleDeleteClick} />
                     </div>
                     <div className="dropdown_head">
