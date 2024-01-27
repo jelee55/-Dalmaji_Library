@@ -109,10 +109,14 @@
 		COMPANY LIKE '%' || #{company} || '%'
 	</select>
 
+	<delete id="delete" parameterType="String">
+		DELETE BOOK_LIST
+		WHERE BOOK_NO = #{bookNo}
+	</delete>
 
 	<!-- <update id="edit"> UPDATE BOOK_LIST SET TITLE= #{title} , AUTHOR = 
 		#{author} , COMPANY = #{company} WHERE BOOK_NO = #{bookNo} </update> -->
 
-
+	
 
 </mapper>
