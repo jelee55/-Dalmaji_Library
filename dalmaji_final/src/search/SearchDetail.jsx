@@ -181,8 +181,8 @@ const SearchDetail = () => {
 
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
-    console.log("selectedBookNo ::: ", selectedBookNo);
-    console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
+    // console.log("selectedBookNo ::: ", selectedBookNo);
+    // console.log("selectedBookNo.bookNo ::: ", selectedBookNo);
 
     // 사용할 변수 준비
     const [vo, setVo] = useState([]);
@@ -287,7 +287,11 @@ const SearchDetail = () => {
     // }, []);
 
     const edit = () => {
-        navigate("/admin/edit")
+        navigate(`/admin/edit`, {
+            state : {
+                vo : vo,
+            }
+        })
     }
     const deleteBook = () => {
         if(borrowVo.bookState === "대출중"){

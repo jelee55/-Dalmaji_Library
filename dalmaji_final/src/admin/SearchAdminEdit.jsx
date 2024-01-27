@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledAdminEditDiv = styled.div`
@@ -159,13 +159,18 @@ const StyledTableDiv = styled.div`
 const SearchAdminEdit = () => {
     console.log("SearchAdminEdit render!!!");
 
+    const location = useLocation();
+
+    // const vo = location.state.vo;
+    const [vo , setVo] = useState(location.state.vo);
+    console.log("vo :::", vo);
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
     console.log("selectedBookNo ::: ", selectedBookNo);
     console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
 
     // 사용할 변수 준비
-    const [vo, setVo] = useState([]);
+    // const [vo, setVo] = useState([]);
     const [bookVo, setBookVo] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
@@ -176,25 +181,31 @@ const SearchAdminEdit = () => {
 
     // handleChangeInput 함수 정의
     const handleChangeInput = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+        // setFormData({
+        //     ...formData,
+        //     [e.target.name]: e.target.value,
+        // });
+        setVo({
+            ...vo,
+            [name] : value,
+        })
     };
 
     useEffect(() => {
         const loadBookDetailVo = () => {
-            fetch(`http://127.0.0.1:8888/app/search/book/detail?bookNo=${selectedBookNo.bookNo}`, {
-                method: "GET",
+            fetch(`http://127.0.0.1:8888/app/admin/edit`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body : JSON.stringify(selectedBookNo)
             })
                 .then(resp => resp.json())
                 .then((data) => {
                     console.log('data:::', data);
-                    setVo(data.vo);
-                    setBookVo(data.bookVo);
+                    // setVo(data.vo);
+                    // setBookVo(data.bookVo);
                 });
         }
         loadBookDetailVo();
@@ -225,53 +236,24 @@ const SearchAdminEdit = () => {
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
                                 <strong>제목: </strong>
-                                <input type="text" name='title' onChange={handleChangeInput} />
+                                <input type="text" name='title' value={vo.title} onChange={handleChangeInput} />
                             </div>
                             <div className='inptContentDiv'>
                                 <strong>작가: </strong>
-                                <input type="text" name='author' onChange={handleChangeInput} />
+                                <input type="text" name='author' value={vo.author} onChange={handleChangeInput} />
                             </div>
                             <div>
                                 <strong>출판사: </strong>
-                                <input type="text" name='company' onChange={handleChangeInput} />
+                                <input type="text" name='company' value={vo.company} onChange={handleChangeInput} />
                             </div>
                             <div>
                                 <strong>출판일: </strong>
-                                <input type="text" name="publisherYear" onChange={handleChangeInput} />
+                                <input type="text" name="publisherYear" value={vo.publisherYear} onChange={handleChangeInput} />
                             </div>
                             <input type="submit" value="완료" className='btnImg1' />
                         </div>
                     </div>
                 </form>
-
-                <StyledTableDiv>
-                    <div>소장정보</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>NO.</th>
-                                <th>소장위치</th>
-                                <th>도서상태</th>
-                                <th>반납예정일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{vo.bookNo}</td>
-                                <td>{vo.roomName}</td>
-                                <td>{bookVo.bookState}</td>
-                                {
-                                    bookVo === undefined
-                                        ?
-                                        <td></td>
-                                        :
-                                        <td>{bookVo.dueDate}</td>
-                                }
-                            </tr>
-                        </tbody>
-                    </table>
-                </StyledTableDiv>
-                <div>4</div>
             </StyledEditContentDiv>
             <div></div>
         </StyledAdminEditDiv>
