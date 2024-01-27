@@ -135,7 +135,8 @@ const MemberBorrowList = () => {
     const memberNo = useParams();
     const [userBorrowList, setUserBorrowList] = useState([]);
     const [modal, setModal] = useState(false);
-    console.log("memberNo", memberNo);
+    const [bookNo, setBookNo] = useState('userBorrowList.bookNo');
+    console.log("memberNo:::", memberNo);
 
     // 대출 리스트 보여주기
     useEffect( () => {
@@ -158,11 +159,29 @@ const MemberBorrowList = () => {
         loadUserBorrowList();
     }, [memberNo])
 
-    // 반납버튼 클릭 핸들러
-    const handlerClickReturn = (e) => {
-        e.preventDefault();
+    console.log('userBorrowList::: ',userBorrowList);
 
-        fetch()
+    // 반납버튼 클릭 핸들러
+    const handlerClickReturn = () => {
+
+        console.log('handlerClickReturn 시작!!');
+
+        fetch("http://127.0.0.1:8888/app/mypage/borrow/returnBook", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                bookNo: userBorrowList.bookNo,
+            })
+        })
+        .then((resp) => resp.json())
+        .then((data => {
+            console.log('반납버튼click data:: ' + data);
+            alert("반납완료!");
+            setModal(false);
+        }))
+        ;
     }
 
     return (
@@ -214,7 +233,7 @@ const MemberBorrowList = () => {
                                             <StyledModalDiv>
                                                 <div><h1>이 책을 반납하시겠습니까?</h1></div>
                                                 <div>
-                                                    <button>예</button>
+                                                    <button onClick={handlerClickReturn(userBorrowVo.bookNo)}>예</button>
                                                     <button onClick={ () => {setModal(false)} }>아니오</button>
                                                 </div>
                                             </StyledModalDiv>
