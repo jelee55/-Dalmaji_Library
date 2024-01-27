@@ -193,6 +193,10 @@ const SearchDetail = () => {
     const jsonStr = sessionStorage.getItem("loginMemberVo");
     const sessionLoginMemberVo = JSON.parse(jsonStr);
 
+    //어드민 정보 가져옥
+    const admin = JSON.parse(sessionStorage.getItem("AdminLoginMemberVo"));
+
+
     console.log('sessionLoginMemberVo1번::',sessionLoginMemberVo);
 
     const [mvo, setMvo] = useState([]);
@@ -240,12 +244,13 @@ const SearchDetail = () => {
     }
 
     // 대출완료 버튼 클릭 핸들러
-    const handleClickBorrow = (e) => {
-        e.preventDefault();
-        
-        console.log('bookNo',selectedBookNo.bookNo)
-        console.log('handleClickBorrow render~~~');
-        console.log('mvo:::', mvo);
+
+        const handleClickBorrow = (e) => {
+            e.preventDefault();
+            
+            console.log('bookNo',selectedBookNo.bookNo)
+            console.log('handleClickBorrow render~~~');
+            console.log('mvo:::', mvo);
    
         // 서버에 대출완료를 요청하는 api 호출
         fetch(`http://127.0.0.1:8888/app/search/book/check`,{
@@ -273,9 +278,38 @@ const SearchDetail = () => {
                 alert("대출비밀번호가 일치하지 않습니다.")
             }
             setModal(false);
+        
         });
     }   
 
+    // useEffect( () => {
+    //     handleClickBorrow();
+    // }, []);
+
+    const edit = () => {
+        navigate("/admin/edit")
+    }
+    const deleteBook = () => {
+        if(borrowVo.bookState === "대출중"){
+            alert('현재 대출중인 도서입니다.');
+            return;
+        } else {
+           fetch('http://127.0.0.1:8888/app/admin/delete',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify(vo),
+           })
+           .then((resp) => resp.json())
+           .then((data) =>{
+                if(data.msg === "good"){
+                    alert("삭제 완료")
+                    navigate("/search/list");
+                }
+           })
+        }
+    }
 
     
     return (
@@ -323,6 +357,8 @@ const SearchDetail = () => {
                     </table>
                     <div>
                         <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
+                                <button onClick={edit}>수정</button>
+                                <button onClick={deleteBook}>삭제</button>
                         {modal === true 
                             ? 
                             <StyledModalDiv>

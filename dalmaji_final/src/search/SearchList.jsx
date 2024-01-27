@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledSearchListDiv = styled.div`
@@ -102,28 +102,40 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const navigate = useNavigate();
+
 
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category);
-        setCurrentPage(1);
-        loadBookVoListTwo(1);
+        // 서버에서 해당 카테고리의 bookCateNo 값을 가져오는 비동기 함수
+        fetch('http://127.0.0.1:8888/app/search/list/${bookCateNo}')
+        .then((Response) => Response.json())
+        .then((data) => {
+            const bookCateNo = data.bookCateNo;
+            setSelectedCategory(category);
+            setCurrentPage(1);
+            //수정: loadBookVoListTwo 함수 호출 시 BookCateNo 전달
+            loadBookVoListTwo(1, bookCateNo);
+        })
+        .catch((error) => {
+            console.error('Error fetching category data:', error);
+        })
     };
 
     const isCategoryClickable = (bookCateNo) => {
-        switch (selectedCategory) {
-            case '소설':
-                return bookCateNo === 1;
-            case '인문':
-                return bookCateNo === 2;
-            case '경제/경영':
-                return bookCateNo === 3;
-            case '역사/문화':
-                return bookCateNo === 4;
-            case '여행':
-                return bookCateNo === 5;
-            default:
-                return true;
-        }
+        // switch (selectedCategory) {
+        //     case '소설':
+        //         return setBookCateNo === 1;
+        //     case '인문':
+        //         return setBookCateNo(2);
+        //     case '경제/경영':
+        //         return setBookCateNo(3);
+        //     case '역사/문화':
+        //         return setBookCateNo(4);
+        //     case '여행':
+        //         return setBookCateNo(5);
+        //     default:
+        //         return true;
+        // }
     };
 
     const loadBookVoList = () => {
@@ -141,6 +153,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         console.log('useEffect 호출됨');
         loadBookVoList();
     }, []);
+
     const loadBookVoListTwo = (page) => {
         const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
         fetch(`http://127.0.0.1:8888/app/search/list?currentPage=${page}${categoryParam}`, {
@@ -171,6 +184,14 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         console.log('bookVoList', bookVoList);
     }, [bookVoList]);
 
+    const loadCateList = (bookCateNo) => {
+        fetch("http://127.0.0.1:8888/app/search/listByBookCate/" + bookCateNo)
+        .then(resp => resp.json())
+        .then(voList => {
+            setBookVoList(voList);
+        });
+    }
+
     return (
         <StyledSearchListDiv>
             <div className='h11'>
@@ -181,61 +202,28 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
                 </div>
             </div>
 
-            <div className='ul'>
+             <div className='ul'>
                 <ul>
                     <li>
-                        <a>
-                            <Link to='/search/list' onClick={() => handleCategoryClick('전체')}>전체</Link>
-                        </a>
+                        <Link to='/search/list' onClick={() => handleCategoryClick('전체', null)}>전체</Link>
                     </li>
                     <li>
-                        <a
-                            onClick={() => handleCategoryClick('소설')}
-                            className={selectedCategory === '소설' && isCategoryClickable(1) ? 'active' : 'disabled'}
-                            disabled={!isCategoryClickable(1)}
-                        >
-                            소설
-                        </a>
+                        <a onClick={() => handleCategoryClick('소설',1)}>소설</a>
                     </li>
                     <li>
-                        <a
-                            onClick={() => handleCategoryClick('인문')}
-                            className={selectedCategory === '인문' && isCategoryClickable(2) ? 'active' : 'disabled'}
-                            disabled={!isCategoryClickable(2)}
-                        >
-                            인문
-                        </a>
+                        <a onClick={() => handleCategoryClick('인문', 2)}>인문</a>
                     </li>
                     <li>
-                        <a
-                            onClick={() => handleCategoryClick('경제/경영')}
-                            className={selectedCategory === '경제/경영' && isCategoryClickable(2) ? 'active' : 'disabled'}
-                            disabled={!isCategoryClickable(3)}
-                        >
-                            경제/경영
-                        </a>
+                        <a onClick={() => handleCategoryClick('경제/경영', 3)}>경제/경영</a>
                     </li>
                     <li>
-                        <a
-                            onClick={() => handleCategoryClick('역사/문화')}
-                            className={selectedCategory === '역사/문화' && isCategoryClickable(2) ? 'active' : 'disabled'}
-                            disabled={!isCategoryClickable(4)}
-                        >
-                            역사/문화
-                        </a>
+                        <a onClick={() => handleCategoryClick('역사/문화', 4)}>역사/문화</a>
                     </li>
                     <li>
-                        <a
-                            onClick={() => handleCategoryClick('여행')}
-                            className={selectedCategory === '여행' && isCategoryClickable(2) ? 'active' : 'disabled'}
-                            disabled={!isCategoryClickable(5)}
-                        >
-                            여행
-                        </a>
+                        <a onClick={() => handleCategoryClick('여행', 5)}>여행</a>
                     </li>
                 </ul>
             </div>
-
             <table>
                 <thead>
                     <tr>
