@@ -1,6 +1,8 @@
 package com.dalmaji.app.notice.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +14,8 @@ import com.dalmaji.app.page.vo.PageVo;
 @Repository
 public class NoticeDao {
 
+
+	private static final int PAGE_SIZE = 0;
 
 	//공지사항 목록조회
 	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pvo) {
@@ -48,5 +52,30 @@ public class NoticeDao {
 		System.out.println("result : " + result);
 		return result;
 	}
+
+	//조회수 증가
+	public void increaseHitCount(SqlSessionTemplate sst, NoticeVo vo) {
+	    sst.update("NoticeMapper.increaseHitCount", vo);
+	}
+
+	//키워드 검색
+	public int getKeyword(SqlSessionTemplate sst, String type, String keyword) {
+		 Map<String, Object> parameter = new HashMap<>();
+		    parameter.put("type", type);
+		    parameter.put("keyword", keyword);
+		    return sst.selectOne("NoticeMapper.getKeyword", parameter);
+		}
+
+	public List<NoticeVo> searchNoticeList(SqlSessionTemplate sst, String type, String keyword, int currentPage) {
+		Map<String, Object> parameter = new HashMap<>();
+	    parameter.put("type", type);
+	    parameter.put("keyword", keyword);
+	    parameter.put("startRow", (currentPage - 1) * PAGE_SIZE); // 페이지네이션을 위한 시작 행 계산
+
+	    return sst.selectList("NoticeMapper.searchNoticeList", parameter);
+	}
+
+	
+	
 
 }

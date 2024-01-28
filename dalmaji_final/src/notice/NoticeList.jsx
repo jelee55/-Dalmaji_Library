@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styled from 'styled-components';
 
 const StyledNoticeListDiv = styled.div`
@@ -24,9 +26,41 @@ const StyledNoticeListDiv = styled.div`
         }
     }
 
-    & > .search {
-        margin-bottom: 50px;
+    & > form {
+        width: 20%;
+        height: 60%;
+        display: flex;
+        margin-left: 63%;
+        margin-bottom: 25px;
+        /* background-color: red; */
+
+        & > .search {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            /* background-color: skyblue; */
+
+            & > input {
+                width: 300px;
+                height: 35px;
+                display: flex;
+                margin: auto;
+                border: 1px solid black;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            & > button {
+                width: 30px;
+                height: 35px;
+                margin: auto;
+                border: none;
+                background-color: white;
+            }
+        }
+
     }
+
     & > div {
         width: 100%;
         height: 100%;
@@ -91,10 +125,12 @@ const NoticeList = () => {
         const [noticeVoList, setnoticeVoList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 상태 추가
         const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
+        const [searchKeyword, setSearchKeyword] = useState('');
+        const [searchResult, setSearchResult] = useState([]);
 
         const [noticeListVo, setnoticeListVo] = useState([]);
 
-        const navigate = useNavigate();
+        const navigate = useNavigate();;
     
 
     useEffect(()=>{
@@ -135,6 +171,24 @@ const NoticeList = () => {
     useEffect( () => {
         console.log("noticeVoList", noticeVoList);
     }, [noticeVoList] );
+
+    const handleSearch = () => {
+        // 서버에 검색 요청을 보내는 코드 작성
+        fetch(`http://127.0.0.1:8888/app/notice/list/search?keyword=${searchKeyword}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setSearchResult(data); // 검색 결과 설정
+        })
+        .catch(error => {
+            console.error('검색 오류:', error);
+            // 에러 처리 코드 작성
+        });
+    };
     
 
     
@@ -144,7 +198,14 @@ const NoticeList = () => {
         <StyledNoticeListDiv>
             <div></div>
             <div className='notice_title'><h1>공지사항</h1></div>
-            <div className='search'>검색기능</div>
+            <form action="">
+                <div className='search'>
+                    <input type="search" name='search' placeholder='  검색어를 입력하세요.' value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)}/>
+                    <button onClick={handleSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
+                </div>
+            </form>
             <div className='table'>
                 <table>
                     <thead>
