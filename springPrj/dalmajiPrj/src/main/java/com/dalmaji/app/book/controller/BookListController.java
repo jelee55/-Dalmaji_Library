@@ -64,10 +64,21 @@ public class BookListController {
 
 	// 카테고리별 도서 목록 가져오기
 	@GetMapping("listByBookCate/{bookCateNo}")
-	public List<BookVo> getBookListByBookCate(@PathVariable int bookCateNo) {
+	public Map<String, Object> getBookListByBookCate(@PathVariable String bookCateNo) {
+		
 		List<BookVo> voList = service.getBookListByBookCate(bookCateNo);
-		System.out.println(voList);
-		return voList;
+	    int listCount = voList.size();
+	    System.out.println("listCount ::: " + listCount);
+	    int currentPage = 1;
+	    int pageLimit = 5;
+	    int listLimit = 8;
+	    PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+	    
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("voList", voList);
+	    map.put("pvo", pvo);
+	    
+		return map;
 	}
 	
     

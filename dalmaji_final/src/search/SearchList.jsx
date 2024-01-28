@@ -95,6 +95,11 @@ const StyledSearchListDiv = styled.div`
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
+
+    .selectCategory{
+        cursor: pointer;
+    }
+
 `;
 
 const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerClickPageNumProp }) => {
@@ -105,23 +110,37 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     const navigate = useNavigate();
 
 
-    const handleCategoryClick = (category) => {
-        // 서버에서 해당 카테고리의 bookCateNo 값을 가져오는 비동기 함수
-        fetch('http://127.0.0.1:8888/app/search/list/${bookCateNo}')
-        .then((Response) => Response.json())
-        .then((data) => {
-            const bookCateNo = data.bookCateNo;
-            setSelectedCategory(category);
-            setCurrentPage(1);
-            //수정: loadBookVoListTwo 함수 호출 시 BookCateNo 전달
-            loadBookVoListTwo(1, bookCateNo);
-        })
-        .catch((error) => {
-            console.error('Error fetching category data:', error);
-        })
-    };
+    // const handleCategoryClick = (category) => {
+    //     // 서버에서 해당 카테고리의 bookCateNo 값을 가져오는 비동기 함수
+    //     fetch('http://127.0.0.1:8888/app/search/listByBookCate/${bookCateNo}')
+    //     .then((Response) => Response.json())
+    //     .then((data) => {
+    //         const bookCateNo = data.bookCateNo;
+    //         setSelectedCategory(category);
+    //         setCurrentPage(1);
+    //         //수정: loadBookVoListTwo 함수 호출 시 BookCateNo 전달
+    //         loadBookVoListTwo(1, bookCateNo);
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error fetching category data:', error);
+    //     })
+    // };
 
-    const isCategoryClickable = (bookCateNo) => {
+    const loadCateList = (bookCateNo) => {
+        fetch("http://127.0.0.1:8888/app/search/listByBookCate/" + bookCateNo)
+        .then(resp => resp.json())
+        .then(data => {
+            setCurrentPage(1);
+            setBookVoList(data.voList);
+            setTotalPages(data.pvo.maxPage);
+        });
+    }
+
+    // useEffect(() => {
+    //     loadCateList();
+    // },[])
+    
+    // const isCategoryClickable = (bookCateNo) => {
         // switch (selectedCategory) {
         //     case '소설':
         //         return setBookCateNo === 1;
@@ -136,7 +155,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         //     default:
         //         return true;
         // }
-    };
+    // };
 
     const loadBookVoList = () => {
         fetch('http://127.0.0.1:8888/app/search/list')
@@ -184,13 +203,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         console.log('bookVoList', bookVoList);
     }, [bookVoList]);
 
-    const loadCateList = (bookCateNo) => {
-        fetch("http://127.0.0.1:8888/app/search/listByBookCate/" + bookCateNo)
-        .then(resp => resp.json())
-        .then(voList => {
-            setBookVoList(voList);
-        });
-    }
+
 
     return (
         <StyledSearchListDiv>
@@ -203,7 +216,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
             </div>
 
              <div className='ul'>
-                <ul>
+                {/* <ul>
                     <li>
                         <Link to='/search/list' onClick={() => handleCategoryClick('전체', null)}>전체</Link>
                     </li>
@@ -221,6 +234,26 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
                     </li>
                     <li>
                         <a onClick={() => handleCategoryClick('여행', 5)}>여행</a>
+                    </li>
+                </ul> */}
+                <ul>
+                    <li>
+                        <Link to='/search/list' onClick={() => loadCateList('전체', null)}>전체</Link>
+                    </li>
+                    <li>
+                        <a className="selectCategory" onClick={() => loadCateList(1)}>소설</a>
+                    </li>
+                    <li>
+                        <a className="selectCategory" onClick={() => loadCateList(2)}>인문</a>
+                    </li>
+                    <li>
+                        <a className="selectCategory" onClick={() => loadCateList(3)}>경제/경영</a>
+                    </li>
+                    <li>
+                        <a className="selectCategory" onClick={() => loadCateList(4)}>역사/문화</a>
+                    </li>
+                    <li>
+                        <a className="selectCategory" onClick={() => loadCateList(5)}>여행</a>
                     </li>
                 </ul>
             </div>
