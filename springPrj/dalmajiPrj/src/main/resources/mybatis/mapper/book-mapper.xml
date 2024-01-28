@@ -113,8 +113,15 @@
 		WHERE BOOK_NO = #{bookNo}
 	</delete>
 
-	<!-- <update id="edit"> UPDATE BOOK_LIST SET TITLE= #{title} , AUTHOR = 
-		#{author} , COMPANY = #{company} WHERE BOOK_NO = #{bookNo} </update> -->
+	<update id="edit">
+		UPDATE BOOK_LIST 
+			SET 
+				TITLE= #{title} 
+				, AUTHOR = #{author} 
+				, COMPANY = #{company} 
+				, BOOK_IMG = #{bookImg}
+		WHERE BOOK_NO = #{bookNo}
+	</update>
 
 	
 

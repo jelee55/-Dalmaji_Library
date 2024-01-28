@@ -204,8 +204,8 @@ const SearchAdminEdit = () => {
                 .then(resp => resp.json())
                 .then((data) => {
                     console.log('data:::', data);
-                    // setVo(data.vo);
-                    // setBookVo(data.bookVo);
+                    setVo(data.vo);
+                    setBookVo(data.bookVo);
                 });
         }
         loadBookDetailVo();
