@@ -33,23 +33,5 @@ public class NoticeService {
 	public NoticeVo detail(NoticeVo vo) {
 		return dao.detail(sst, vo);
 	}
-	
-	//조회수 증가
-	public void increaseHitCount(NoticeVo vo) {
-	    dao.increaseHitCount(sst, vo);
-	}
-
-	//키워드 검색
-	public int getKeyword(String type, String keyword) {
-		return dao.getKeyword(sst, type, keyword);
-	}
-
-	//공지사항 키워드 목록조회
-	public List<NoticeVo> searchNoticeList(String type, String keyword, int currentPage) {
-		return dao.searchNoticeList(sst, type, keyword, currentPage);
-	}
-
-
-
 
 }
