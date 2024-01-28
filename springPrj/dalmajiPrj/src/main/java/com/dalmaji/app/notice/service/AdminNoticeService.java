@@ -20,7 +20,7 @@ public class AdminNoticeService {
 	private final AdminNoticeDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//공지사항 작성
+		//공지사항 작성
 		public int insert(AdminNoticeVo vo) {
 			return dao.insert(sst, vo);
 		}
@@ -49,5 +49,17 @@ public class AdminNoticeService {
 		public int getTotalCount() {
 			return dao.getTotalCount(sst);
 		}
+
+		//키워드로 검색
+		public int getTotalCountByKeyword(String type, String keyword) {
+			return dao.getTotalCountByKeyword(sst, type, keyword);
+		}
+
+		public List<AdminNoticeVo> searchNoticeList(String type, String keyword, int currentPage) {
+			return dao.searchNoticeList(sst, type, keyword, currentPage);
+		}
+
+		
+		
 
 }

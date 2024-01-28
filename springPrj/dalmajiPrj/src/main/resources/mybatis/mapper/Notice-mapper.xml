@@ -51,6 +51,7 @@
 		    ,TITLE
 		    ,CONTENT
 		    ,TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
+		    ,MODIFY_DATE
 		    ,DEL_YN
 		    ,HIT
 		FROM NOTICE
@@ -59,7 +60,28 @@
 		ORDER BY NO DESC
 	</select>
 	
-	<update id="hit" >
+	 <!-- 검색 결과의 총 개수 가져오기 -->
+    <select id="getKeyword" resultType="int">
+        SELECT COUNT(*) AS LISTCOUNT
+        FROM NOTICE
+        WHERE DEL_YN = 'N'
+        AND TITLE LIKE '%' || #{title} || '%'
+    </select>
+    
+    <!-- 검색된 공지사항 목록 조회 -->
+    <select id="searchNoticeList" resultMap="adminNoticeResultMap">
+        SELECT 
+            NO,
+            TITLE,
+            CONTENT,
+            TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
+        FROM NOTICE
+        WHERE DEL_YN = 'N'
+        AND TITLE LIKE '%' || #{title} || '%'
+        ORDER BY NO DESC
+    </select>
+	
+	<update id="increaseHitCount" >
 		UPDATE NOTICE
     SET HIT = HIT+1
     WHERE NO = #{no}

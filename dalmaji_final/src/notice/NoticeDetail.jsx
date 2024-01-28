@@ -125,18 +125,15 @@ const StyledNoticeDetailDiv = styled.div`
 
 `;
 
-const AdminNoticeDetail = () => {
-    console.log("AdminNoticeDetail 렌더링 중");
+const NoticeDetail = () => {
+    console.log("NoticeDetail 렌더링 중");
 
-    // url에서 noticeNo 추출
-    const { no } = useParams(); // 수정된 부분
-
-    // 사용할 변수 준비
-    const [vo, setVo] = useState([]);
+    const { no } = useParams();
+    const [vo, setVo] = useState({});
 
     useEffect(() => {
         const loadNoticeDetailVo = () => {
-            fetch(`http://127.0.0.1:8888/app/admin/notice/detail?no=${no}`, {
+            fetch(`http://127.0.0.1:8888/app/notice/detail?no=${no}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -146,16 +143,21 @@ const AdminNoticeDetail = () => {
                 .then((data) => {
                     console.log('data:::', data);
                     setVo(data.vo);
+                })
+                .catch((error) => {
+                    console.error('Error fetching notice detail:', error);
+                    setVo({}); // 데이터 로딩 실패 시 상태 초기화
                 });
         };
         loadNoticeDetailVo();
     }, [no]);
 
 
+
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
-            <div className='notice'>공지사항</div>
+                <div className='notice'>공지사항</div>
                 <form>
                     <div className="dropdown_head">
                         <div className="date">Date : {vo.enrollDate}</div>
@@ -172,4 +174,4 @@ const AdminNoticeDetail = () => {
     );
 };
 
-export default AdminNoticeDetail;
+export default NoticeDetail;
