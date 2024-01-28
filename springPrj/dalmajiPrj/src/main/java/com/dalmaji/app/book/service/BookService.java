@@ -55,17 +55,6 @@ public class BookService {
 	}
 	
 	
-	// 수정
-	public int edit(BookVo vo) {
-		return dao.edit(sst, vo);
-	}
-
-	// 삭제
-	public int delete(BookVo vo) {
-		return dao.delete(sst, vo);
-	}
-	
-	
 
 	
 

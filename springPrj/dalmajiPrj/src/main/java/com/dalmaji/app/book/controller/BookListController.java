@@ -91,24 +91,5 @@ public class BookListController {
 	    return bookVoList;
 	}
 	
-	// 게시글 수정(제목,저자,이미지)
-	@PostMapping("admin/edit")
-	public String edit(BookVo vo) throws Exception {
-		int result = service.edit(vo);
-		if (result != 1) {
-			throw new Exception();
-		}
-		return "redirect:/search/admin/detail?no=" + vo.getBookNo();
-	}
-
-	// 게시글 삭제(관리자만)
-	@GetMapping("admin/delete")
-	public String delete(BookVo vo) throws Exception {
-		int result = service.delete(vo);
-		if (result != 1) {
-			throw new Exception();
-		}
-		return "redirect:/book/admin/list";
-	}
 
 }

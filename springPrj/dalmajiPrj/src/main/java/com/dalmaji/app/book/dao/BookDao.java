@@ -55,18 +55,6 @@ public class BookDao {
 	}
 
 
-	// 수정
-	public int edit(SqlSessionTemplate sst, BookVo vo) {
-		return sst.update("BookMapper.edit", vo);
-
-	}
-
-	// 삭제
-	public int delete(SqlSessionTemplate sst, BookVo vo) {
-		return sst.update("BookMapper.delete", vo);
-	}
-
-	
 
 
 	// 검색 결과 목록 조회
