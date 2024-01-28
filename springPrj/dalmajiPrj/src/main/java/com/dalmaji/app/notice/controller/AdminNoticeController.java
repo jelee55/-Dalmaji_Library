@@ -50,66 +50,36 @@ public class AdminNoticeController {
 	
 	
 	//공지사항 목록조회 (data)
-//	@GetMapping("list")
-//	@ResponseBody
-//	public Map<String, Object> list (@RequestParam(defaultValue = "1") int currentPage) {
-//		int listCount = service.getTotalCount();
-//		int pageLimit = 5;
-//		int listLimit = 8;
-//		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-//		List<AdminNoticeVo> voList = service.list(pvo);
-//		
-//		//vo값 잘 담겨서 출력되는지 확인 작업
-//		for( AdminNoticeVo vo : voList) {
-//			System.out.println(vo);
-//		}
-//		
-//		//결과를 Map에 담아 반환
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("voList", voList);
-//		map.put("pvo", pvo);
-//		return map;
-//	}
-	
-
-	//공지사항 목록조회 (+검색)
 	@GetMapping("list")
 	@ResponseBody
-	public Map<String, Object> list(
-	        @RequestParam(defaultValue = "1") int currentPage,
-	        @RequestParam(required = false) String type,
-	        @RequestParam(required = false) String keyword
-	) {
-	    int pageLimit = 5;
-	    int listLimit = 8;
-	    List<AdminNoticeVo> voList;
-	    PageVo pvo;
-
-	    // 검색 조건이 있는 경우에만 검색 수행
-	    if (type != null && keyword != null) {
-	        int listCount = service.getTotalCountByKeyword(type, keyword);
-	        voList = service.searchNoticeList(type, keyword, currentPage);
-	        pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-	    } else {
-	        int listCount = service.getTotalCount();
-	        pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-	        voList = service.list(pvo);
-	    }
-
-	    // 결과를 Map에 담아 반환
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("voList", voList);
-	    map.put("pvo", pvo);
-	    return map;
+	public Map<String, Object> list (@RequestParam(defaultValue = "1") int currentPage) {
+		int listCount = service.getTotalCount();
+		int pageLimit = 5;
+		int listLimit = 8;
+		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+		List<AdminNoticeVo> voList = service.list(pvo);
+		
+		//vo값 잘 담겨서 출력되는지 확인 작업
+		for( AdminNoticeVo vo : voList) {
+			System.out.println(vo);
+		}
+		
+		//결과를 Map에 담아 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("voList", voList);
+		map.put("pvo", pvo);
+		return map;
 	}
-
+	
 	//공지사항 상세조회
 	@GetMapping("detail")
 	public AdminNoticeVo detail(AdminNoticeVo vo) {
 		System.out.println(vo);
+//		AdminNoticeVo voList = service.detail(vo);
+//		System.out.println(voList);
+//		return voList;
 		return service.detail(vo);
 	}
-	
 	
 	//공지사항 삭제 (번호)
 	@PostMapping("delete")
@@ -119,7 +89,7 @@ public class AdminNoticeController {
 		
 		int result = service.delete(vo);
 		
-		if(result == 1) {
+		if(result==1) {
 			map.put("msg", "good");
 		}else {
 			map.put("msg", "bad");
@@ -144,5 +114,13 @@ public class AdminNoticeController {
 	}
 	
 	
-	
+//	@PostMapping("edit")
+//	public String edit(AdminNoticeVo vo) throws Exception {
+//		int result = service.edit(vo);
+//		if(result != 1) {
+//			throw new Exception();
+//		}
+//		return "redirect:/admin/notice/detail?no=" + vo.getNo();
+//	}
+
 }

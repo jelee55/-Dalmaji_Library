@@ -35,7 +35,7 @@
 		    NO
 		    , ADMIN_NO
 		    , TITLE
-		    , TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
+		    , ENROLL_DATE
 		    , DEL_YN
 		    , HIT
 		FROM NOTICE
@@ -45,54 +45,21 @@
 	
 	<select id="detail" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
 		SELECT 
-        NO
-        ,ADMIN_NO
-        ,TITLE
-        ,CONTENT
-        ,TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
-        ,MODIFY_DATE
-        ,DEL_YN
-        ,HIT
-    FROM NOTICE
-    WHERE NO = #{no}
-    AND DEL_YN = 'N'
-    ORDER BY NO DESC
+	        NO
+	        ,ADMIN_NO
+	        ,TITLE
+	        ,CONTENT
+	        ,ENROLL_DATE
+	        ,MODIFY_DATE
+	        ,DEL_YN
+	        ,HIT
+	    FROM NOTICE
+	    WHERE NO = #{no}
+	    AND DEL_YN = 'N'
+	    ORDER BY NO DESC
 	</select>
 	
-	<select id="search" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
-	SELECT 
-		NO, 
-		TITLE, 
-		TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE 
-	FROM NOTICE 
-	WHERE DEL_YN = 'N' 
-	AND TITLE LIKE '%' || #{title} || '%' 
-	ORDER BY NO DESC ;
-	</select>
-	
-	 <!-- 검색 결과의 총 개수 가져오기 -->
-    <select id="getTotalCountByKeyword" resultType="int">
-        SELECT COUNT(*) AS LISTCOUNT
-        FROM NOTICE
-        WHERE DEL_YN = 'N'
-        AND TITLE LIKE '%' || #{title} || '%'
-    </select>
-    
-    <!-- 검색된 공지사항 목록 조회 -->
-    <select id="searchNoticeList" resultMap="adminNoticeResultMap">
-        SELECT 
-            NO,
-            TITLE,
-            CONTENT,
-            TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
-        FROM NOTICE
-        WHERE DEL_YN = 'N'
-        AND TITLE LIKE '%' || #{title} || '%'
-        ORDER BY NO DESC
-        OFFSET #{startRow} ROWS FETCH NEXT #{pageSize} ROWS ONLY
-    </select>
-	
-	<update id="increaseHitCount" >
+	<update id="hit" >
 		UPDATE NOTICE
     SET HIT = HIT+1
     WHERE NO = #{no}
@@ -118,7 +85,5 @@
 			WHERE NO = #{no}
 			AND DEL_YN = 'N'
 	</update>
-	
-	
   
 </mapper>
