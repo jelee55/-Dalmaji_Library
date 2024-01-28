@@ -38,7 +38,7 @@ public class BookService {
 	}
 
 	// 카테고리별 도서 목록 가져오기
-	public List<BookVo> getBookListByBookCate(int bookCateNo) {
+	public List<BookVo> getBookListByBookCate(String bookCateNo) {
 		return dao.getBookListByBookCate(bookCateNo, sst);
 	}
 	
