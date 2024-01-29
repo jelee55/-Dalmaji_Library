@@ -18,5 +18,6 @@ public class BorrowVo {
 	private String bookState;
 	private String bOption;
 	private String oNo;
+	private String statusNo;
 	
 }
