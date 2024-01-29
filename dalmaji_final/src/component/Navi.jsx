@@ -29,7 +29,22 @@ const Navi = () => {
 
     return (
         <StyledNaviDiv>
-            <div><Link to="/notice/list">공지사항</Link></div>
+            <div>
+            {
+                sessionLoginAdminVo
+                ?
+                (
+                    <Link to="/admin/notice/list">공지사항</Link>
+                )
+                : sessionLoginMemberVo
+                ?
+                (
+                    <Link to="/notice/list">공지사항</Link>
+                )
+                :
+                <div>공지사항</div>
+            }    
+            </div>
             <div><Link to="/search/list">도서목록</Link></div>
             <div><Link to="/search/detaillist">도서검색</Link></div>
             {sessionLoginAdminVo && (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeDetailDiv = styled.div`
@@ -149,13 +149,9 @@ const StyledNoticeDetailDiv = styled.div`
 `;
 
 const NoticeDetail = () => {
-    console.log("AdminNoticeDetail 렌더링 중");
-
-    // url에서 noticeNo 추출
+    console.log("NoticeDetail 렌더링 중");
     const { no } = useParams();
-
-    // 사용할 변수 준비
-    const [vo, setVo] = useState([]);
+    const [vo, setVo] = useState({}); // 객체로 초기화
 
     useEffect(() => {
         const loadNoticeDetailVo = () => {
@@ -165,25 +161,25 @@ const NoticeDetail = () => {
                     "Content-Type": "application/json",
                 },
             })
-                .then((resp) => resp.json())
-                .then((data) => {
-                    console.log('data:::', data);
-                    setVo(data);
-                })
-                .catch((error) => {
-                    console.error('Error fetching notice detail:', error);
-                    setVo({}); // 데이터 로딩 실패 시 상태 초기화
-                });
-        };
-        loadNoticeDetailVo();
-    }, [no]);
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log('data:::', data);
+                setVo(data); // 상세 정보 설정
+            })
+            .catch((error) => {
+                console.error('Error fetching notice detail:', error);
+                setVo({}); // 데이터 로딩 실패 시 상태 초기화
+            });
+    };
+    loadNoticeDetailVo();
+}, [no]);
 
 
 
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
-            <div className='notice'>공지사항</div>
+                <div className='notice'>공지사항</div>
                 <form>
                     <div className="dropdown_head">
                         <div className="date">Date : {vo.enrollDate}</div>
@@ -193,7 +189,7 @@ const NoticeDetail = () => {
                     <div className='dropdown_content'>
                         <div className="content">{vo.content}</div>
                     </div>
-                    <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
+                    <div className='list'><Link to='/notice/list'>목록보기</Link></div>
                 </form>
             </div>
         </StyledNoticeDetailDiv>

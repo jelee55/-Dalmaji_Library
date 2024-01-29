@@ -51,12 +51,24 @@ public class NoticeController {
 		return map;
 	}
 	
+//	// 공지사항 상세조회
+//	@GetMapping("detail")
+//	public String detail(NoticeVo vo) {
+//	    
+//		// 조회수 증가
+//	    service.Hit(vo);
+//	    
+//	    // 상세 정보 가져오기
+//	    NoticeVo noticeVo = service.detail(vo);
+//	    
+//	    return "notice/detail";
+//	}
+	
 	// 공지사항 상세조회
 	@GetMapping("detail")
 	public String detail(NoticeVo vo) {
-	    
-		// 조회수 증가
-	    service.Hit(vo);
+	    // 조회수 증가
+	    service.hit(vo);
 	    
 	    // 상세 정보 가져오기
 	    NoticeVo noticeVo = service.detail(vo);

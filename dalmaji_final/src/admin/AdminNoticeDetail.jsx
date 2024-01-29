@@ -36,7 +36,72 @@ const StyledNoticeDetailDiv = styled.div`
                 /* background-color: greenyellow; */
             }
 
-            & > form {
+            & > .form1 {
+                width: 60%;
+                height: 80%;
+                margin: auto;
+                margin-bottom: 80px;
+                border: 2px solid black;
+                /* background-color: beige; */
+
+                    & > .title1 {    
+                        width: 80%;
+                        height: 10%;
+                        display: flex;
+                        justify-content: center;
+                        margin: auto;
+                        margin-top: 40px;
+                        /* background-color: greenyellow; */
+
+                            & > input {
+                                width: 100%;
+                                height: 100%;
+                            }
+                    }
+
+                    & > .none2 {
+                    height: 4%;
+                    /* background-color: yellow; */
+                    }
+
+                    & > .content1{
+                        height: 70%;
+                        width: 85%;
+                        margin: auto;
+                        /* border: 1px solid gray; */
+                        justify-content: center;
+
+                        & > textarea {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    } 
+
+                    & > .update {
+                        width: 20%;
+                        height: 40px;
+                        margin-top: 40px;
+                        margin-left:45%;
+                        /* margin: auto; */
+                        /* background-color: yellow; */
+
+                        & > .edit {
+                            width: 90px;
+                            height: 40px;
+                            border-radius: 10%;
+                            background-color: black;
+                            color: white;
+                            font-family: 'Pretendard';
+                            font-weight: 700;
+                            font-size: 16px;
+                        }
+                    }
+
+                }
+
+            
+
+            & > .form2 {
                 width: 50%;
                 height: 80%;
                 display: inline;
@@ -45,23 +110,23 @@ const StyledNoticeDetailDiv = styled.div`
                 /* border: 2px solid black; */
                 /* background-color: beige; */
 
-                & > .input_btn {
-                    width: 10%;
-                    display: flex;
-                    justify-content: space-between;
-                    margin-left: 87%;
-                    margin-bottom: 2%;
-                    /* background-color: brown; */
+                        & > .input_btn {
+                            width: 10%;
+                            display: flex;
+                            justify-content: space-between;
+                            margin-left: 87%;
+                            margin-bottom: 2%;
+                            /* background-color: brown; */
 
-                    & > input {
-                        border: none;
-                        background-color: white;
-                    }
+                            & > input {
+                                border: none;
+                                background-color: white;
+                            }
 
-                    & > input:hover {
-                        color: lightblue;
-                    }
-                }
+                            & > input:hover {
+                                color: lightblue;
+                            }
+                        }
 
                     & > .dropdown_head {    
                         width: 90%;
@@ -148,6 +213,7 @@ const StyledNoticeDetailDiv = styled.div`
 
 `;
 
+
 const AdminNoticeDetail = () => {
     console.log("AdminNoticeDetail 렌더링 중");
 
@@ -226,7 +292,7 @@ const AdminNoticeDetail = () => {
         // 수정할 내용을 서버에 제출하는 로직 구현
         // 예를 들어, fetch를 사용하여 서버로 데이터를 보낼 수 있습니다.
 
-        fetch(`http://127.0.0.1:8888/app/admin/notice/update`, {
+        fetch(`http://127.0.0.1:8888/app/admin/notice/edit`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -259,16 +325,17 @@ const AdminNoticeDetail = () => {
             <div className='notice_wrap'>
             <div className='notice'>공지사항</div>
                 {isEditing ? (
-                    <form onSubmit={handleEditSubmit}>
+                    <form onSubmit={handleEditSubmit} className='form1'>
                         <input 
                                 type="text" 
                                 id='title' 
                                 name='title' 
+                                className='title1'
                                 value={updatedData.title} 
                                 onChange={handleInputChange} // 값 변경 시 상태 업데이트
                             />
                     <div className='none2'></div>
-                    <div className="content">
+                    <div className="content1">
                             <textarea 
                                 name="content" 
                                 id="content" 
@@ -278,10 +345,12 @@ const AdminNoticeDetail = () => {
                                 onChange={handleInputChange} // 값 변경 시 상태 업데이트
                             ></textarea>
                         </div>
-                        <input type="submit" value="수정 완료"/>
+                        <div className='update'>
+                            <input type="submit" value="수정" className='edit'/>
+                        </div>
                     </form>
                 ) : (
-                <form>
+                <form className='form2'>
                     <div className='input_btn'>
                         <input type="button" value='수정' onClick={handleEditClick} />
                         <input type="button" value='삭제' onClick={handleDeleteClick} />

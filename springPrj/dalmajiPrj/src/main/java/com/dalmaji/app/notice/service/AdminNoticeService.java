@@ -51,4 +51,14 @@ public class AdminNoticeService {
 			return dao.edit(sst, vo);
 		}
 
+		//검색기능 (주어진 키워드를 기준으로 검색을 수행했을 때 검색 결과의 총 개수를 반환)
+		public int getSearchCount(String keyword) {
+			return dao.getSearchCount(sst, keyword);
+		}
+
+		//검색기능 (주어진 키워드를 기준으로 검색을 수행하고, 페이지네이션 정보에 따라 해당 페이지의 검색 결과를 반환)
+		public List<AdminNoticeVo> search(String keyword, PageVo pvo) {
+			return dao.search(sst, keyword, pvo);
+		}
+
 }

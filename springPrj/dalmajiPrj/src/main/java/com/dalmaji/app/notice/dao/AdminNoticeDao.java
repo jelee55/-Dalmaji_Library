@@ -1,6 +1,8 @@
 package com.dalmaji.app.notice.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -52,5 +54,22 @@ public class AdminNoticeDao {
 		// 우리가 필요한것은 숫자라 string타입을 숫자타입으로 변경해서 리턴해야한다!!
 		return Integer.parseInt(sst.selectOne("AdminNoticeMapper.count"));
 	}
+
+	public int getSearchCount(SqlSessionTemplate sst, String keyword) {
+	    return sst.selectOne("AdminNoticeMapper.searchCount", keyword);
+	}
+
+	public List<AdminNoticeVo> search(SqlSessionTemplate sst, String keyword, PageVo pvo) {
+	    int offset = (pvo.getCurrentPage() - 1) * pvo.getListLimit();
+	    int limit = pvo.getListLimit();
+	    RowBounds rb = new RowBounds(offset, limit);
+
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("keyword", keyword);
+	    params.put("pvo", pvo);
+
+	    return sst.selectList("AdminNoticeMapper.search", params, rb);
+	}
+
 
 }

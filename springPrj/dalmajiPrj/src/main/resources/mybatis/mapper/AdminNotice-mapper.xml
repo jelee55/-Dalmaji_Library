@@ -59,6 +59,37 @@
 	    ORDER BY NO DESC
 	</select>
 	
+	<select id="search" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
+		SELECT 
+			NO, 
+			TITLE, 
+			TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE 
+		FROM NOTICE 
+		WHERE DEL_YN = 'N' 
+		AND TITLE LIKE '%' || #{title} || '%' 
+		ORDER BY NO DESC
+	</select>
+	
+	<select id="search" parameterType="map" resultMap="AdminNoticeResultMap">
+    SELECT *
+    FROM your_table_name
+    WHERE your_column_name LIKE CONCAT('%', #{keyword}, '%')
+    ORDER BY your_order_column
+    LIMIT #{start}, #{limit};
+	</select>
+	
+	<select id="getSearchCount" resultType="com.dalmaji.app.notice.vo.AdminNoticeVo">
+		SELECT 
+			NO, 
+			TITLE, 
+			TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE 
+		FROM NOTICE 
+		WHERE DEL_YN = 'N' 
+		AND TITLE LIKE '%' || #{title} || '%' 
+		ORDER BY NO DESC
+	</select>
+	
+	
 	<update id="hit" >
 		UPDATE NOTICE
     SET HIT = HIT+1
