@@ -227,7 +227,8 @@ const SearchAdminWrite = () => {
     const [company, setCompany] = useState();
     const [publisherYear, setPublisherYear] = useState();
     const [inputBookVo, setInputBookVo] = useState({});
-   
+    const [selectedFile, setSelectedFile] = useState(null);
+
 
     const handleChangeTitle = (e) => {
         setTitle(e.target.value);
@@ -288,6 +289,13 @@ const SearchAdminWrite = () => {
                     <div >
                         <div>
                             <input type="file" multiple name='f' onChange={handleChangeFile}/>
+                            {/* {selectedFile && (
+                                <img
+                                    src={URL.createObjectURL(selectedFile)}
+                                    alt="File Preview"
+                                    style={{ width: '100px', height: '100px' }}
+                                />
+                            )} */}
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>

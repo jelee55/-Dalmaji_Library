@@ -91,7 +91,8 @@ const StyledTableDiv = styled.div`
     &> div:nth-child(3) {
         display: flex;
         gap: 15px;
-        & > button:first-child {
+        & > button:first-child,
+            button:nth-child(2) {
             width: 110px;
             height: 35px;
             font-size: 18px;
@@ -188,14 +189,15 @@ const SearchDetail = () => {
     const [vo, setVo] = useState([]);
     const [borrowVo, setBorrowVo] = useState([]);
     const [change, setChange] = useState('');
-
+    // const [isAdmin, setIsAdmin] = useState
+    
     //세션에 담긴 유저값 가져오기
     const jsonStr = sessionStorage.getItem("loginMemberVo");
     const sessionLoginMemberVo = JSON.parse(jsonStr);
 
     //어드민 정보 가져옥
     const admin = JSON.parse(sessionStorage.getItem("AdminLoginMemberVo"));
-
+    const isAdmin = admin !== null; //  admin이 null이 아니면 관리자로 간주
 
     console.log('sessionLoginMemberVo1번::',sessionLoginMemberVo);
 
@@ -215,14 +217,12 @@ const SearchDetail = () => {
                 console.log('data:::', data);
                 setVo(data.vo);
                 setBorrowVo(data.borrowVo);
-                if(sessionLoginMemberVo != null){
-                    setChange(change+'a');
-                }
+               
             })
             ;
         }
         loadBookDetailVo();
-    }, [selectedBookNo.bookNo, sessionLoginMemberVo, change])
+    }, [ change])
 
     // 모달창을 위한 준비
     const [modal, setModal] = useState(false);
@@ -278,7 +278,9 @@ const SearchDetail = () => {
                 alert("대출비밀번호가 일치하지 않습니다.")
             }
             setModal(false);
-        
+            if(sessionLoginMemberVo != null){
+                setChange(change+'a');
+            }
         });
     }   
 
@@ -360,19 +362,27 @@ const SearchDetail = () => {
                         </tbody>
                     </table>
                     <div>
-                        <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
+                        {!isAdmin && (
+                            <>
+                              <button onClick={ () => { setModal(!modal) } }><FontAwesomeIcon icon={faBook} /> 대출</button>
+                            </>
+                        )}
+                        {isAdmin && (
+                            <>
                                 <button onClick={edit}>수정</button>
                                 <button onClick={deleteBook}>삭제</button>
+                            </>
+                        )}       
                         {modal === true 
                             ? 
                             <StyledModalDiv>
-                                <div><h1>알림</h1></div>
-                                <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
-                                <input type="password" placeholder='password' name='borrowPwd' onChange={handleInputChange}/>
-                                <div>
-                                    <button onClick={handleClickBorrow}>완료</button>
-                                    <button onClick={ () => {setModal(false)} }>취소</button>
-                                </div>
+                                        <div><h1>알림</h1></div>
+                                        <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
+                                        <input type="password" placeholder='password' name='borrowPwd' onChange={handleInputChange}/>
+                                        <div>
+                                            <button onClick={handleClickBorrow}>완료</button>
+                                            <button onClick={ () => {setModal(false)} }>취소</button>
+                                        </div>
                             </StyledModalDiv> 
                             : 
                             null
