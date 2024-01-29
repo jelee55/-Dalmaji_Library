@@ -175,8 +175,8 @@ const AdminMyPage = () => {
                                 <td colSpan="12">로딩중...</td>
                             </tr>)
                             :
-                            adminBorrowVoList && adminBorrowVoList.map( adminBorrowVo => <tr key={adminBorrowVoList.overdueNo}>
-                                <td>{adminBorrowVo.overdueNo}</td>
+                            adminBorrowVoList && adminBorrowVoList.map( adminBorrowVo => <tr key={adminBorrowVoList.borrowNo}>
+                                <td>{adminBorrowVo.borrowNo}</td>
                                 <td>{adminBorrowVo.bookNo}</td>
                                 <td>{adminBorrowVo.title}</td>
                                 <td>{adminBorrowVo.author}</td>
