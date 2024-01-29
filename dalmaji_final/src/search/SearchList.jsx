@@ -111,7 +111,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
 
     const location = useLocation();
 
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", location.state.searchResults);
+    // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", location.state.searchResults);
 
 
     // const handleCategoryClick = (category) => {
