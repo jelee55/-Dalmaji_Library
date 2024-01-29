@@ -49,61 +49,61 @@ public class AdminNoticeController {
 	}
 	
 	
-//	//공지사항 목록조회 (data)
-//	@GetMapping("list")
-//	@ResponseBody
-//	public Map<String, Object> list (@RequestParam(defaultValue = "1") int currentPage) {
-//		int listCount = service.getTotalCount();
-//		int pageLimit = 5;
-//		int listLimit = 8;
-//		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-//		List<AdminNoticeVo> voList = service.list(pvo);
-//		
-//		//vo값 잘 담겨서 출력되는지 확인 작업
-//		for( AdminNoticeVo vo : voList) {
-//			System.out.println(vo);
-//		}
-//		
-//		//결과를 Map에 담아 반환
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("voList", voList);
-//		map.put("pvo", pvo);
-//		return map;
-//	}
-	
-	// 공지사항 목록조회 (data)
+	//공지사항 목록조회 (data)
 	@GetMapping("list")
 	@ResponseBody
-	public Map<String, Object> list(
-	    @RequestParam(defaultValue = "1") int currentPage,
-	    @RequestParam(required = false) String keyword // 검색어 파라미터 추가
-	) {
-	    int listCount;
-	    int pageLimit = 5;
-	    int listLimit = 8;
-	    
-	    // 키워드가 있을 경우 검색 결과를 가져오고, 없을 경우 전체 목록을 가져옴
-	    if (keyword != null && !keyword.isEmpty()) {
-	        listCount = service.getSearchCount(keyword);
-	    } else {
-	        listCount = service.getTotalCount();
-	    }
-	    
-	    PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
-	    List<AdminNoticeVo> voList;
-
-	    if (keyword != null && !keyword.isEmpty()) {
-	        voList = service.search(keyword, pvo);
-	    } else {
-	        voList = service.list(pvo);
-	    }
-
-	    // 결과를 Map에 담아 반환
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("voList", voList);
-	    map.put("pvo", pvo);
-	    return map;
+	public Map<String, Object> list (@RequestParam(defaultValue = "1") int currentPage) {
+		int listCount = service.getTotalCount();
+		int pageLimit = 5;
+		int listLimit = 8;
+		PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+		List<AdminNoticeVo> voList = service.list(pvo);
+		
+		//vo값 잘 담겨서 출력되는지 확인 작업
+		for( AdminNoticeVo vo : voList) {
+			System.out.println(vo);
+		}
+		
+		//결과를 Map에 담아 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("voList", voList);
+		map.put("pvo", pvo);
+		return map;
 	}
+	
+//	// 공지사항 목록조회 (data)
+//	@GetMapping("list")
+//	@ResponseBody
+//	public Map<String, Object> list(
+//	    @RequestParam(defaultValue = "1") int currentPage,
+//	    @RequestParam(required = false) String keyword // 검색어 파라미터 추가
+//	) {
+//	    int listCount;
+//	    int pageLimit = 5;
+//	    int listLimit = 8;
+//	    
+//	    // 키워드가 있을 경우 검색 결과를 가져오고, 없을 경우 전체 목록을 가져옴
+//	    if (keyword != null && !keyword.isEmpty()) {
+//	        listCount = service.getSearchCount(keyword);
+//	    } else {
+//	        listCount = service.getTotalCount();
+//	    }
+//	    
+//	    PageVo pvo = new PageVo(listCount, currentPage, pageLimit, listLimit);
+//	    List<AdminNoticeVo> voList;
+//
+//	    if (keyword != null && !keyword.isEmpty()) {
+//	        voList = service.search(keyword, pvo);
+//	    } else {
+//	        voList = service.list(pvo);
+//	    }
+//
+//	    // 결과를 Map에 담아 반환
+//	    Map<String, Object> map = new HashMap<>();
+//	    map.put("voList", voList);
+//	    map.put("pvo", pvo);
+//	    return map;
+//	}
 
 	
 	//공지사항 상세조회
