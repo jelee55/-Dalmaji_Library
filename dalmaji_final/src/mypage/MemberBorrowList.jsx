@@ -232,7 +232,7 @@ const MemberBorrowList = () => {
                                     <td>
                                         <button value={userBorrowVo.bookNo} onClick={ () => {
                                             
-                                            setBookNo(userBorrowVo.bookNo); setModal(!modal)}}><FontAwesomeIcon icon={faSquareCheck} /> 반납하기</button>
+                                            setBookNo(userBorrowVo.bookNo); setModal(!modal)}}disabled={userBorrowVo.bookState === "반납완료"}><FontAwesomeIcon icon={faSquareCheck} /> 반납하기</button>
                                         {
                                             modal === true
                                             ?

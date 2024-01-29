@@ -159,10 +159,10 @@ const StyledModalDiv = styled.div`
         background-color: #7b7b7b;
         color: white;
     }
-    & > div:nth-child(4) {
+    & > .modalButton {
         display: flex;
         gap: 5px;
-        & > button {
+        & > button:first-child {
             width: 50px;
             height: 30px;
             border: none;
@@ -182,8 +182,6 @@ const SearchDetail = () => {
 
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
-    // console.log("selectedBookNo ::: ", selectedBookNo);
-    // console.log("selectedBookNo.bookNo ::: ", selectedBookNo);
 
     // 사용할 변수 준비
     const [vo, setVo] = useState([]);
@@ -245,12 +243,17 @@ const SearchDetail = () => {
 
     // 대출완료 버튼 클릭 핸들러
 
-        const handleClickBorrow = (e) => {
-            e.preventDefault();
-            
-            console.log('bookNo',selectedBookNo.bookNo)
-            console.log('handleClickBorrow render~~~');
-            console.log('mvo:::', mvo);
+    const handleClickBorrow = (e) => {
+        e.preventDefault();
+        
+        console.log('bookNo',selectedBookNo.bookNo)
+        console.log('handleClickBorrow render~~~');
+        console.log('mvo:::', mvo);
+        
+        if (sessionLoginMemberVo === null) {
+            alert("회원만 대출이 가능합니다.");
+            return;
+        }
    
         // 서버에 대출완료를 요청하는 api 호출
         fetch(`http://127.0.0.1:8888/app/search/book/check`,{
@@ -269,11 +272,14 @@ const SearchDetail = () => {
             console.log('api응답data',data);
             console.log('mvo.borrowPwd:: ' + mvo.borrowPwd);
             console.log('sessionLoginMemberVo.borrowPwd:: ' + sessionLoginMemberVo.borrowPwd);
+                
             if(data.status === "good"){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");
                 alert("대출 완료!");
-            } else {
+            } else if(data.bookState !== "대출가능"){
+                alert("대출중인 책이라 대출이 불가능 합니다.");
+            }else{
                 console.log("대출 실패...");
                 alert("대출비밀번호가 일치하지 않습니다.")
             }
@@ -281,12 +287,9 @@ const SearchDetail = () => {
             if(sessionLoginMemberVo != null){
                 setChange(change+'a');
             }
-        });
+        })
+        ;
     }   
-
-    // useEffect( () => {
-    //     handleClickBorrow();
-    // }, []);
 
     const edit = () => {
         navigate(`/admin/edit`, {
@@ -349,7 +352,7 @@ const SearchDetail = () => {
                             <tr>
                                 <td>{vo.bookNo}</td>
                                 <td>{vo.roomName}</td>
-                                <td>{borrowVo.bookState}</td>
+                                <td>{vo.bookState}</td>
                                 {
                                     borrowVo === undefined
                                     ?
@@ -379,7 +382,7 @@ const SearchDetail = () => {
                                         <div><h1>알림</h1></div>
                                         <div> <FontAwesomeIcon icon={faLock} /> 대출 비밀번호를 입력해주세요.</div>
                                         <input type="password" placeholder='password' name='borrowPwd' onChange={handleInputChange}/>
-                                        <div>
+                                        <div className='modalButton'>
                                             <button onClick={handleClickBorrow}>완료</button>
                                             <button onClick={ () => {setModal(false)} }>취소</button>
                                         </div>

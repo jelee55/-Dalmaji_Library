@@ -9,6 +9,7 @@
 	<select id="detail" resultType="com.dalmaji.app.bookDetail.vo.BookDetailVo">
 		SELECT 
 		    L.BOOK_IMG
+		    , L.BOOK_CATE_NO
 		    , L.TITLE
 		    , L.AUTHOR
 		    , L.COMPANY
@@ -28,12 +29,12 @@
 		SELECT 
 		    L.BOOK_NO
 		    , TO_CHAR(B.DUE_DATE, 'YYYY/MM/DD') DUE_DATE
-		    , S.STATUS_NO
 		    , S.BOOK_STATE
 		FROM BORROW B
 		RIGHT OUTER JOIN BOOK_LIST L ON B.BOOK_NO = L.BOOK_NO
 		RIGHT OUTER JOIN BOOK_STATUS S ON S.STATUS_NO = L.STATUS_NO
 		WHERE L.BOOK_NO = #{bookNo}
+		AND NOT S.STATUS_NO = '1'
 	</select>
 	
 	<select id="check" resultType="com.dalmaji.app.member.vo.MemberVo">
@@ -51,6 +52,7 @@
 		UPDATE BOOK_LIST 
 		    SET STATUS_NO = '2'
 		WHERE BOOK_NO = #{bookNo}
+		AND STATUS_NO = '1'
 	</update>
 	
 	<insert id="insertBorrow">
