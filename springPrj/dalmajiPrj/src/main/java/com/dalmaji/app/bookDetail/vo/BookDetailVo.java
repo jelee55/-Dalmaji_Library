@@ -6,6 +6,7 @@ import lombok.Data;
 public class BookDetailVo {
 	
 	private String bookImg;
+	private String bookCateNo;
 	private String title;
 	private String author;
 	private String company;

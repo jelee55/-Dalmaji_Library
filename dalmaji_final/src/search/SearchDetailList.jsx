@@ -124,9 +124,10 @@ const SearchDetailList = () => {
   }, []);
 
   const handleInputChange = (e) => {
+    const {name, value} = e.target;
     setSearchValues({
       ...searchValues,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -138,13 +139,13 @@ const SearchDetailList = () => {
 
 
     // 검색 결과가 있을 때만 SearchList 페이지로 이동
-    const searchResults = bookVoList.filter((vo) => {
-      return (
-        (vo.title && vo.title.includes(searchValues.title)) ||
-        (vo.author && vo.author.includes(searchValues.author)) ||
-        (vo.company && vo.company.includes(searchValues.company))
-      );
-    });
+    // const searchResults = bookVoList.filter((vo) => {
+    //   return (
+    //     (vo.title && vo.title.includes(searchValues.title)) ||
+    //     (vo.author && vo.author.includes(searchValues.author)) ||
+    //     (vo.company && vo.company.includes(searchValues.company))
+    //   );
+    // });
 
     console.log('검색 결과:', searchResults);
     

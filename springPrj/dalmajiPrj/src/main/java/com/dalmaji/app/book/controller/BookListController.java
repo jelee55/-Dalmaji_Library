@@ -86,6 +86,7 @@ public class BookListController {
 	// 검색(게시글 목록 조회)
 	@GetMapping("detaillist")
 	public List<BookVo> detail(BookVo vo, Model model) {
+		System.out.println("vo@@@@@@" + vo);
 	    List<BookVo> bookVoList = service.detail(vo);
 	    model.addAttribute("bookVoList", bookVoList);
 	    return bookVoList;
