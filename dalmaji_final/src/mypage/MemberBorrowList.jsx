@@ -137,6 +137,7 @@ const MemberBorrowList = () => {
     const [modal, setModal] = useState(false);
     const [bookNo, setBookNo] = useState('userBorrowList.bookNo');
     console.log("memberNo:::", memberNo);
+    const [change, setChange] = useState('');
 
     // 대출 리스트 보여주기
     useEffect( () => {
@@ -157,14 +158,15 @@ const MemberBorrowList = () => {
             ;
         }
         loadUserBorrowList();
-    }, [memberNo])
+    }, [change])
 
     console.log('userBorrowList::: ',userBorrowList);
 
     // 반납버튼 클릭 핸들러
-    const handlerClickReturn = () => {
+    const handlerClickReturn = (bookNo) => {
 
         console.log('handlerClickReturn 시작!!');
+        console.log('bookNo1번째:::',bookNo);
 
         fetch("http://127.0.0.1:8888/app/mypage/borrow/returnBook", {
             method: "POST",
@@ -172,14 +174,16 @@ const MemberBorrowList = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                bookNo: userBorrowList.bookNo,
+                bookNo: bookNo,
             })
         })
         .then((resp) => resp.json())
         .then((data => {
             console.log('반납버튼click data:: ' + data);
-            alert("반납완료!");
+            console.log('bookNo2번째:::',bookNo);
             setModal(false);
+            alert("반납완료!");
+            setChange(change + 'a');
         }))
         ;
     }
@@ -226,14 +230,16 @@ const MemberBorrowList = () => {
                                     <td>{userBorrowVo.bookState}</td>
                                     <td>{userBorrowVo.bOption}</td>
                                     <td>
-                                        <button onClick={ () => {setModal(!modal)}}><FontAwesomeIcon icon={faSquareCheck} /> 반납하기</button>
+                                        <button value={userBorrowVo.bookNo} onClick={ () => {
+                                            
+                                            setBookNo(userBorrowVo.bookNo); setModal(!modal)}}><FontAwesomeIcon icon={faSquareCheck} /> 반납하기</button>
                                         {
                                             modal === true
                                             ?
                                             <StyledModalDiv>
                                                 <div><h1>이 책을 반납하시겠습니까?</h1></div>
                                                 <div>
-                                                    <button onClick={handlerClickReturn(userBorrowVo.bookNo)}>예</button>
+                                                    <button onClick={() => {handlerClickReturn(bookNo)}}>예</button>
                                                     <button onClick={ () => {setModal(false)} }>아니오</button>
                                                 </div>
                                             </StyledModalDiv>

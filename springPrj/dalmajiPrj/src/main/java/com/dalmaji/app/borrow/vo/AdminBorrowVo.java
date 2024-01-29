@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class AdminBorrowVo {
-	private String overdueNo;
+	
+	private String borrowNo;
 	private String bookNo;
 	private String title;
 	private String author;
@@ -17,6 +18,5 @@ public class AdminBorrowVo {
 	private String bookState;
 	private String bOption;
 	private String oNo;
-	
 	
 }
