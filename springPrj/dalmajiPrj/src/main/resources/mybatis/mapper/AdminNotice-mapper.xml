@@ -35,7 +35,7 @@
 		    NO
 		    , ADMIN_NO
 		    , TITLE
-		    , ENROLL_DATE
+		    , TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
 		    , DEL_YN
 		    , HIT
 		FROM NOTICE
@@ -49,7 +49,7 @@
 	        ,ADMIN_NO
 	        ,TITLE
 	        ,CONTENT
-	        ,ENROLL_DATE
+	        , TO_CHAR(ENROLL_DATE, 'YYYY.MM.DD') AS ENROLL_DATE
 	        ,MODIFY_DATE
 	        ,DEL_YN
 	        ,HIT

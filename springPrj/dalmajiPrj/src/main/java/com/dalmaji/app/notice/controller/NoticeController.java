@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 import com.dalmaji.app.notice.service.NoticeService;
@@ -19,7 +20,7 @@ import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("notice")
 @RequiredArgsConstructor
 @CrossOrigin("*")
@@ -50,13 +51,20 @@ public class NoticeController {
 		return map;
 	}
 	
-	//공지사항 상세조회
+	// 공지사항 상세조회
 	@GetMapping("detail")
-	public String detail(NoticeVo vo, Model model) {
-		NoticeVo noticeVo = service.detail(vo);
-		model.addAttribute("noticeVo", noticeVo);
-		return "notice/detail";
+	public String detail(NoticeVo vo) {
+	    
+		// 조회수 증가
+	    service.Hit(vo);
+	    
+	    // 상세 정보 가져오기
+	    NoticeVo noticeVo = service.detail(vo);
+	    
+	    return "notice/detail";
 	}
+	
+
 	
 	
 
