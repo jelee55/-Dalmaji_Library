@@ -51,8 +51,9 @@ public class NoticeDao {
 		}
 
 		//조회수 증가
-		public void Hit(SqlSessionTemplate sst, NoticeVo vo) {
+		public void hit(SqlSessionTemplate sst, NoticeVo vo) {
 			sst.update("NoticeMapper.hit", vo);
 		}
+		
 
 }

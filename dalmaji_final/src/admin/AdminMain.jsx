@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import SearchAdminEdit from './SearchAdminEdit';
 import AdminNoticeList from './AdminNoticeList';
 import AdminNoticeWrite from './AdminNoticeWrite';
-import AdminNoticeEdit from './AdminNoticeEdit';
 import AdminNoticeDetail from './AdminNoticeDetail';
 import AdminLogin from './AdminLogin';
 import SearchAdminWrite from './SearchAdminWrite';
@@ -18,7 +17,6 @@ const AdminMain = () => {
             <Route path='/write/*' element={<SearchAdminWrite />}></Route>
             <Route path='/notice/list/*' element={<AdminNoticeList />}></Route>
             <Route path='/notice/write/*' element={<AdminNoticeWrite />}></Route>
-            <Route path='/notice/edit/*' element={<AdminNoticeEdit />}></Route>
             <Route path='/notice/detail/:no' element={<AdminNoticeDetail />}></Route>
         </Routes>
     );

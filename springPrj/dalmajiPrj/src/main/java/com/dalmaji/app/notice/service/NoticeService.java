@@ -35,8 +35,13 @@ public class NoticeService {
 	}
 
 	//조회수 증가
-	public void Hit(NoticeVo vo) {
-	    dao.Hit(sst, vo);
+//	public void Hit(NoticeVo vo) {
+//	    dao.Hit(sst, vo);
+//	}
+
+	// 조회수 증가 메서드
+	public void hit(NoticeVo vo) {
+	    dao.hit(sst, vo);
 	}
 
 }
