@@ -32,6 +32,9 @@ const Navi = () => {
             <div><Link to="/notice/list">공지사항</Link></div>
             <div><Link to="/search/list">도서목록</Link></div>
             <div><Link to="/search/detaillist">도서검색</Link></div>
+            {sessionLoginAdminVo && (
+                <div><Link to="/admin/write">도서작성</Link></div>
+            )}
             <div>
             {
                 sessionLoginAdminVo 

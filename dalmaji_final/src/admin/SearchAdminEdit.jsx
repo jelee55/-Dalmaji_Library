@@ -59,7 +59,14 @@ const StyledEditContentDiv = styled.div`
             
         }
         
-
+        /* & > div > input:nth-child(1){
+            width: 350px;
+            height: 500px;
+            margin-right: 20%;
+            margin-bottom: 10px;
+            background-color: #bbbbbb;
+            
+        } */
         & > div > img{
             width: 350px;
             height: 500px;
@@ -163,11 +170,32 @@ const SearchAdminEdit = () => {
 
     // const vo = location.state.vo;
     const [vo , setVo] = useState(location.state.vo);
+    const [fileObj,setFileObj] = useState();
+    const [previewImage, setPreviewImage] = useState(null);
+
+
     console.log("vo :::", vo);
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
     console.log("selectedBookNo ::: ", selectedBookNo);
     console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
+
+    const handleChangeFile = (e) => {
+        setFileObj(e.target.files[0]);
+    };
+
+    // 이미지 미리보기 생성
+    useEffect (() =>{
+
+    
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        setPreviewImage(reader.result);
+    };
+    if(fileObj){
+        reader.readAsDataURL(fileObj);
+    }
+}, [fileObj]);
 
     // 사용할 변수 준비
     // const [vo, setVo] = useState([]);
@@ -177,6 +205,7 @@ const SearchAdminEdit = () => {
         author: '',
         company: '',
         publisherYear: '',
+        fileObj: '',
     });
 
     // handleChangeInput 함수 정의
@@ -211,8 +240,6 @@ const SearchAdminEdit = () => {
         loadBookDetailVo();
     }, [selectedBookNo.bookNo])
 
-    // // 모달창을 위한 준비
-    // const [modal, setModal] = useState(false);
 
     // 목록버튼 클릭시 돌아가기
     const navigate = useNavigate();
@@ -232,6 +259,8 @@ const SearchAdminEdit = () => {
                         <div>
                             <img src={vo.bookImg} alt={vo.title} />
                             <button className='btnImg1'>이미지 첨부</button>
+                            {/* {previewImage && <img src={previewImage} alt="Preview" style={{ width: '100px', height: '100px' }} />}
+                            <input type="file" multiple name='f'onChange={handleChangeFile}/> */}
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
