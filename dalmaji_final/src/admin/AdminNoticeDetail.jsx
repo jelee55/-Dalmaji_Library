@@ -152,11 +152,13 @@ const AdminNoticeDetail = () => {
     console.log("AdminNoticeDetail 렌더링 중");
 
     // url에서 noticeNo 추출
-    const { no } = useParams(); // 수정된 부분
+    const { no } = useParams();
     const navigate = useNavigate();
 
     // 사용할 변수 준비
     const [vo, setVo] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [updatedData, setUpdatedData] = useState({ title: '', content: '' });
 
     useEffect(() => {
         const loadNoticeDetailVo = () => {
@@ -170,11 +172,15 @@ const AdminNoticeDetail = () => {
                 .then((data) => {
                     console.log('data:::', data);
                     setVo(data);
+                    setUpdatedData(data); // 수정할 데이터로 초기화
+                })
+                .catch((error) => {
+                    console.error('Error fetching notice detail:', error);
+                    setVo({}); // 데이터 로딩 실패 시 상태 초기화
                 });
         };
-
         loadNoticeDetailVo();
-    }, []);
+    }, [no]);
 
     // 삭제 버튼 클릭 시 이벤트 핸들러
     const handleDeleteClick = () => {
@@ -209,15 +215,76 @@ const AdminNoticeDetail = () => {
         });
     };
 
+    // 수정 버튼 클릭 시 이벤트 핸들러
+    const handleEditClick = () => {
+        setIsEditing(true); // 수정 모드로 변경
+    };
+
+    const handleEditSubmit = (event) => {
+        event.preventDefault(); // 폼의 기본 동작 방지
+
+        // 수정할 내용을 서버에 제출하는 로직 구현
+        // 예를 들어, fetch를 사용하여 서버로 데이터를 보낼 수 있습니다.
+
+        fetch(`http://127.0.0.1:8888/app/admin/notice/update`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedData), // 수정된 데이터를 서버에 보냅니다.
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            if (data.msg === "good") {
+                console.log('data:::', data);
+                alert("수정 완료");
+                navigate("/admin/notice/list");
+            } else {
+                alert("수정 실패");
+            }
+            // 서버로부터의 응답에 따른 처리
+            console.log('Update response:', data);
+        });
+    };
+
+        // input 요소의 값이 변경될 때마다 해당 값을 상태에 업데이트
+        const handleInputChange = (event) => {
+            const { name, value } = event.target;
+            setUpdatedData({ ...updatedData, [name]: value });
+        };
+
 
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
             <div className='notice'>공지사항</div>
+                {isEditing ? (
+                    <form onSubmit={handleEditSubmit}>
+                        <input 
+                                type="text" 
+                                id='title' 
+                                name='title' 
+                                value={updatedData.title} 
+                                onChange={handleInputChange} // 값 변경 시 상태 업데이트
+                            />
+                    <div className='none2'></div>
+                    <div className="content">
+                            <textarea 
+                                name="content" 
+                                id="content" 
+                                cols="120" 
+                                rows="30" 
+                                value={updatedData.content} 
+                                onChange={handleInputChange} // 값 변경 시 상태 업데이트
+                            ></textarea>
+                        </div>
+                        <input type="submit" value="수정 완료"/>
+                    </form>
+                ) : (
                 <form>
                     <div className='input_btn'>
-                        <input type="button" value='수정'/>
-                        <input type="button" value='삭제'onClick={handleDeleteClick} />
+                        <input type="button" value='수정' onClick={handleEditClick} />
+                        <input type="button" value='삭제' onClick={handleDeleteClick} />
                     </div>
                     <div className="dropdown_head">
                         <div className="date">Date : {vo.enrollDate}</div>
@@ -229,6 +296,7 @@ const AdminNoticeDetail = () => {
                     </div>
                     <div className='list'><a href='http://localhost:3000/admin/notice/list'>목록보기</a></div>
                 </form>
+                )}
             </div>
         </StyledNoticeDetailDiv>
     );

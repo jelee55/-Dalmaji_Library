@@ -19,8 +19,8 @@ public class AdminNoticeDao {
 
 	//공지사항 목록조회
 	public List<AdminNoticeVo> list(SqlSessionTemplate sst, PageVo pvo) {
-//				List<NoticeVo> noticeVo = sst.selectList("NoticeMapper.list");
-//				return sst.selectList("NoticeMapper.list");
+//		List<NoticeVo> noticeVo = sst.selectList("NoticeMapper.list");
+//		return sst.selectList("NoticeMapper.list");
 		System.out.println("dao 호출");
 		
 		int offset = (pvo.getCurrentPage()-1) * pvo.getListLimit();   // 몇 개 건너뛸지... 

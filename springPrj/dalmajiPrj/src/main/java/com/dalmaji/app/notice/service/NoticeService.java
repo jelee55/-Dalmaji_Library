@@ -34,4 +34,9 @@ public class NoticeService {
 		return dao.detail(sst, vo);
 	}
 
+	//조회수 증가
+	public void Hit(NoticeVo vo) {
+	    dao.Hit(sst, vo);
+	}
+
 }

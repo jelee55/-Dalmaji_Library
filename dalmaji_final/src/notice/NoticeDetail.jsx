@@ -42,9 +42,26 @@ const StyledNoticeDetailDiv = styled.div`
                 display: inline;
                 margin: auto;
                 margin-bottom: 50%;
-
                 /* border: 2px solid black; */
                 /* background-color: beige; */
+
+                & > .input_btn {
+                    width: 10%;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-left: 87%;
+                    margin-bottom: 2%;
+                    /* background-color: brown; */
+
+                    & > input {
+                        border: none;
+                        background-color: white;
+                    }
+
+                    & > input:hover {
+                        color: lightblue;
+                    }
+                }
 
                     & > .dropdown_head {    
                         width: 90%;
@@ -104,18 +121,24 @@ const StyledNoticeDetailDiv = styled.div`
                         align-items: center;
                         margin-top: 30px;
                         /* background-color: yellowgreen; */
+
+                        & >  a {
+                            height: 65%;
+                            width: 10%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            border : 1px solid lightgray;
+                            border-radius: 10px;
+                        }
+
+                        & > a:hover {
+                                color: skyblue;
+                            }
                     }
 
-                    & > .list > a {
-                        height: 65%;
-                        width: 10%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        text-align: center;
-                        border : 1px solid lightgray;
-                        border-radius: 10px;
-                    }
+
                     
                 }       
 
@@ -126,10 +149,13 @@ const StyledNoticeDetailDiv = styled.div`
 `;
 
 const NoticeDetail = () => {
-    console.log("NoticeDetail 렌더링 중");
+    console.log("AdminNoticeDetail 렌더링 중");
 
+    // url에서 noticeNo 추출
     const { no } = useParams();
-    const [vo, setVo] = useState({});
+
+    // 사용할 변수 준비
+    const [vo, setVo] = useState([]);
 
     useEffect(() => {
         const loadNoticeDetailVo = () => {
@@ -142,7 +168,7 @@ const NoticeDetail = () => {
                 .then((resp) => resp.json())
                 .then((data) => {
                     console.log('data:::', data);
-                    setVo(data.vo);
+                    setVo(data);
                 })
                 .catch((error) => {
                     console.error('Error fetching notice detail:', error);
@@ -157,7 +183,7 @@ const NoticeDetail = () => {
     return (
         <StyledNoticeDetailDiv>
             <div className='notice_wrap'>
-                <div className='notice'>공지사항</div>
+            <div className='notice'>공지사항</div>
                 <form>
                     <div className="dropdown_head">
                         <div className="date">Date : {vo.enrollDate}</div>
