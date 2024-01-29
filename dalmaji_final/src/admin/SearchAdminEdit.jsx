@@ -166,9 +166,9 @@ const StyledTableDiv = styled.div`
 const SearchAdminEdit = () => {
     console.log("SearchAdminEdit render!!!");
 
+    // const vo = location.state.vo;
     const location = useLocation();
 
-    // const vo = location.state.vo;
     const [vo , setVo] = useState(location.state.vo);
     const [fileObj,setFileObj] = useState();
     const [previewImage, setPreviewImage] = useState(null);
@@ -186,7 +186,6 @@ const SearchAdminEdit = () => {
 
     // 이미지 미리보기 생성
     useEffect (() =>{
-
     
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -196,6 +195,9 @@ const SearchAdminEdit = () => {
         reader.readAsDataURL(fileObj);
     }
 }, [fileObj]);
+
+    
+
 
     // 사용할 변수 준비
     // const [vo, setVo] = useState([]);
@@ -221,34 +223,48 @@ const SearchAdminEdit = () => {
         })
     };
 
-    useEffect(() => {
-        const loadBookDetailVo = () => {
-            fetch(`http://127.0.0.1:8888/app/admin/edit`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body : JSON.stringify(selectedBookNo)
-            })
-                .then(resp => resp.json())
-                .then((data) => {
-                    console.log('data:::', data);
-                    setVo(data.vo);
-                    setBookVo(data.bookVo);
-                });
-        }
-        loadBookDetailVo();
-    }, [selectedBookNo.bookNo])
+    // useEffect(() => {
+    // //     const loadBookDetailVo = () => {
+    //         fetch(`http://127.0.0.1:8888/app/admin/edit`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body : JSON.stringify(selectedBookNo)
+    //         })
+    //             .then(resp => resp.json())
+    //             .then((data) => {
+    //                 console.log('data:::', data);
+    //                 setVo(data.vo);
+    //                 setBookVo(data.bookVo);
+    //             });
+    //     }
+    //     loadBookDetailVo();
+    // }, [selectedBookNo.bookNo])
 
 
     // 목록버튼 클릭시 돌아가기
     const navigate = useNavigate();
 
    // handleSubmit 함수 정의
-   const handleSubmit = (event) => {
-    event.preventDefault();
-    // ...
-};
+    // useEffect(()=>{
+        const handleSubmit = (event) => {
+            event.preventDefault();
+            fetch(`http://127.0.0.1:8888/app/admin/edit`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify(vo)
+            })
+            .then(resp => resp.json())
+            .then((data) => {
+                console.log('data :::' , data);
+                // setVo(data.vo);
+                // setBookVo(data.bookVo);
+            });
+        };
+    // },[])
     return (
         <StyledAdminEditDiv>
             <div></div>

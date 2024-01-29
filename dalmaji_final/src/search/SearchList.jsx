@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledSearchListDiv = styled.div`
@@ -108,6 +108,10 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     const [totalPages, setTotalPages] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", location.state.searchResults);
 
 
     // const handleCategoryClick = (category) => {
