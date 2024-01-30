@@ -33,6 +33,8 @@ const StyledDetailListDiv = styled.div`
     }
   
 }
+
+
 & > div {
   display: flex;
   align-items: center center;
@@ -45,33 +47,39 @@ const StyledDetailListDiv = styled.div`
 }
 
 & > form {
-    width: 35%;  /* 화면의 45%로 설정 */
+    width: 65%;  /* 화면의 45%로 설정 */
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin-top: none;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    background-color: #f8f4ec;
      
     & > div {
-        width: 100%;
+        width: 80%;
         height: 25%;
         margin-top: none;
+        margin-left: 20%;
         padding: 0%;
-        
+        /* display: flex;
+        flex-direction: column;
+        align-items: center; */
         .title,
         .author,
         .company {
           margin-top: 10%;
           margin-bottom: 5px;
-          font-size: 20px;
+          font-size: 30px;
           /* font: bold; */
-          color: red;
+          color: #2f2f49;
           
         }
         
         input {
           
-            width: 100%;
+            width: 75%;
             height: 50px;
             border-radius: 10px;
           }
@@ -80,16 +88,15 @@ const StyledDetailListDiv = styled.div`
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center center;
+        justify-content: center;
         margin-top: 10px;
         margin-left: 30%;
         
-        input[type="submit"],
-        input[type="reset"] {
-          
-          width: 20%;
+        input[type="submit"] {
+          width: 30%;
           height: 40px;
-          margin-top: 10px;
+          margin-top: 50px;
+          margin-right: 40%;
           background-color: #2f2f49;
           color: white
         }
@@ -182,41 +189,41 @@ const SearchDetailList = () => {
     
       {/* <div className='form'> */}
       <form onSubmit={handleSearch}>
-        <div className='search_input'>
-          <div className="title">제목</div>
-          <div>
-            <input
-              type="text"
-              name="title"
-              value={searchValues.title}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="author">작성자</div>                                           
-          <div>
-            <input
-              type="text"
-              name="author"
-              value={searchValues.author}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="company">출판사</div>
-          <div>
-            <input
-              type="text"
-              name="company"
-              value={searchValues.company}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className='click'>
-            <input type="submit" value="검색" title="검색" className="searchB" />
-            <input type="reset" value="다시쓰기" title="다시쓰기" />
-          </div>
-        </div>
+            <div className='search_input'>
+              <div className="title"><b>제목</b></div>
+              <div>
+                <input
+                  type="text"
+                  name="title"
+                  value={searchValues.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="author"><b>작성자</b></div>                                           
+              <div>
+                <input
+                  type="text"
+                  name="author"
+                  value={searchValues.author}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="company"><b>출판사</b></div>
+              <div>
+                <input
+                  type="text"
+                  name="company"
+                  value={searchValues.company}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className='click'>
+                <input type="submit" value="검색" title="검색" className="searchB" />
+                {/* <input type="reset" value="다시쓰기" title="다시쓰기" /> */}
+              </div>
+            </div>
       </form>
-    
+      {/* </div> */}
       
     </StyledDetailListDiv>
   );

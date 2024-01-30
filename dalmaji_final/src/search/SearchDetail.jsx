@@ -184,7 +184,7 @@ const SearchDetail = () => {
     const selectedBookNo = useParams();
 
     // 사용할 변수 준비
-    const [vo, setVo] = useState([]);
+    const [vo, setVo] = useState({});
     const [borrowVo, setBorrowVo] = useState([]);
     const [change, setChange] = useState('');
     // const [isAdmin, setIsAdmin] = useState
@@ -299,7 +299,7 @@ const SearchDetail = () => {
         })
     }
     const deleteBook = () => {
-        if(borrowVo.bookState === "대출중"){
+        if(vo.bookState === "대출중"){
             alert('현재 대출중인 도서입니다.');
             return;
         } else {

@@ -168,7 +168,6 @@ const SearchAdminEdit = () => {
 
     // const vo = location.state.vo;
     const location = useLocation();
-
     const [vo , setVo] = useState(location.state.vo);
     const [fileObj,setFileObj] = useState();
     const [previewImage, setPreviewImage] = useState(null);
@@ -186,22 +185,21 @@ const SearchAdminEdit = () => {
 
     // 이미지 미리보기 생성
     useEffect (() =>{
-    
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        setPreviewImage(reader.result);
-    };
-    if(fileObj){
-        reader.readAsDataURL(fileObj);
-    }
-}, [fileObj]);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewImage(reader.result);
+        };
+        if(fileObj){
+            reader.readAsDataURL(fileObj);
+        }
+    }, [fileObj]);
 
     
 
 
     // 사용할 변수 준비
     // const [vo, setVo] = useState([]);
-    const [bookVo, setBookVo] = useState([]);
+    const [bookVo, setBookVo] = useState({});
     const [formData, setFormData] = useState({
         title: '',
         author: '',
@@ -209,6 +207,31 @@ const SearchAdminEdit = () => {
         publisherYear: '',
         fileObj: '',
     });
+
+
+    // const handleImageUpload = async (file) => {
+    //     try {
+    //         const formData = new FormData();
+    //         formData.append('file', file);
+
+    //         const response = await fetch('http://127.0.0.1:8888/app/admin/uploadImage', {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
+
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setVo({
+    //                 ...vo,
+    //                 bookImg: data.imagePath,
+    //             });
+    //         } else {
+    //             console.error('Image upload failed');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error uploading image:', error);
+    //     }
+    // };
 
     // handleChangeInput 함수 정의
     const handleChangeInput = (e) => {
@@ -221,6 +244,7 @@ const SearchAdminEdit = () => {
             ...vo,
             [name] : value,
         })
+        console.log("vo ::: ", vo);
     };
 
     // useEffect(() => {
@@ -246,9 +270,11 @@ const SearchAdminEdit = () => {
     // 목록버튼 클릭시 돌아가기
     const navigate = useNavigate();
 
+    
    // handleSubmit 함수 정의
     // useEffect(()=>{
         const handleSubmit = (event) => {
+            console.log("핸들서브밋 실행됨!!!!!!!!!!!!!!!!!!1");
             event.preventDefault();
             fetch(`http://127.0.0.1:8888/app/admin/edit`, {
                 method: "POST",
@@ -259,9 +285,12 @@ const SearchAdminEdit = () => {
             })
             .then(resp => resp.json())
             .then((data) => {
-                console.log('data :::' , data);
-                // setVo(data.vo);
-                // setBookVo(data.bookVo);
+                if(data.msg === 'good'){
+                    alert("수정이 완료되었습니다.")
+                    navigate('/search/list')
+                } else {
+                    alert("수정이 실패했습니다..");
+                }
             });
         };
     // },[])
@@ -274,7 +303,7 @@ const SearchAdminEdit = () => {
                     <div>
                         <div>
                             <img src={vo.bookImg} alt={vo.title} />
-                            <button className='btnImg1'>이미지 첨부</button>
+                            <button type='button' className='btnImg1'>이미지 첨부</button>
                             {/* {previewImage && <img src={previewImage} alt="Preview" style={{ width: '100px', height: '100px' }} />}
                             <input type="file" multiple name='f'onChange={handleChangeFile}/> */}
                         </div>

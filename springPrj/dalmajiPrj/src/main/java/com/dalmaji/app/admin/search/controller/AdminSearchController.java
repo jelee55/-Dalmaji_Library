@@ -104,7 +104,8 @@ public class AdminSearchController {
 		
 		//수정하기
 		@PostMapping("edit")
-		public Map<String, String> edit(@RequestBody BookVo vo, HttpSession session) {
+		public Map<String, String> edit(@RequestBody BookVo vo) {
+			
 //			System.out.println("bookNo ::: " + bookNo);
 			Map<String, String> map = new HashMap<String, String>();
 			System.out.println("controller수정" + vo);

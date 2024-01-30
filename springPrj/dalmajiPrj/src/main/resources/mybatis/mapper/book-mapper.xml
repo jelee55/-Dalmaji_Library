@@ -136,6 +136,7 @@
 				, AUTHOR = #{author} 
 				, COMPANY = #{company} 
 				, BOOK_IMG = #{bookImg}
+				, PUBLISHER_YEAR = #{publisherYear}
 		WHERE BOOK_NO = #{bookNo}
 	</update>
 
