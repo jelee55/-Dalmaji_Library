@@ -147,8 +147,8 @@ const AdminMyPage = () => {
     return (
         <StyledAdminBorrowListDiv>
             <div></div>
+            <div></div>
             <div><h1>유저 대출/반납 기록</h1></div>
-            <div>검색기능 구현한다면.....</div>
             <div>
                 <table>
                     <thead>
