@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import MultipleRows from './MultipleRows';
 
 const StyledHomeMainDiv = styled.div`
     width: 100%;
@@ -39,12 +40,16 @@ const StyledSecondMainDiv = styled.div`
     height: 100%;
     display: grid;
     place-items: center center;
-    grid-template-columns: 1.5fr 8fr 1.5fr;
-    & > div > div > img {
-        width: 850px;
+    margin: 0;
+    padding: 0;
+    & > h2 {
+        margin-top: 20px;
+    }
+    & > div:nth-child(2) {
+        width: 1000px;
         height: 310px;
         display: block;
-        margin: auto;
+        margin-bottom: 150px;
     }
 `;
 
@@ -76,12 +81,8 @@ const HomeMain = () => {
                 <div></div>
             </StyledFirstMainDiv>
             <StyledSecondMainDiv>
-                <div></div>
-                <div>
-                    <div><img src="/images/home/notice_1.png" alt="홈메인 두번째사진" /></div>
-                    <div><img src="/images/home/newBook_1.png" alt="홈메인 세번째사진" /></div>
-                </div>
-                <div></div>
+                <h2>달맞이 사서 추천 도서</h2>
+                <MultipleRows />
             </StyledSecondMainDiv>
         </StyledHomeMainDiv>
     );
