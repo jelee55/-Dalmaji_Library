@@ -100,7 +100,7 @@ const StyledDetailListDiv = styled.div`
     `;
 
 const SearchDetailList = () => {
-  const [bookVoList, setBookVoList] = useState([]);
+  // const [bookVoList, setBookVoList] = useState([]);
   // const [searchResults, setSearchResults] = useState([]);
   const [searchValues, setSearchValues] = useState({
     title: '',
@@ -111,7 +111,9 @@ const SearchDetailList = () => {
   const navigate = useNavigate();
 
   // const loadBookVoList = () => {
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
+
     console.log('searchValues',searchValues);
     fetch('http://127.0.0.1:8888/app/search/detaillist', {
       method: "POST",
@@ -127,8 +129,8 @@ const SearchDetailList = () => {
         return resp.json();
       })
       .then((data) => {
-        console.log("검색결과data ::: " , data);
-        setBookVoList(data);
+        // console.log("검색결과data ::: " , data);
+        // setBookVoList(data);
 
         if (data.length > 0) {
           // console.log('이동할 경로:', '/search/list');
@@ -186,7 +188,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="title"
-              // value={searchValues.title}
+              value={searchValues.title}
               onChange={handleInputChange}
             />
           </div>
@@ -195,7 +197,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="author"
-              // value={searchValues.author}
+              value={searchValues.author}
               onChange={handleInputChange}
             />
           </div>
@@ -204,7 +206,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="company"
-              // value={searchValues.company}
+              value={searchValues.company}
               onChange={handleInputChange}
             />
           </div>

@@ -101,23 +101,27 @@
 			,PUBLISHER_YEAR
 			,BOOK_IMG
 		FROM BOOK_LIST
-		WHERE 
+<!-- 		WHERE 
 			TITLE LIKE '%' || #{title} || '%'
-<!-- 		AUTHOR LIKE '%' || #{author} || '%' OR
-		COMPANY LIKE '%' || #{company} || '%' -->
-
-<!-- 		 WHERE -->
-<!-- 		        <if test="title != null and title != ''"> -->
-<!-- 		            TITLE LIKE '%' || #{title} || '%' -->
-<!-- 		        </if> -->
-<!-- 		        <if test="author != null and author != ''"> -->
-<!-- 		            <if test="title != null and title != ''"> OR </if> -->
-<!-- 		            AUTHOR LIKE '%' || #{author} || '%' -->
-<!-- 		        </if> -->
-<!-- 		        <if test="company != null and company != ''"> -->
-<!-- 		            <if test="title != null and title != '' or author != null and author != ''"> OR </if> -->
-<!-- 		            COMPANY LIKE '%' || #{company} || '%' -->
-<!-- 		        </if> -->
+			AUTHOR LIKE '%' || #{author} || '%' OR
+			COMPANY LIKE '%' || #{company} || '%'
+		 -->
+		WHERE
+		    <if test="title != null and title != ''">
+		        TITLE LIKE '%' || #{title} || '%'
+		    </if>
+		    <if test="author != null and author != ''">
+		        <if test="title != null and title != ''"> 
+		        	OR 
+		        </if>
+		        AUTHOR LIKE '%' || #{author} || '%'
+		    </if>
+		    <if test="company != null and company != ''">
+		        <if test="title != null and title != '' or author != null and author != ''"> 
+		        	OR 
+		        </if>
+		        COMPANY LIKE '%' || #{company} || '%'
+		    </if>
 	</select>
 
 	<delete id="delete" parameterType="String">

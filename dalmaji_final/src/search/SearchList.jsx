@@ -111,7 +111,6 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     const navigate = useNavigate();
 
     // const searchVoList = location.state.bookVoList;
-    console.log("서치리스트 검색결과 ::: ", location.state.bookVoList);
 
     const loadCateList = (bookCateNo) => {
         fetch("http://127.0.0.1:8888/app/search/listByBookCate/" + bookCateNo)
@@ -120,8 +119,11 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
             setCurrentPage(1);
             setBookVoList(data.voList);
             setTotalPages(data.pvo.maxPage);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
         });
-    }
+    };
 
     // useEffect(() => {
     //     loadCateList();
@@ -132,16 +134,14 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
             .then((resp) => resp.json())
             .then((data) => {
                 setBookVoList(data.voList);
+                setTotalPages(data.pvo.maxPage);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
     };
 
-    useEffect(() => {
-        console.log('useEffect 호출됨');
-        loadBookVoList();
-    }, []);
+ 
 
     const loadBookVoListTwo = (page) => {
         const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
@@ -166,13 +166,29 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
         setCurrentPage(page);
     };
 
-    useEffect(() => {
-        loadBookVoListTwo(currentPage);
-    }, [currentPage, selectedCategory]);
 
     useEffect(() => {
-        console.log('bookVoList', bookVoList);
-    }, [bookVoList]);
+        if (location.state && location.state.bookVoList) {
+            setBookVoList(location.state.bookVoList);
+            setTotalPages(1); // 검색 결과는 하나의 페이지로 간주
+            setCurrentPage(1);
+            console.log('useEffect 호출됨');
+        } else {
+            loadBookVoList();
+        }
+    }, [location.state, selectedCategory]);
+
+    useEffect(() => {
+        if (!location.state || !location.state.bookVoList) {
+            // 검색 결과가 없는 경우에만 loadBookVoListTwo 호출
+            // loadBookVoListTwo(currentPage);
+            loadBookVoList();
+          }
+    }, [currentPage, selectedCategory]);
+
+    // useEffect(() => {
+    //     console.log('bookVoList', bookVoList);
+    // }, [bookVoList]);
 
 
 
