@@ -101,7 +101,7 @@ const StyledDetailListDiv = styled.div`
 
 const SearchDetailList = () => {
   const [bookVoList, setBookVoList] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [searchValues, setSearchValues] = useState({
     title: '',
     author: '',
@@ -110,18 +110,46 @@ const SearchDetailList = () => {
 
   const navigate = useNavigate();
 
-  const loadBookVoList = () => {
-    fetch('http://127.0.0.1:8888/app/search/detaillist')
-      .then((resp) => resp.json())
+  // const loadBookVoList = () => {
+  const handleSearch = () => {
+    console.log('searchValues',searchValues);
+    fetch('http://127.0.0.1:8888/app/search/detaillist', {
+      method: "POST",
+      headers : {
+        "content-Type": "application/json",
+      },
+      body : JSON.stringify(searchValues)
+    })
+      .then((resp) => {
+        if(!resp.ok){
+          throw new Error('HTTP error! Status: ${res.status}');
+        }
+        return resp.json();
+      })
       .then((data) => {
+        console.log("검색결과data ::: " , data);
         setBookVoList(data);
-        setSearchResults(data); // 모든 데이터로 검색 결과를 초기화합니다.
+
+        if (data.length > 0) {
+          // console.log('이동할 경로:', '/search/list');
+          navigate('/search/list', { 
+            state: { 
+              bookVoList: data, 
+            } 
+          });
+        } else {
+          alert('검색 결과가 없습니다.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetxhing data:',error);
+     
       });
   };
 
-  useEffect(() => {
-    loadBookVoList();
-  }, []);
+  // useEffect(() => {
+  //   handleSearch();
+  // }, []);
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
@@ -131,33 +159,18 @@ const SearchDetailList = () => {
     });
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    // 검색 기능을 구현하세요
-    console.log('검색:', searchValues);
-
-
     // 검색 결과가 있을 때만 SearchList 페이지로 이동
-    // const searchResults = bookVoList.filter((vo) => {
+    // const searchResults = bookVoList.filter((data) => {
     //   return (
-    //     (vo.title && vo.title.includes(searchValues.title)) ||
-    //     (vo.author && vo.author.includes(searchValues.author)) ||
-    //     (vo.company && vo.company.includes(searchValues.company))
+    //     (data.title && data.title.includes(searchValues.title)) ||
+    //     (data.author && data.author.includes(searchValues.author)) ||
+    //     (data.company && data.company.includes(searchValues.company))
     //   );
     // });
 
-    console.log('검색 결과:', searchResults);
     
 
-    if (searchResults.length > 0) {
-      console.log('이동할 경로:', '/search/list');
-      navigate('/search/list', { state: { searchResults: searchResults } });
-    } else {
-      // 검색 결과가 없으면 알림 띄우기
-      alert('검색 결과가 없습니다.');
-    }
-  };
+  // };
 
   return (
     <StyledDetailListDiv>
@@ -173,7 +186,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="title"
-              value={searchValues.title}
+              // value={searchValues.title}
               onChange={handleInputChange}
             />
           </div>
@@ -182,7 +195,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="author"
-              value={searchValues.author}
+              // value={searchValues.author}
               onChange={handleInputChange}
             />
           </div>
@@ -191,7 +204,7 @@ const SearchDetailList = () => {
             <input
               type="text"
               name="company"
-              value={searchValues.company}
+              // value={searchValues.company}
               onChange={handleInputChange}
             />
           </div>
