@@ -144,7 +144,12 @@ const MemberBorrowList = () => {
     useEffect( () => {
         const loadUserBorrowList = () => {
     
-            fetch(`http://127.0.0.1:8888/member/borrowList?memberNo=${memberNo.memberNo}`)
+            fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?memberNo=${memberNo.memberNo}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then( resp => resp.json() )
             .then( (data) => {
                 console.log('data::', data);
