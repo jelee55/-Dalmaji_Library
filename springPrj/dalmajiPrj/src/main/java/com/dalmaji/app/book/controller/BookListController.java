@@ -87,9 +87,9 @@ public class BookListController {
 	// 검색(게시글 목록 조회)
     @PostMapping("detaillist")
     public List<BookVo> detail(@RequestBody SearchBookDto searchBookDto) {
-        System.out.println("searchBookDto@@@@@@" + searchBookDto);
+//        System.out.println("searchBookDto@@@@@@" + searchBookDto);
         List<BookVo> bookVoList = service.detail(searchBookDto);
-        System.out.println("searchBookDto ::: " + searchBookDto);
+//        System.out.println("searchBookDto ::: " + searchBookDto);
 //        List<BookVo> bookVoList = null;
 //        model.addAttribute("bookVoList", bookVoList);
         return bookVoList;
