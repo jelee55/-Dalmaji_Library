@@ -26,9 +26,15 @@ public class AdminNoticeService {
 		}
 
 		//공지사항 목록조회
-		public List<AdminNoticeVo> list(PageVo pvo) {
-			return dao.list(sst, pvo);
+//		public List<AdminNoticeVo> list(PageVo pvo) {
+//			return dao.list(sst, pvo);
+//		}
+		
+		//공지시항 목록조회 + 검색
+		public List<AdminNoticeVo> search(String keyword) {
+			return dao.list(sst);
 		}
+
 		
 		//총 게시글 수 가져오는 메소드
 		public int getTotalCount() {
@@ -50,6 +56,7 @@ public class AdminNoticeService {
 		public int edit(AdminNoticeVo vo) {
 			return dao.edit(sst, vo);
 		}
+
 //
 //		//검색기능 (주어진 키워드를 기준으로 검색을 수행했을 때 검색 결과의 총 개수를 반환)
 //		public int getSearchCount(String keyword) {

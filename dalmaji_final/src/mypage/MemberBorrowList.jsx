@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import styled from 'styled-components';
@@ -130,6 +130,7 @@ const StyledModalDiv = styled.div`
 const MemberBorrowList = () => {
 
     console.log("MemberBorrowMypage render ~~~~");
+    
 
     //사용할 변수 준비
     const memberNo = useParams();
@@ -187,6 +188,32 @@ const MemberBorrowList = () => {
         }))
         ;
     }
+
+    // //내정보관리
+    // const MypageList = () => {
+    //     console.log("MypageList 렌더링 중");
+
+    //     // 사용자 정보를 가져오기 위한 식별자, 예를 들어 회원 번호 또는 아이디
+    //     const { MemberNo } = useParams();
+    //     const [ vo, setVo ] = useState;({});
+
+
+    //     fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?memberNo=${memberNo.memberNo}`, {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //     })
+    //     .then((resp) => resp.json())
+    //     .then((data) => {
+    //         console.log('data:::', data);
+    //         setVo(data); // 상세 정보 설정
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error fetching notice detail:', error);
+    //         setVo({}); // 데이터 로딩 실패 시 상태 초기화
+    //     }, [memberNo.memberNo]); // useEffect를 memberNo.memberNo에 의존하도록 설정합니다.
+    // };
 
     return (
         <StyledUserBorrowListDiv>
@@ -253,7 +280,8 @@ const MemberBorrowList = () => {
                     </table>
                 </div>
                 <div>3</div>
-                <div>4</div>
+                
+
                 <div>5</div>
             </StyledUserBorrowContentDiv>
             <div></div>
