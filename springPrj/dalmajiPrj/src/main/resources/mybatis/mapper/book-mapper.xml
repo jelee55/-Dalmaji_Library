@@ -92,20 +92,19 @@
 
 	<select id="detail" resultType="com.dalmaji.app.book.vo.BookVo">
 		SELECT
-		BOOK_NO
-		,BOOK_CATE_NO
-		,TITLE
-		,AUTHOR
-		,COMPANY
-		,CONT
-		,PUBLISHER_YEAR
-		,BOOK_IMG
+			BOOK_NO
+			,BOOK_CATE_NO
+			,TITLE
+			,AUTHOR
+			,COMPANY
+			,CONT
+			,PUBLISHER_YEAR
+			,BOOK_IMG
 		FROM BOOK_LIST
-		WHERE
-		TITLE
-		LIKE '%' || #{title} || '%' OR
-		AUTHOR LIKE '%' || #{author} || '%' OR
-		COMPANY LIKE '%' || #{company} || '%'
+		WHERE 
+			TITLE LIKE '%' || #{title} || '%'
+<!-- 		AUTHOR LIKE '%' || #{author} || '%' OR
+		COMPANY LIKE '%' || #{company} || '%' -->
 
 <!-- 		 WHERE -->
 <!-- 		        <if test="title != null and title != ''"> -->

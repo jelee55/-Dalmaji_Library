@@ -103,32 +103,15 @@ const StyledSearchListDiv = styled.div`
 `;
 
 const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerClickPageNumProp }) => {
+    const location = useLocation();
     const [bookVoList, setBookVoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const navigate = useNavigate();
 
-    const location = useLocation();
-
-    // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", location.state.searchResults);
-
-
-    // const handleCategoryClick = (category) => {
-    //     // 서버에서 해당 카테고리의 bookCateNo 값을 가져오는 비동기 함수
-    //     fetch('http://127.0.0.1:8888/app/search/listByBookCate/${bookCateNo}')
-    //     .then((Response) => Response.json())
-    //     .then((data) => {
-    //         const bookCateNo = data.bookCateNo;
-    //         setSelectedCategory(category);
-    //         setCurrentPage(1);
-    //         //수정: loadBookVoListTwo 함수 호출 시 BookCateNo 전달
-    //         loadBookVoListTwo(1, bookCateNo);
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching category data:', error);
-    //     })
-    // };
+    // const searchVoList = location.state.bookVoList;
+    console.log("서치리스트 검색결과 ::: ", location.state.bookVoList);
 
     const loadCateList = (bookCateNo) => {
         fetch("http://127.0.0.1:8888/app/search/listByBookCate/" + bookCateNo)
@@ -143,23 +126,6 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     // useEffect(() => {
     //     loadCateList();
     // },[])
-    
-    // const isCategoryClickable = (bookCateNo) => {
-        // switch (selectedCategory) {
-        //     case '소설':
-        //         return setBookCateNo === 1;
-        //     case '인문':
-        //         return setBookCateNo(2);
-        //     case '경제/경영':
-        //         return setBookCateNo(3);
-        //     case '역사/문화':
-        //         return setBookCateNo(4);
-        //     case '여행':
-        //         return setBookCateNo(5);
-        //     default:
-        //         return true;
-        // }
-    // };
 
     const loadBookVoList = () => {
         fetch('http://127.0.0.1:8888/app/search/list')
@@ -189,12 +155,13 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
             .then((data) => {
                 setBookVoList(data.voList);
                 setTotalPages(data.pvo.maxPage);
+                console.log("data.voList: ",data.voList);
             })
             .catch((error) => {
                 console.error('데이터를 가져오는 중 오류 발생:', error);
             });
     };
-
+   
     const handlerClickPageNum = (page) => {
         setCurrentPage(page);
     };
@@ -220,26 +187,6 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
             </div>
 
              <div className='ul'>
-                {/* <ul>
-                    <li>
-                        <Link to='/search/list' onClick={() => handleCategoryClick('전체', null)}>전체</Link>
-                    </li>
-                    <li>
-                        <a onClick={() => handleCategoryClick('소설',1)}>소설</a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleCategoryClick('인문', 2)}>인문</a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleCategoryClick('경제/경영', 3)}>경제/경영</a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleCategoryClick('역사/문화', 4)}>역사/문화</a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleCategoryClick('여행', 5)}>여행</a>
-                    </li>
-                </ul> */}
                 <ul>
                     <li>
                         <Link to='/search/list' onClick={() => loadCateList('전체', null)}>전체</Link>

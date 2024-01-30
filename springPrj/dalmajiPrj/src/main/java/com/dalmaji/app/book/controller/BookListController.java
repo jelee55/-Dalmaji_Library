@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dalmaji.app.book.dto.SearchBookDto;
 import com.dalmaji.app.book.service.BookService;
 import com.dalmaji.app.book.vo.BookVo;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
@@ -84,13 +85,14 @@ public class BookListController {
     
     
 	// 검색(게시글 목록 조회)
-	@GetMapping("detaillist")
-	public List<BookVo> detail(BookVo vo, Model model) {
-		System.out.println("vo@@@@@@" + vo);
-	    List<BookVo> bookVoList = service.detail(vo);
-	    model.addAttribute("bookVoList", bookVoList);
-	    return bookVoList;
-	}
-	
+    @PostMapping("detaillist")
+    public List<BookVo> detail(@RequestBody SearchBookDto searchBookDto) {
+        System.out.println("searchBookDto@@@@@@" + searchBookDto);
+        List<BookVo> bookVoList = service.detail(searchBookDto);
+        System.out.println("searchBookDto ::: " + searchBookDto);
+//        List<BookVo> bookVoList = null;
+//        model.addAttribute("bookVoList", bookVoList);
+        return bookVoList;
+    }
 
 }

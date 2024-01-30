@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.dalmaji.app.book.dao.BookDao;
+import com.dalmaji.app.book.dto.SearchBookDto;
 import com.dalmaji.app.book.vo.BookVo;
 import com.dalmaji.app.page.vo.PageVo;
 
@@ -50,8 +51,10 @@ public class BookService {
 
 	
 	//검색(목록)
-	public List<BookVo> detail(BookVo vo) {
-	    return dao.detail(sst, vo);
+	public List<BookVo> detail(SearchBookDto searchBookDto) {
+		List<BookVo> voList = dao.detail(sst, searchBookDto);
+		System.out.println("voList ::: " + voList);
+	    return voList;
 	}
 	
 	

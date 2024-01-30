@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.dalmaji.app.book.dto.SearchBookDto;
 import com.dalmaji.app.book.vo.BookVo;
 import com.dalmaji.app.borrow.vo.AdminBorrowVo;
 import com.dalmaji.app.page.vo.PageVo;
@@ -50,8 +51,10 @@ public class BookDao {
 	}
 
 	//검색(목록 상세 조히)
-	public List<BookVo> detail(SqlSessionTemplate sst, BookVo vo) {
-	    return sst.selectList("BookMapper.detail", vo);
+	public List<BookVo> detail(SqlSessionTemplate sst, SearchBookDto searchBookDto) {
+		List<BookVo> voList = sst.selectList("BookMapper.detail", searchBookDto);
+		System.out.println("voList ::: " + voList);
+	    return voList;
 	}
 
 
