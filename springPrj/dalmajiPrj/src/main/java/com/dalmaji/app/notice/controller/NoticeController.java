@@ -66,14 +66,15 @@ public class NoticeController {
 	
 	// 공지사항 상세조회
 	@GetMapping("detail")
-	public String detail(NoticeVo vo) {
+	public NoticeVo detail(NoticeVo vo) {
+		
 	    // 조회수 증가
 	    service.hit(vo);
 	    
 	    // 상세 정보 가져오기
 	    NoticeVo noticeVo = service.detail(vo);
 	    
-	    return "notice/detail";
+	    return noticeVo;
 	}
 	
 
