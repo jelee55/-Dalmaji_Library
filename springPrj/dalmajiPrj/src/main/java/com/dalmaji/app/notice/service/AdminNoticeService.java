@@ -31,9 +31,9 @@ public class AdminNoticeService {
 //		}
 		
 		//공지시항 목록조회 + 검색
-		public List<AdminNoticeVo> search(String keyword) {
-			return dao.list(sst);
-		}
+//		public List<AdminNoticeVo> search(String keyword) {
+//			return dao.list(sst);
+//		}
 
 		
 		//총 게시글 수 가져오는 메소드
