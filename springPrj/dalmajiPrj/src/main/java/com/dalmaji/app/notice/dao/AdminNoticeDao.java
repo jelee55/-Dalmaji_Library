@@ -70,21 +70,6 @@ public class AdminNoticeDao {
 		return Integer.parseInt(sst.selectOne("AdminNoticeMapper.count"));
 	}
 
-//	public int getSearchCount(SqlSessionTemplate sst, String keyword) {
-//	    return sst.selectOne("AdminNoticeMapper.searchCount", keyword);
-//	}
-//
-//	public List<AdminNoticeVo> search(SqlSessionTemplate sst, String keyword, PageVo pvo) {
-//	    int offset = (pvo.getCurrentPage() - 1) * pvo.getListLimit();
-//	    int limit = pvo.getListLimit();
-//	    RowBounds rb = new RowBounds(offset, limit);
-//
-//	    Map<String, Object> params = new HashMap<>();
-//	    params.put("keyword", keyword);
-//	    params.put("pvo", pvo);
-//
-//	    return sst.selectList("AdminNoticeMapper.search", params, rb);
-//	}
 
 
 }

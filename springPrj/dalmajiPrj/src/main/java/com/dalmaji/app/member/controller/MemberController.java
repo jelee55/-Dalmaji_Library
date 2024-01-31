@@ -74,41 +74,5 @@ public class MemberController {
 	}
 	
 	
-	//회원 정보 수정
-//	@PostMapping("edit")
-//	public String edit(@RequestBody MemberVo vo) throws Exception {
-//		int result = service.edit(vo);
-//		
-//		if(result != 1) {
-//			throw new Exception();
-//		}
-//		
-//		return "redirect:/home";
-//	}
 	
-	//회원 탈퇴
-//	@GetMapping("quit")                                       
-//	public String quit(MemberVo vo, HttpSession session) throws Exception {
-//		
-//		int result = service.quit(vo);
-//		
-//		if(result != 1) {
-//			throw new Exception();
-//		}
-//		
-//		session.removeAttribute("loginMember");
-//		session.setAttribute("alerMsg", "회원 탈퇴 완료");
-//		
-//		return "redirect:/home";
-//	}
-	
-
-	
-//	//로그아웃
-//	@GetMapping("logout")
-//	public String logout(HttpSession session) {
-//		session.invalidate();
-//		return "redirect:/home";
-//	}
-
 } //class
