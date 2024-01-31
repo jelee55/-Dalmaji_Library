@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faBook } from "@fortawesome/free-solid-svg-icons";
-// import { faLock } from "@fortawesome/free-solid-svg-icons";
-// import { faList } from "@fortawesome/free-solid-svg-icons";
-// import Modal from "react-modal";
-
 
 const StyledAdminWriteDiv = styled.div`
     width: 100%;
@@ -162,63 +156,6 @@ const StyledTableDiv = styled.div`
 `;
 
 
-
-// const StyledModalDiv = styled.div`
-//     z-index: 100;
-//     width: 500px;
-//     height: 400px;
-//     position: fixed;
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     margin: auto;
-//     background-color: white;
-//     box-shadow: 3px 3px 6px 2px rgba(169, 169, 169, 0.5);
-//     border-radius: 20px;
-//     display: grid;
-//     grid-template-rows: 1.5fr 1fr 1fr 1fr;
-//     place-items: center center;
-//     & > div:first-child {
-//         width: 100%;
-//         height: 100%;
-//         text-align: center;
-//         background-color: #EFEFF1;
-//         padding-top: 40px;
-//         border-top-left-radius: 20px;
-//         border-top-right-radius: 20px;
-//     }
-//     & > div:nth-child(2) {
-//         font-size: 25px;
-//     }
-//     & > input {
-//         width: 200px;
-//         height: 40px;
-//         font-size: 25px;
-//         padding-left: 7px;
-//     }
-//     & > input:focus {
-//         background-color: #7b7b7b;
-//         color: white;
-//     }
-//     & > div:nth-child(4) {
-//         display: flex;
-//         gap: 5px;
-//         & > button {
-//             width: 50px;
-//             height: 30px;
-//             border: none;
-//             border-radius: 7px;
-//             background-color: #275FBC;
-//             color: white;
-//             cursor: pointer;
-//         }
-//         & > button:hover {
-//             background-color: #E72900;
-//         }
-//     }
-// `;
-
 const SearchAdminWrite = () => {
     const [title, setTitle] = useState();
     const [fileObj,setFileObj] = useState();
@@ -289,13 +226,7 @@ const SearchAdminWrite = () => {
                     <div >
                         <div>
                             <input type="file" multiple name='f' onChange={handleChangeFile}/>
-                            {/* {selectedFile && (
-                                <img
-                                    src={URL.createObjectURL(selectedFile)}
-                                    alt="File Preview"
-                                    style={{ width: '100px', height: '100px' }}
-                                />
-                            )} */}
+                       
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
@@ -326,34 +257,7 @@ const SearchAdminWrite = () => {
                         </div>
                     </div>
                 </form>
-                {/* <StyledTableDiv>
-                    <div>소장정보</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>NO.</th>
-                                <th>소장위치</th>
-                                <th>도서상태</th>
-                                <th>반납예정일</th>
-                            </tr> 
-                        </thead>
-                        <tbody> 
-                            <tr>
-                                <td>{vo.bookNo}</td>
-                                <td>{vo.roomName}</td>
-                                <td>{borrowVo.bookState}</td>
-                                {
-                                    borrowVo === undefined
-                                    ?
-                                    <td></td>
-                                    :
-                                    <td>{borrowVo.dueDate}</td>
-                                    
-                                }
-                            </tr>
-                        </tbody>
-                    </table>
-                </StyledTableDiv> */}
+          
                 <div></div>
             </StyledWriteContentDiv>
             <div></div>
