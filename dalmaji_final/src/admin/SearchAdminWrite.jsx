@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBook } from "@fortawesome/free-solid-svg-icons";
+// import { faLock } from "@fortawesome/free-solid-svg-icons";
+// import { faList } from "@fortawesome/free-solid-svg-icons";
+// import Modal from "react-modal";
+
 
 const StyledAdminWriteDiv = styled.div`
     width: 100%;
@@ -156,6 +162,7 @@ const StyledTableDiv = styled.div`
 `;
 
 
+
 const SearchAdminWrite = () => {
     const [title, setTitle] = useState();
     const [fileObj,setFileObj] = useState();
@@ -226,7 +233,13 @@ const SearchAdminWrite = () => {
                     <div >
                         <div>
                             <input type="file" multiple name='f' onChange={handleChangeFile}/>
-                       
+                            {/* {selectedFile && (
+                                <img
+                                    src={URL.createObjectURL(selectedFile)}
+                                    alt="File Preview"
+                                    style={{ width: '100px', height: '100px' }}
+                                />
+                            )} */}
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>
@@ -257,7 +270,7 @@ const SearchAdminWrite = () => {
                         </div>
                     </div>
                 </form>
-          
+               
                 <div></div>
             </StyledWriteContentDiv>
             <div></div>
