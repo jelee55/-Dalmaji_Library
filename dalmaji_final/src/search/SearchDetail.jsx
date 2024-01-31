@@ -273,12 +273,15 @@ const SearchDetail = () => {
             console.log('mvo.borrowPwd:: ' + mvo.borrowPwd);
             console.log('sessionLoginMemberVo.borrowPwd:: ' + sessionLoginMemberVo.borrowPwd);
                 
+            console.log('sessionLoginMemberVo.oNo:::',sessionLoginMemberVo.oNo);
             if(data.status === "good"){
                 //대출 성공시 추가적인 로직
                 console.log("대출 성공!!!");
                 alert("대출 완료!");
             } else if(data.bookState !== "대출가능"){
                 alert("대출중인 책이라 대출이 불가능 합니다.");
+            }else if(sessionLoginMemberVo.oNo !== 1){
+                alert("대출제한이 걸린 상태입니다.");
             }else{
                 console.log("대출 실패...");
                 alert("대출비밀번호가 일치하지 않습니다.")

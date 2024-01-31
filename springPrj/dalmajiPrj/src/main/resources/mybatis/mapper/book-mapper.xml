@@ -21,14 +21,13 @@
 	
 	<select id="searchList" resultType="com.dalmaji.app.book.vo.BookVo">
 	SELECT
-	BOOK_NO
-	,BOOK_CATE_NO
-	,TITLE
-	,AUTHOR
-	,COMPANY
-	,CONT
-	,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS
-	PUBLISHER_YEAR
+		BOOK_NO
+		,BOOK_CATE_NO
+		,TITLE
+		,AUTHOR
+		,COMPANY
+		,CONT
+		,TO_CHAR(PUBLISHER_YEAR , 'YYYY"년도"') AS PUBLISHER_YEAR
 	FROM BOOK_LIST
 	WHERE BOOK_CATE_NO = #{bookCateNo}
 	</select>

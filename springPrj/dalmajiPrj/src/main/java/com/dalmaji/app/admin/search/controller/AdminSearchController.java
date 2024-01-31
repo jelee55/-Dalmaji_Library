@@ -104,11 +104,16 @@ public class AdminSearchController {
 		
 		//수정하기
 		@PostMapping("edit")
-		public Map<String, String> edit(@RequestBody BookVo vo) {
+		public Map<String, String> edit(@RequestBody MultipartFile file, BookVo vo) throws Exception {
 			
-//			System.out.println("bookNo ::: " + bookNo);
+			if(file != null && !file.isEmpty()) {
+				String bookImg = saveFile(file);
+				vo.setBookImg(bookImg);				
+			}
+			
 			Map<String, String> map = new HashMap<String, String>();
 			System.out.println("controller수정" + vo);
+			System.out.println("file ::: " + file);
 			int result = service.edit(vo);
 			
 			if(result == 1) {
