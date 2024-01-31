@@ -102,12 +102,7 @@ public class MemberController {
 //		return "redirect:/home";
 //	}
 	
-	
-	//회원 목록 조회
-	@GetMapping("list")
-	public List<MemberVo> list() {
-		return service.list();
-	}
+
 	
 //	//로그아웃
 //	@GetMapping("logout")

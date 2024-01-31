@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import styled from 'styled-components';
@@ -79,6 +79,26 @@ const StyledUserBorrowContentDiv = styled.div`
             cursor: pointer;
         }
     }
+
+    & > .dd {
+        height: 130%;
+        /* background-color: yellow; */
+
+        & > .h1 > h1 {
+            width: 100%;
+            height: 30%;
+            border-bottom: 5px solid #4f3379;
+            /* background-color: yellow; */
+        }
+
+        & > .mypage_box {
+            width: 100%;
+            height: 80%;
+            margin-top: 50px;
+            border: 1px solid lightgray;
+            /* background-color: greenyellow; */
+        }
+    }
 `;
 
 const StyledModalDiv = styled.div`
@@ -129,16 +149,14 @@ const StyledModalDiv = styled.div`
 
 const MemberBorrowList = () => {
 
-    console.log("MemberBorrowMypage render ~~~~");
-    
-
     //사용할 변수 준비
     const memberNo = useParams();
     const [userBorrowList, setUserBorrowList] = useState([]);
     const [modal, setModal] = useState(false);
     const [bookNo, setBookNo] = useState('userBorrowList.bookNo');
-    console.log("memberNo:::", memberNo);
     const [change, setChange] = useState('');
+    console.log("memberNo:::", memberNo);
+    const [memberMypage, setMemberMypage] = useState([]); // memberMypage 상태 추가
 
     // 대출 리스트 보여주기
     useEffect( () => {
@@ -160,8 +178,6 @@ const MemberBorrowList = () => {
         }
         loadUserBorrowList();
     }, [change])
-
-    console.log('userBorrowList::: ',userBorrowList);
 
     // 반납버튼 클릭 핸들러
     const handlerClickReturn = (bookNo) => {
@@ -188,32 +204,30 @@ const MemberBorrowList = () => {
         }))
         ;
     }
-
-    // //내정보관리
-    // const MypageList = () => {
-    //     console.log("MypageList 렌더링 중");
-
-    //     // 사용자 정보를 가져오기 위한 식별자, 예를 들어 회원 번호 또는 아이디
-    //     const { MemberNo } = useParams();
-    //     const [ vo, setVo ] = useState;({});
-
-
-    //     fetch(`http://127.0.0.1:8888/app/mypage/borrow/list?memberNo=${memberNo.memberNo}`, {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //         console.log('data:::', data);
-    //         setVo(data); // 상세 정보 설정
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching notice detail:', error);
-    //         setVo({}); // 데이터 로딩 실패 시 상태 초기화
-    //     }, [memberNo.memberNo]); // useEffect를 memberNo.memberNo에 의존하도록 설정합니다.
-    // };
+    console.log('memberNo.memberNo', memberNo.memberNo);
+    // 내 정보 관리
+    useEffect(() => {
+        const loadMemberDetail = () => {
+            console.log('내정보관리 fetch 실행');
+            fetch(`http://127.0.0.1:8888/app/mypage/borrow/memberList?memberNo=${memberNo.memberNo}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                setMemberMypage(data.mlVo); // 'mlVo'로 수정
+                console.log('내정보관리 fetch data', data);
+                console.log('내정보관리 memberMypage', memberMypage);
+            })
+            .catch(error => {
+                console.error('Error fetching member detail:', error);
+                setMemberMypage({}); // 데이터 로딩 실패 시 상태 초기화
+            });
+        }
+        loadMemberDetail();
+    },[]);
 
     return (
         <StyledUserBorrowListDiv>
@@ -246,47 +260,71 @@ const MemberBorrowList = () => {
                                     </tr>
                                 )
                                 :
-                                userBorrowList && userBorrowList.map( userBorrowVo => <tr key={userBorrowList.borrowNo}>
-                                    <td>{userBorrowVo.bookNo}</td>
-                                    <td>{userBorrowVo.title}</td>
-                                    <td>{userBorrowVo.author}</td>
-                                    <td>{userBorrowVo.company}</td>
-                                    <td>{userBorrowVo.borrowDate}</td>
-                                    <td>{userBorrowVo.dueDate}</td>
-                                    <td>{userBorrowVo.overdueCount}</td>
-                                    <td>{userBorrowVo.bookState}</td>
-                                    <td>{userBorrowVo.bOption}</td>
-                                    <td>
-                                        <button value={userBorrowVo.bookNo} onClick={ () => {
-                                            
-                                            setBookNo(userBorrowVo.bookNo); setModal(!modal)}}disabled={userBorrowVo.bookState === "반납완료"}><FontAwesomeIcon icon={faSquareCheck} /> 반납하기</button>
-                                        {
-                                            modal === true
-                                            ?
-                                            <StyledModalDiv>
-                                                <div><h1>이 책을 반납하시겠습니까?</h1></div>
-                                                <div>
-                                                    <button onClick={() => {handlerClickReturn(bookNo)}}>예</button>
-                                                    <button onClick={ () => {setModal(false)} }>아니오</button>
-                                                </div>
-                                            </StyledModalDiv>
-                                            :
-                                            null
-                                        }
-                                    </td>
-                                </tr>)
+                                userBorrowList && userBorrowList.map(userBorrowVo => (
+                                    <tr key={userBorrowVo.borrowNo}>
+                                        <td>{userBorrowVo.bookNo}</td>
+                                        <td>{userBorrowVo.title}</td>
+                                        <td>{userBorrowVo.author}</td>
+                                        <td>{userBorrowVo.company}</td>
+                                        <td>{userBorrowVo.borrowDate}</td>
+                                        <td>{userBorrowVo.dueDate}</td>
+                                        <td>{userBorrowVo.overdueCount}</td>
+                                        <td>{userBorrowVo.bookState}</td>
+                                        <td>{userBorrowVo.bOption}</td>
+                                        <td>
+                                            <button 
+                                                value={userBorrowVo.bookNo} 
+                                                onClick={() => {
+                                                    setBookNo(userBorrowVo.bookNo); 
+                                                    setModal(!modal);
+                                                }}
+                                                disabled={userBorrowVo.bookState === "반납완료"}
+                                            >
+                                                <FontAwesomeIcon icon={faSquareCheck} /> 반납하기
+                                            </button>
+                                            {modal === true ? (
+                                                <StyledModalDiv>
+                                                    <div><h1>이 책을 반납하시겠습니까?</h1></div>
+                                                    <div>
+                                                        <button onClick={() => handlerClickReturn(bookNo)}>예</button>
+                                                        <button onClick={() => setModal(false)}>아니오</button>
+                                                    </div>
+                                                </StyledModalDiv>
+                                            ) : null}
+                                        </td>
+                                    </tr>
+                                ))
                             }
                         </tbody>
                     </table>
                 </div>
-                <div>3</div>
-                
-
-                <div>5</div>
+                <div></div>
+                <div className='dd'>
+                    <div className='h1'><h1>내 정보관리</h1></div>
+                    <div className='mypage_box'>
+                        {memberMypage && memberMypage.length !== 0 
+                        ? 
+                        (
+                            <div><h1>로딩 중...</h1></div>
+                        ) 
+                        : 
+                        // memberMypage && memberMypage.map(memberVo => (
+                        //     return (
+                        //         <div key={memberVo.id}>
+                        //             이름: {memberVo.name} <br />
+                        //             아이디: {memberVo.id} <br />
+                        //             휴대폰번호: {memberVo.phone} <br />
+                        //             대출비밀번호: {memberVo.borrowPwd} <br />
+                        //         </div>
+                        //     );
+                        // ))}
+                        <></>
+                        }
+                    </div>
+                </div>
             </StyledUserBorrowContentDiv>
-            <div></div>
         </StyledUserBorrowListDiv>
     );
-};
-
-export default MemberBorrowList;
+    };
+    
+    export default MemberBorrowList;

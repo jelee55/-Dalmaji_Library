@@ -49,9 +49,6 @@ public class MemberService {
 		return dao.quit(sst, vo);
 	}
 
-	//회원 목록
-	public List<MemberVo> list() {
-		return dao.list(sst);
-	}
+	
 	
 } //class
