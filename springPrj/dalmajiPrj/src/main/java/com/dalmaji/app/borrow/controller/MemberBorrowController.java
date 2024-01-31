@@ -56,7 +56,13 @@ public class MemberBorrowController {
 		return map;
 	}
 	
-	//유저 반납처리
+	/**
+	 * 유저 반납처리
+	 * 
+	 * @param bvo
+	 * @return resultMap
+	 * @throws IllegalAccessException
+	 */
 	@PostMapping("returnBook")
 	public Map<String, Object> returnBook (@RequestBody BorrowVo bvo) throws IllegalAccessException{
 		

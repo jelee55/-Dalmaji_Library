@@ -231,7 +231,7 @@ const AdminMyPage = () => {
                 null
                 }
             </div>
-            <div>빈칸</div>
+            <div></div>
         </StyledAdminBorrowListDiv>
     );
 };

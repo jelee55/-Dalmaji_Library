@@ -38,7 +38,7 @@ public class BookDetailController {
 	 * 화면구현
 	 * 
 	 * @param bookNo
-	 * @return
+	 * @return map
 	 * @throws Exception
 	 */
 	@GetMapping("detail")
@@ -69,7 +69,7 @@ public class BookDetailController {
 	 * 대출 비밀번호 일치여부 확인 & 대출완료
 	 * 
 	 * @param mvo
-	 * @return
+	 * @return map
 	 * @throws Exception
 	 */
 	@PostMapping("check")
