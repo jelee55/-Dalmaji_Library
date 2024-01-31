@@ -396,7 +396,7 @@ const SearchDetail = () => {
                         <button className='redirect' onClick={redirect}><FontAwesomeIcon icon={faList} /> 목록으로</button>
                     </div>
                 </StyledTableDiv>
-                <div>4</div>
+                <div></div>
             </StyledDetailContentDiv>
             <div></div>
         </StyledSearchDetailDiv>
