@@ -37,6 +37,8 @@ public class AdminSearchService {
 	
 	//수정하기
 		public int edit(BookVo vo) {
+			String str = vo.getBookImg().replace("C:\\JAVA_LAP\\dev\\dalmaji\\springPrj\\dalmajiPrj\\src\\main\\webapp", "http://127.0.0.1:8888/app");
+			vo.setBookImg(str);
 			
 //			String bookImg = vo.getBookImg();
 //			if(bookImg != null) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -168,40 +168,38 @@ const SearchAdminEdit = () => {
 
     // const vo = location.state.vo;
     const location = useLocation();
-
     const [vo , setVo] = useState(location.state.vo);
     const [fileObj,setFileObj] = useState();
-    const [previewImage, setPreviewImage] = useState(null);
-
-
+   
     console.log("vo :::", vo);
+    
     //url에서 bookNo 추출
     const selectedBookNo = useParams();
     console.log("selectedBookNo ::: ", selectedBookNo);
     console.log("selectedBookNo.bookNo ::: ", selectedBookNo.bookNo);
 
+
+    const imgRef = useRef();
+    const [imgFile, setImgFile] = useState();
+
     const handleChangeFile = (e) => {
-        setFileObj(e.target.files[0]);
+        // setFileObj(e.target.files[0]);
+        if(!imgRef.current.files.length){
+            //파일 선택 취소했을떄
+            return;
+        }
+
+        const file = imgRef.current.files[0];
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onloadend = () => {
+            setImgFile(fileReader.result);
+         
+        }
     };
-
-    // 이미지 미리보기 생성
-    useEffect (() =>{
-    
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        setPreviewImage(reader.result);
-    };
-    if(fileObj){
-        reader.readAsDataURL(fileObj);
-    }
-}, [fileObj]);
-
-    
-
 
     // 사용할 변수 준비
-    // const [vo, setVo] = useState([]);
-    const [bookVo, setBookVo] = useState([]);
+    const [bookVo, setBookVo] = useState({});
     const [formData, setFormData] = useState({
         title: '',
         author: '',
@@ -213,58 +211,48 @@ const SearchAdminEdit = () => {
     // handleChangeInput 함수 정의
     const handleChangeInput = (e) => {
         const { name, value } = e.target;
-        // setFormData({
-        //     ...formData,
-        //     [name]: value,
-        // });
         setVo({
             ...vo,
             [name] : value,
         })
+        console.log("vo ::: ", vo);
     };
-
-    // useEffect(() => {
-    // //     const loadBookDetailVo = () => {
-    //         fetch(`http://127.0.0.1:8888/app/admin/edit`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body : JSON.stringify(selectedBookNo)
-    //         })
-    //             .then(resp => resp.json())
-    //             .then((data) => {
-    //                 console.log('data:::', data);
-    //                 setVo(data.vo);
-    //                 setBookVo(data.bookVo);
-    //             });
-    //     }
-    //     loadBookDetailVo();
-    // }, [selectedBookNo.bookNo])
 
 
     // 목록버튼 클릭시 돌아가기
     const navigate = useNavigate();
 
+    
    // handleSubmit 함수 정의
-    // useEffect(()=>{
         const handleSubmit = (event) => {
             event.preventDefault();
-            fetch(`http://127.0.0.1:8888/app/admin/edit`, {
+            console.log("핸들서브밋 실행됨!!!!!!!!!!!!!!!!!!1");
+
+            const formData = new FormData();
+
+            formData.append("file", imgRef.current.files[0]);
+            formData.append("bookNo", vo.bookNo);
+            formData.append("title", vo.title);
+            formData.append("author", vo.author);
+            formData.append("company", vo.company);
+            formData.append("bookImg", vo.bookImg);
+            formData.append("publisherYear", vo.publisherYear);
+
+            fetch('http://127.0.0.1:8888/app/admin/edit', {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body : JSON.stringify(vo)
+                body : formData,
             })
             .then(resp => resp.json())
             .then((data) => {
-                console.log('data :::' , data);
-                // setVo(data.vo);
-                // setBookVo(data.bookVo);
+                if(data.msg === 'good'){
+                    alert("수정이 완료되었습니다.")
+                    navigate('/search/list')
+                } else {
+                    alert("수정이 실패했습니다..");
+                }
             });
         };
-    // },[])
+
     return (
         <StyledAdminEditDiv>
             <div></div>
@@ -273,10 +261,10 @@ const SearchAdminEdit = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <div>
-                            <img src={vo.bookImg} alt={vo.title} />
-                            <button className='btnImg1'>이미지 첨부</button>
-                            {/* {previewImage && <img src={previewImage} alt="Preview" style={{ width: '100px', height: '100px' }} />}
-                            <input type="file" multiple name='f'onChange={handleChangeFile}/> */}
+                            <img src={imgFile ? imgFile : vo.bookImg} alt={vo.title} />
+                            {/* <button type='button' className='btnImg1'>이미지 첨부</button> */}
+                            {/* {imgFile && <img src={imgFile} alt="Preview" style={{ width: '100px', height: '100px' }} />} */}
+                            <input type="file" name='f' id='fileInput' onChange={handleChangeFile} ref={imgRef}/>
                         </div>
                         <div className='inputContent'>
                             <div className='inptContentDiv'>

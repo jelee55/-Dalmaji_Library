@@ -181,7 +181,7 @@ const SearchList = ({ bookVoListProp, totalPagesProp, currentPageProp, handlerCl
     useEffect(() => {
         if (!location.state || !location.state.bookVoList) {
             // 검색 결과가 없는 경우에만 loadBookVoListTwo 호출
-            // loadBookVoListTwo(currentPage);
+            loadBookVoListTwo(currentPage);
             loadBookVoList();
           }
     }, [currentPage, selectedCategory]);
