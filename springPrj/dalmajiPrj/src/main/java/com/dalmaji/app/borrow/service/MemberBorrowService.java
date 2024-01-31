@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dalmaji.app.borrow.dao.MemberBorrowDao;
 import com.dalmaji.app.borrow.vo.BorrowVo;
+import com.dalmaji.app.member.vo.MemberVo;
 import com.dalmaji.app.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,11 @@ public class MemberBorrowService {
 		resultMap.put("status", "good");
 		
 		return resultMap;
+	}
+	
+	//회원 목록
+	public MemberVo memberList(String memberNo) {
+		return dao.memberList(sst, memberNo);
 	}
 
 }

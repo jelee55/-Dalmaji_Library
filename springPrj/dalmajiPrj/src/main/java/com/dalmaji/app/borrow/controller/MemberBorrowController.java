@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dalmaji.app.bookDetail.vo.BookDetailVo;
 import com.dalmaji.app.borrow.service.AdminBorrowService;
 import com.dalmaji.app.borrow.service.MemberBorrowService;
 import com.dalmaji.app.borrow.vo.BorrowVo;
@@ -70,6 +71,26 @@ public class MemberBorrowController {
 			e.printStackTrace();
 		}
 		return resultMap;
+	}
+	
+	//회원 목록 조회
+	@GetMapping("memberList")
+	public Map<String, Object> memberList(@RequestParam String memberNo)throws Exception {
+		
+		MemberVo mlVo = service.memberList(memberNo);
+		
+		if(mlVo == null) {
+			throw new Exception("못찾음...");
+		}
+		
+		// 결과를 MAP에 담아 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mlVo", mlVo);
+		
+		System.out.println("mlVo 호출 ::: " + mlVo);
+		System.out.println("memberNo 호출 ::: " + memberNo);
+		
+		return map;
 	}
 	
 }//class

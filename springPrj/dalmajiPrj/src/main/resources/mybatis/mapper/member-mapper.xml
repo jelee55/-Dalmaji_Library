@@ -37,6 +37,7 @@
 			,BORROW_PWD
 			,JOIN_DATE
 			,DEL_YN
+			,o_No
 		FROM MEMBER
 		WHERE ID = #{id} 
 		AND PWD = #{pwd}
@@ -53,8 +54,10 @@
 			,BORROW_PWD
 			,JOIN_DATE
 			,DEL_YN
+			,o_No
 		FROM MEMBER
 		WHERE DEL_YN = 'N'
+		AND MEMBER_NO = #{memberNo}
 		ORDER BY MEMBER_NO DESC
 	</select>
 	

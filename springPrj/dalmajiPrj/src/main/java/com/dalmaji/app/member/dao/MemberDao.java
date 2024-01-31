@@ -30,9 +30,6 @@ public class MemberDao {
 		return sst.update("MemberMapper.quit" , vo);
 	}
 
-	//회원목록
-	public List<MemberVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("MemberMapper.list");
-	}
+	
 
 }

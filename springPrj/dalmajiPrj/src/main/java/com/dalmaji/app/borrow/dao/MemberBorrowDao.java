@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dalmaji.app.borrow.vo.BorrowVo;
+import com.dalmaji.app.member.vo.MemberVo;
 import com.dalmaji.app.page.vo.PageVo;
 
 @Repository
@@ -27,6 +29,10 @@ public class MemberBorrowDao {
 		return sst.update("MemberBorrowListMapper.updateDueDate", bookNo);
 	}
 
+	//회원목록
+	public MemberVo memberList(SqlSession sst, String memberNo) {
+		return sst.selectOne("MemberMapper.list", memberNo);
+	}
 	
 
 }
