@@ -107,8 +107,6 @@ const StyledDetailListDiv = styled.div`
     `;
 
 const SearchDetailList = () => {
-  // const [bookVoList, setBookVoList] = useState([]);
-  // const [searchResults, setSearchResults] = useState([]);
   const [searchValues, setSearchValues] = useState({
     title: '',
     author: '',
@@ -117,7 +115,6 @@ const SearchDetailList = () => {
 
   const navigate = useNavigate();
 
-  // const loadBookVoList = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -136,11 +133,7 @@ const SearchDetailList = () => {
         return resp.json();
       })
       .then((data) => {
-        // console.log("검색결과data ::: " , data);
-        // setBookVoList(data);
-
         if (data.length > 0) {
-          // console.log('이동할 경로:', '/search/list');
           navigate('/search/list', { 
             state: { 
               bookVoList: data, 
@@ -156,9 +149,6 @@ const SearchDetailList = () => {
       });
   };
 
-  // useEffect(() => {
-  //   handleSearch();
-  // }, []);
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;

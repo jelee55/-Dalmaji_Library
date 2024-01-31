@@ -82,7 +82,7 @@
 
 
 	<select id="count" resultType="String">
-		SELECT COUNT(*) AS LISTCOUNT
+		SELECT COUNT(*) AS LISTCOUNTS
 		FROM
 		BOOK_LIST
 
@@ -100,11 +100,6 @@
 			,PUBLISHER_YEAR
 			,BOOK_IMG
 		FROM BOOK_LIST
-<!-- 		WHERE 
-			TITLE LIKE '%' || #{title} || '%'
-			AUTHOR LIKE '%' || #{author} || '%' OR
-			COMPANY LIKE '%' || #{company} || '%'
-		 -->
 		WHERE
 		    <if test="title != null and title != ''">
 		        TITLE LIKE '%' || #{title} || '%'
@@ -129,7 +124,7 @@
 	</delete>
 
 	<update id="edit">
-		UPDATE BOOK_LIST 
+		UPDATE BOOK_LIST     
 			SET 
 				TITLE= #{title} 
 				, AUTHOR = #{author} 
