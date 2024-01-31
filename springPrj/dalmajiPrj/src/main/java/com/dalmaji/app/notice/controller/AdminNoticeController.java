@@ -176,13 +176,4 @@ public class AdminNoticeController {
 	}
 	
 	
-//	@PostMapping("edit")
-//	public String edit(AdminNoticeVo vo) throws Exception {
-//		int result = service.edit(vo);
-//		if(result != 1) {
-//			throw new Exception();
-//		}
-//		return "redirect:/admin/notice/detail?no=" + vo.getNo();
-//	}
-
 }
