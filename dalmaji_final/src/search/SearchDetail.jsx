@@ -163,11 +163,13 @@ const StyledModalDiv = styled.div`
         display: flex;
         gap: 5px;
         & > button:first-child {
-            width: 50px;
-            height: 30px;
+            width: 110px;
+            height: 35px;
+            font-size: 18px;
+            margin-top: 30px;
+            background-color: #275FBC;
             border: none;
             border-radius: 7px;
-            background-color: #275FBC;
             color: white;
             cursor: pointer;
         }
